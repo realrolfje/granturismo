@@ -45,6 +45,10 @@ function displayDriverStandings(drivers) {
     headers.forEach(headerText => {
         const th = document.createElement('th');
         th.textContent = headerText;
+
+        if (headerText.startsWith('Race') || headerText.startsWith('Pos.') || headerText.startsWith('Puntentotaal')) {
+            th.classList.add('center');
+        }
         headerRow.appendChild(th);
     });
     thead.appendChild(headerRow);
@@ -59,6 +63,7 @@ function displayDriverStandings(drivers) {
         const positionCell = document.createElement('td');
         positionCell.textContent = index + 1;
         positionCell.setAttribute('data-label', 'Position');
+        positionCell.classList.add('center');
         row.appendChild(positionCell);
 
         // Driver Name
@@ -78,6 +83,7 @@ function displayDriverStandings(drivers) {
             const pointsCell = document.createElement('td');
             pointsCell.textContent = points;
             pointsCell.setAttribute('data-label', `Race ${idx + 1}`);
+            pointsCell.classList.add('center');
             row.appendChild(pointsCell);
         });
 
@@ -85,6 +91,7 @@ function displayDriverStandings(drivers) {
         const totalCell = document.createElement('td');
         totalCell.textContent = driver.totalPoints;
         totalCell.setAttribute('data-label', 'Total Points');
+        totalCell.classList.add('center');
         row.appendChild(totalCell);
 
         tbody.appendChild(row);
@@ -144,6 +151,11 @@ function displayTeamStandings(teams) {
     headers.forEach(headerText => {
         const th = document.createElement('th');
         th.textContent = headerText;
+
+        if (headerText.startsWith('Race') || headerText.startsWith('Pos.') || headerText.startsWith('Puntentotaal')) {
+            th.classList.add('center');
+        }
+
         headerRow.appendChild(th);
     });
     thead.appendChild(headerRow);
@@ -158,6 +170,7 @@ function displayTeamStandings(teams) {
         const positionCell = document.createElement('td');
         positionCell.textContent = index + 1;
         positionCell.setAttribute('data-label', 'Position');
+        positionCell.classList.add('center');
         row.appendChild(positionCell);
 
         // Team Name
@@ -171,6 +184,7 @@ function displayTeamStandings(teams) {
             const pointsCell = document.createElement('td');
             pointsCell.textContent = points;
             pointsCell.setAttribute('data-label', `Race ${idx + 1}`);
+            pointsCell.classList.add('center');
             row.appendChild(pointsCell);
         });
 
@@ -178,6 +192,7 @@ function displayTeamStandings(teams) {
         const totalCell = document.createElement('td');
         totalCell.textContent = team.totalPoints;
         totalCell.setAttribute('data-label', 'Total Points');
+        totalCell.classList.add('center');
         row.appendChild(totalCell);
 
         tbody.appendChild(row);
