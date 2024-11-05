@@ -35,12 +35,12 @@ function displayDriverStandings(drivers) {
     const thead = document.createElement('thead');
     const headerRow = document.createElement('tr');
 
-    const headers = ['Position', 'Driver', 'Team'];
+    const headers = ['Pos.', 'Rijder', 'Team'];
     const numRaces = drivers[0].points_per_race.length;
     for (let i = 1; i <= numRaces; i++) {
         headers.push(`Race ${i}`);
     }
-    headers.push('Total Points');
+    headers.push('Puntentotaal');
 
     headers.forEach(headerText => {
         const th = document.createElement('th');
@@ -58,28 +58,33 @@ function displayDriverStandings(drivers) {
         // Position
         const positionCell = document.createElement('td');
         positionCell.textContent = index + 1;
+        positionCell.setAttribute('data-label', 'Position');
         row.appendChild(positionCell);
 
         // Driver Name
         const nameCell = document.createElement('td');
         nameCell.textContent = driver.name;
+        nameCell.setAttribute('data-label', 'Driver');
         row.appendChild(nameCell);
 
         // Team Name
         const teamCell = document.createElement('td');
         teamCell.textContent = driver.team;
+        teamCell.setAttribute('data-label', 'Team');
         row.appendChild(teamCell);
 
         // Points per race
-        driver.points_per_race.forEach(points => {
+        driver.points_per_race.forEach((points, idx) => {
             const pointsCell = document.createElement('td');
             pointsCell.textContent = points;
+            pointsCell.setAttribute('data-label', `Race ${idx + 1}`);
             row.appendChild(pointsCell);
         });
 
         // Total Points
         const totalCell = document.createElement('td');
         totalCell.textContent = driver.totalPoints;
+        totalCell.setAttribute('data-label', 'Total Points');
         row.appendChild(totalCell);
 
         tbody.appendChild(row);
@@ -87,7 +92,7 @@ function displayDriverStandings(drivers) {
     table.appendChild(tbody);
 }
 
-// Function to calculate team points
+// Function to calculate team points (unchanged)
 function calculateTeamPoints(drivers) {
     const teamMap = {};
 
@@ -129,12 +134,12 @@ function displayTeamStandings(teams) {
     const thead = document.createElement('thead');
     const headerRow = document.createElement('tr');
 
-    const headers = ['Position', 'Team'];
+    const headers = ['Pos.', 'Team'];
     const numRaces = teams[0].points_per_race.length;
     for (let i = 1; i <= numRaces; i++) {
         headers.push(`Race ${i}`);
     }
-    headers.push('Total Points');
+    headers.push('Puntentotaal');
 
     headers.forEach(headerText => {
         const th = document.createElement('th');
@@ -152,23 +157,27 @@ function displayTeamStandings(teams) {
         // Position
         const positionCell = document.createElement('td');
         positionCell.textContent = index + 1;
+        positionCell.setAttribute('data-label', 'Position');
         row.appendChild(positionCell);
 
         // Team Name
         const nameCell = document.createElement('td');
         nameCell.textContent = team.name;
+        nameCell.setAttribute('data-label', 'Team');
         row.appendChild(nameCell);
 
         // Points per race
-        team.points_per_race.forEach(points => {
+        team.points_per_race.forEach((points, idx) => {
             const pointsCell = document.createElement('td');
             pointsCell.textContent = points;
+            pointsCell.setAttribute('data-label', `Race ${idx + 1}`);
             row.appendChild(pointsCell);
         });
 
         // Total Points
         const totalCell = document.createElement('td');
         totalCell.textContent = team.totalPoints;
+        totalCell.setAttribute('data-label', 'Total Points');
         row.appendChild(totalCell);
 
         tbody.appendChild(row);
@@ -180,72 +189,72 @@ function displayTeamStandings(teams) {
 function displaySchedule(calendar) {
     const container = document.getElementById('schedule-container');
     if (!container) {
-      console.error('schedule-container element not found in the DOM.');
-      return;
+        console.error('schedule-container element not found in the DOM.');
+        return;
     }
-  
+
     // Clear existing content
     container.innerHTML = '';
-  
-    calendar.forEach((event, index) => {
-      // Create a button for the collapsible header
-      const collapsibleButton = document.createElement('button');
-      collapsibleButton.classList.add('collapsible');
-      collapsibleButton.textContent = `${event.date} - ${event.race} at ${event.location}`;
-      collapsibleButton.addEventListener('click', function() {
-        this.classList.toggle('active');
-        const content = this.nextElementSibling;
-        if (content.style.maxHeight) {
-          content.style.maxHeight = null;
-        } else {
-          content.style.maxHeight = content.scrollHeight + 'px';
-        }
-      });
-  
-      // Create a div for the collapsible content
-      const contentDiv = document.createElement('div');
-      contentDiv.classList.add('collapsible-content');
-  
-      // Create a table to display the details
-      const detailsTable = document.createElement('table');
-  
-      for (const [key, value] of Object.entries(event.details)) {
-        const row = document.createElement('tr');
-  
-        if (value === null || value === undefined || value === '') {
-          // Create a section header row
-          const headerCell = document.createElement('td');
-          headerCell.textContent = key;
-          headerCell.colSpan = 2;
-          headerCell.classList.add('detail-section-header');
-  
-          row.appendChild(headerCell);
-        } else {
-          // Create normal key-value row
-          const keyCell = document.createElement('td');
-          keyCell.textContent = key;
-          keyCell.classList.add('detail-key');
-  
-          const valueCell = document.createElement('td');
-          valueCell.textContent = value;
-          valueCell.classList.add('detail-value');
-  
-          row.appendChild(keyCell);
-          row.appendChild(valueCell);
-        }
-  
-        detailsTable.appendChild(row);
-      }
-  
-      contentDiv.appendChild(detailsTable);
-  
-      // Append elements to the container
-      container.appendChild(collapsibleButton);
-      container.appendChild(contentDiv);
-    });
-  }
 
-  
+    calendar.forEach((event, index) => {
+        // Create a button for the collapsible header
+        const collapsibleButton = document.createElement('button');
+        collapsibleButton.classList.add('collapsible');
+        collapsibleButton.textContent = `${event.date} - ${event.race} : ${event.location}`;
+        collapsibleButton.addEventListener('click', function () {
+            this.classList.toggle('active');
+            const content = this.nextElementSibling;
+            if (content.style.maxHeight) {
+                content.style.maxHeight = null;
+            } else {
+                content.style.maxHeight = content.scrollHeight + 'px';
+            }
+        });
+
+        // Create a div for the collapsible content
+        const contentDiv = document.createElement('div');
+        contentDiv.classList.add('collapsible-content');
+
+        // Create a table to display the details
+        const detailsTable = document.createElement('table');
+
+        for (const [key, value] of Object.entries(event.details)) {
+            const row = document.createElement('tr');
+
+            if (value === null || value === undefined || value === '') {
+                // Create a section header row
+                const headerCell = document.createElement('td');
+                headerCell.textContent = key;
+                headerCell.colSpan = 2;
+                headerCell.classList.add('detail-section-header');
+
+                row.appendChild(headerCell);
+            } else {
+                // Create normal key-value row
+                const keyCell = document.createElement('td');
+                keyCell.textContent = key;
+                keyCell.classList.add('detail-key');
+
+                const valueCell = document.createElement('td');
+                valueCell.textContent = value;
+                valueCell.classList.add('detail-value');
+
+                row.appendChild(keyCell);
+                row.appendChild(valueCell);
+            }
+
+            detailsTable.appendChild(row);
+        }
+
+        contentDiv.appendChild(detailsTable);
+
+        // Append elements to the container
+        container.appendChild(collapsibleButton);
+        container.appendChild(contentDiv);
+    });
+}
+
+
 // Function to display rules
 function displayRules(rules) {
     const container = document.getElementById('rules-container');

@@ -1,36 +1,80 @@
 {
     "calendar": [
-      {
-        "race": "Race 1",
-        "date": "2024-01-15",
-        "location": "Track A",
-        "details": {
-          "General Information": null,
-          "Weather": "Sunny",
-          "Special Conditions": "None",
-          "Car Settings": null,
-          "Allowed Car Settings": "Default",
-          "Assists": "ABS, Traction Control",
-          "Notes": null,
-          "Additional Notes": "Be prepared for a tight race."
+        {
+            "race": "Race 1",
+            "date": "2024-11-06",
+            "location": "Trail Mountain Original Circuits",
+            "details": {
+                "Track": "Trail Mountain Original Circuits",
+                "Room mode": "Practice/Race",
+                "Race type": "For Real",
+                "Auto Start": "Off",
+                "Laps": "15",
+                "Time/Weather settings": null,
+                "Weather": "Preset, S01 Dry",
+                "Equal conditions": "Off",
+                "Time of Day": "Afternoon",
+                "Variable time speed": "0x",
+                "Race Settings": null,
+                "Start type": "Grid Start with False Start Check",
+                "Grid Order": "Fastest First",
+                "BoP/Tuning Prohibited": "On",
+                "Settings options": "All",
+                "Boost": "Strong",
+                "Slipstream strength": "Strong",
+                "Visible Damage": "On",
+                "Mechanical Damage": "Heavy",
+                "Tyre Wear Rate": "1x",
+                "Fuel Consumption Rate": "Off",
+                "Refueling speed": "--",
+                "Initial Fueal": "20 Litres",
+                "Grip Reduction off track": "Low",
+                "Race Finish Delay": "30 seconds",
+                "Nitrous/Overtaking Multiplier": "Default",
+                "Regulation Settings": null,
+                "Filter by Category": "Gr.3",
+                "PP Limit": "No Limit",
+                "Max. Power Output": "No Limit",
+                "Minimum weight": "No Limit",
+                "Useable Tyres": "No Limit",
+                "Usable Tyre & Types": "--",
+                "Required Tyre Type": "--",
+                "Nitrous": "Cannot be fitted",
+                "Kart Usage": "Off",
+                "Engine Swap": "Prohibited",
+                "Tuning Parts": "Unrestricted",
+                "Penalty Settings ": null,
+                "Shortcut Penalty": "Strong",
+                "Wall Collision Penalty": "Time Penalty (Strong)",
+                "Correct Vehicle Course After Wall Collision": "On",
+                "Car Collision Penalty": "On",
+                "Pit Lane Line Cutting Penalty": "Off",
+                "Ghosting During Race": "Off",
+                "Flag Rules": "On",
+                "Driving Options Limitations": null,
+                "Countersteering Assistance": "No Limit",
+                "Active Stability Management (ASM)": "No Limit",
+                "Driving Lane Assist": "No Limit",
+                "Traction Control": "No Limit",
+                "ABS": "No Limit",
+                "Auto-Drive": "Prohibited"
+            }
+        },
+        {
+            "race": "Race 2",
+            "date": "2024-11-13",
+            "location": "Track B",
+            "details": {
+                "General Information": null,
+                "Weather": "Rainy",
+                "Special Conditions": "Wet track",
+                "Car Settings": null,
+                "Allowed Car Settings": "Custom",
+                "Assists": "ABS Only"
+            }
         }
-      },
-      {
-        "race": "Race 2",
-        "date": "2024-02-20",
-        "location": "Track B",
-        "details": {
-          "General Information": null,
-          "Weather": "Rainy",
-          "Special Conditions": "Wet track",
-          "Car Settings": null,
-          "Allowed Car Settings": "Custom",
-          "Assists": "ABS Only"
-        }
-      }
     ],
     "rules": [
-      "Rule 1: Description of rule 1.",
-      "Rule 2: Description of rule 2."
+        "4 races, van iedere rijder wordt de race met het slechtste resultaat geschrapt."
     ]
-  }
+}
