@@ -1,128 +1,64 @@
-<html>
-    <head>
-        <style>
-            body {
-                font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif
-            }
-            table {
-                border-collapse: collapse;
-                padding: 0em;
-                margin: 1em;
-                }
-                tr:nth-child(even) {
-                    background-color: #fafafa;
-                }
-            table, th, td {
-                border: 1px;
-                border-style: solid;
-                border-color: gray;
-                padding: 0.3em;
-            }
-            .car-icon {
-                width: 2em;
-            }
-            .settings-header {
-                text-align: right;
-            }
-            .settings-group {
-                padding-top: 1em;
-                background-color: aliceblue;
-            }
-        </style>
+<!DOCTYPE html>
+<html lang="en">
 
-    </head>
-    <body>
-<h1>Gran Turismo Competitie(tje)</h1>
+<head>
+    <meta charset="UTF-8">
+    <title>Online Car Racing League</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
 
-<h2>Stand:</h2>
-<table>
-<tr><th>Coureur  </th><th> Race 1 </th><th> Race 2 </th><th> Race 3 </th><th> Race 4 </th><th> Totaal </th></tr>
-<tr><td>Riccardo </td><td>        </td><td>        </td><td>        </td><td>        </td><td>        </td></tr>
-<tr><td>Mart     </td><td>        </td><td>        </td><td>        </td><td>        </td><td>        </td></tr>
-<tr><td>Leroy    </td><td>        </td><td>        </td><td>        </td><td>        </td><td>        </td></tr>
-<tr><td>Luuk     </td><td>        </td><td>        </td><td>        </td><td>        </td><td>        </td></tr>
-<tr><td>Michel   </td><td>        </td><td>        </td><td>        </td><td>        </td><td>        </td></tr>
-<tr><td>Lex      </td><td>        </td><td>        </td><td>        </td><td>        </td><td>        </td></tr>
-<tr><td>Rolf     </td><td>        </td><td>        </td><td>        </td><td>        </td><td>        </td></tr>
-</table>
+<body>
+    <header>
+        <h1>Online Car Racing League</h1>
+        <nav>
+            <ul>
+                <li><a href="#driver-standings">Driver Standings</a></li>
+                <li><a href="#team-standings">Team Standings</a></li>
+                <li><a href="#schedule">Schedule</a></li>
+                <li><a href="#rules">Rules</a></li>
+            </ul>
+        </nav>
+    </header>
 
-<table>
-<tr><th> Team                      </th><th> Race 1 </th><th> Race 2 </th><th> Race 3 </th><th> Race 4 </th><th> Totaal </th></tr>
-<tr><td><img class="car-icon" src="porsche-green.png"/> Team Orange (Lex en Rolf) </td><td>        </td><td>        </td><td>        </td><td>        </td><td>        </td></tr>
-</table>
+    <main>
+        <!-- Driver Standings -->
+        <section id="driver-standings">
+            <h2>Driver Standings</h2>
+            <table id="driver-standings-table">
+                <!-- Table content will be inserted here -->
+            </table>
+        </section>
 
-<h2>Punten en regels</h2>
+        <!-- Team Standings -->
+        <section id="team-standings">
+            <h2>Team Standings</h2>
+            <table id="team-standings-table">
+                <!-- Table content will be inserted here -->
+            </table>
+        </section>
 
-4 races, van iedere rijder wordt de race met het slechtste resultaat geschrapt.
+        <!-- Schedule Section -->
+        <section id="schedule">
+            <h2>Upcoming Schedule</h2>
+            <div id="schedule-container">
+                <!-- Schedule content will be inserted here -->
+            </div>
+        </section>
 
-<table>
-<tr><th align="center">   Plaats    </th><th align="center"> Punten </th></tr>
-<tr><td align="center">      1      </td><td align="center">   12   </td></tr>
-<tr><td align="center">      2      </td><td align="center">   10   </td></tr>
-<tr><td align="center">      3      </td><td align="center">   8    </td></tr>
-<tr><td align="center">      4      </td><td align="center">   6    </td></tr>
-<tr><td align="center">      5      </td><td align="center">   4    </td></tr>
-<tr><td align="center">      6      </td><td align="center">   2    </td></tr>
-<tr><td align="center"> 7 en verder </td><td align="center">   1    </td></tr>
-<tr><td align="center">   DNS/DNF   </td><td align="center">   0    </td></tr>
-</table>
+        <!-- Rules Section -->
+        <section id="rules">
+            <h2>League Rules</h2>
+            <div id="rules-container">
+                <!-- Rules content will be inserted here -->
+            </div>
+        </section>
+    </main>
 
+    <footer>
+        <p>&copy; 2024 Online Car Racing League</p>
+    </footer>
 
-<h2>Race 1: Trail Mountain - 6 November</h2>
+    <script src="script.js"></script>
+</body>
 
-<table>
-<tr><th class="settings-header">                                       Track </th><td align="left"> Trail Mountain Original Circuits  </td></tr>
-<tr><th class="settings-header">                                   Room mode </th><td align="left"> Practice/Race                     </td></tr>
-<tr><th class="settings-header">                                   Race type </th><td align="left"> For Real                          </td></tr>
-<tr><th class="settings-header">                                  Auto Start </th><td align="left"> Off                               </td></tr>
-<tr><th class="settings-header">                                        Laps </th><td align="left"> 15                                </td></tr>
-<tr><th class="settings-group" colspan="2">Time/Weather settings</th></tr>
-<tr><th class="settings-header">                                     Weather </th><td align="left"> Preset, S01 Dry                   </td></tr>
-<tr><th class="settings-header">                            Equal conditions </th><td align="left"> Off                               </td></tr>
-<tr><th class="settings-header">                                 Time of Day </th><td align="left"> Afternoon                         </td></tr>
-<tr><th class="settings-header">                         Variable time speed </th><td align="left"> 0x                                </td></tr>
-<tr><th class="settings-group" colspan="2">Race Settings</th></tr>
-<tr><th class="settings-header">                                  Start type </th><td align="left"> Grid Start with False Start Check </td></tr>
-<tr><th class="settings-header">                                  Grid Order </th><td align="left"> Fastest First                     </td></tr>
-<tr><th class="settings-header">                       BoP/Tuning Prohibited </th><td align="left"> On                                </td></tr>
-<tr><th class="settings-header">                            Settings options </th><td align="left"> All                               </td></tr>
-<tr><th class="settings-header">                                       Boost </th><td align="left"> Strong                            </td></tr>
-<tr><th class="settings-header">                         Slipstream strength </th><td align="left"> Strong                            </td></tr>
-<tr><th class="settings-header">                              Visible Damage </th><td align="left"> On                                </td></tr>
-<tr><th class="settings-header">                           Mechanical Damage </th><td align="left"> Heavy                             </td></tr>
-<tr><th class="settings-header">                              Tyre Wear Rate </th><td align="left"> 1x                                </td></tr>
-<tr><th class="settings-header">                       Fuel Consumption Rate </th><td align="left"> Off                               </td></tr>
-<tr><th class="settings-header">                             Refueling speed </th><td align="left"> --                                 </td></tr>
-<tr><th class="settings-header">                               Initial Fueal </th><td align="left"> 20 Litres                         </td></tr>
-<tr><th class="settings-header">                    Grip Reduction off track </th><td align="left"> Low                               </td></tr>
-<tr><th class="settings-header">                           Race Finish Delay </th><td align="left"> 30 seconds                        </td></tr>
-<tr><th class="settings-header">               Nitrous/Overtaking Multiplier </th><td align="left"> Default                           </td></tr>
-<tr><th class="settings-group" colspan="2">Regulation Settings</th></tr>
-<tr><th class="settings-header">                          Filter by Category </th><td align="left"> Gr.3                              </td></tr>
-<tr><th class="settings-header">                                    PP Limit </th><td align="left"> No Limit                          </td></tr>
-<tr><th class="settings-header">                           Max. Power Output </th><td align="left"> No Limit                          </td></tr>
-<tr><th class="settings-header">                              Minimum weight </th><td align="left"> No Limit                          </td></tr>
-<tr><th class="settings-header">                               Useable Tyres </th><td align="left"> No Limit                          </td></tr>
-<tr><th class="settings-header">                         Usable Tyre & Types </th><td align="left"> --                                </td></tr>
-<tr><th class="settings-header">                          Required Tyre Type </th><td align="left"> --                                </td></tr>
-<tr><th class="settings-header">                                     Nitrous </th><td align="left"> Cannot be fitted                  </td></tr>
-<tr><th class="settings-header">                                  Kart Usage </th><td align="left"> Off                               </td></tr>
-<tr><th class="settings-header">                                 Engine Swap </th><td align="left"> Prohibited                        </td></tr>
-<tr><th class="settings-header">                                Tuning Parts </th><td align="left"> Unrestricted                      </td></tr>
-<tr><th class="settings-group" colspan="2">                        Penalty Settings </th></tr>
-<tr><th class="settings-header">                            Shortcut Penalty </th><td align="left"> Strong                            </td></tr>
-<tr><th class="settings-header">                      Wall Collision Penalty </th><td align="left"> Time Penalty (Strong)             </td></tr>
-<tr><th class="settings-header"> Correct Vehicle Course After Wall Collision </th><td align="left"> On                                </td></tr>
-<tr><th class="settings-header">                       Car Collision Penalty </th><td align="left"> On                                </td></tr>
-<tr><th class="settings-header">               Pit Lane Line Cutting Penalty </th><td align="left"> Off                               </td></tr>
-<tr><th class="settings-header">                        Ghosting During Race </th><td align="left"> Off                               </td></tr>
-<tr><th class="settings-header">                                  Flag Rules </th><td align="left"> On                                </td></tr>
-<tr><th class="settings-group" colspan="2">Driving Options Limitations</th></tr>
-<tr><th class="settings-header">                  Countersteering Assistance </th><td align="left"> No Limit                          </td></tr>
-<tr><th class="settings-header">           Active Stability Management (ASM) </th><td align="left"> No Limit                          </td></tr>
-<tr><th class="settings-header">                         Driving Lane Assist </th><td align="left"> No Limit                          </td></tr>
-<tr><th class="settings-header">                            Traction Control </th><td align="left"> No Limit                          </td></tr>
-<tr><th class="settings-header">                                         ABS </th><td align="left"> No Limit                          </td></tr>
-<tr><th class="settings-header">                                  Auto-Drive </th><td align="left"> Prohibited                        </td></tr>
-</table></body>
 </html>

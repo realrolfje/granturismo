@@ -1,0 +1,36 @@
+{
+    "calendar": [
+      {
+        "race": "Race 1",
+        "date": "2024-01-15",
+        "location": "Track A",
+        "details": {
+          "General Information": null,
+          "Weather": "Sunny",
+          "Special Conditions": "None",
+          "Car Settings": null,
+          "Allowed Car Settings": "Default",
+          "Assists": "ABS, Traction Control",
+          "Notes": null,
+          "Additional Notes": "Be prepared for a tight race."
+        }
+      },
+      {
+        "race": "Race 2",
+        "date": "2024-02-20",
+        "location": "Track B",
+        "details": {
+          "General Information": null,
+          "Weather": "Rainy",
+          "Special Conditions": "Wet track",
+          "Car Settings": null,
+          "Allowed Car Settings": "Custom",
+          "Assists": "ABS Only"
+        }
+      }
+    ],
+    "rules": [
+      "Rule 1: Description of rule 1.",
+      "Rule 2: Description of rule 2."
+    ]
+  }
