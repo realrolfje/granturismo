@@ -3,9 +3,9 @@
         {
             "race": "Race 1",
             "date": "2024-11-06",
-            "location": "Trail Mountain Original Circuits",
+            "location": "Trial Mountain Circuit",
             "details": {
-                "Track": "Trail Mountain Original Circuits",
+                "Track": "Trail Mountain Circuit, Full Course",
                 "Room mode": "Practice/Race",
                 "Race type": "For Real",
                 "Auto Start": "Off",
@@ -63,9 +63,9 @@
         {
             "race": "Race 2",
             "date": "2024-11-13",
-            "location": "Sardegna",
+            "location": "Sardegna - Road Track",
             "details": {
-                "Track": "Sardegna",
+                "Track": "Layout A",
                 "Room mode": "Practice/Race",
                 "settings": "nog niet bekend"
             },
@@ -128,9 +128,9 @@
         {
             "race": "Race 3",
             "date": "2024-11-20",
-            "location": "?",
+            "location": "Circuit de Barcelona-Catalunya",
             "details": {
-                "Track": "?",
+                "Track": "Circuit de Barcelona-Catalunya, Grand Prix Layout",
                 "Room mode": "Practice/Race",
                 "settings": "nog niet bekend"
             },
