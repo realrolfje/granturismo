@@ -111,7 +111,7 @@
                 "Penalty Settings ": null,
                 "Shortcut Penalty": "Strong",
                 "Wall Collision Penalty": "Time Penalty (Strong)",
-                "Correct Vehicle Course After Wall Collision": "On",
+                "Correct Vehicle Course<br/>After Wall Collision": "On",
                 "Car Collision Penalty": "On",
                 "Pit Lane Line Cutting Penalty": "Off",
                 "Ghosting During Race": "Off",

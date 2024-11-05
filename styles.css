@@ -90,7 +90,7 @@ footer p {
 }
 
 .collapsible:hover {
-    background-color: #34495e;
+    background-color: #4f6f90;
 }
 
 .collapsible.active {
@@ -113,7 +113,7 @@ footer p {
 
 .collapsible-content {
     max-height: 0;
-    overflow: hidden;
+    overflow: auto;
     transition: max-height 0.2s ease-out;
     background-color: #ecf0f1;
     border-radius: 0 0 5px 5px;
