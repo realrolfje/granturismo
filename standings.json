@@ -1,24 +1,39 @@
 {
     "drivers": [
       {
-        "name": "Driver A1",
-        "team": "Team Alpha",
-        "points_per_race": [25, null, null, null]
+        "name": "Riccardo",
+        "team": "?",
+        "points_per_race": [null, null, null, null]
       },
       {
-        "name": "Driver A2",
-        "team": "Team Alpha",
-        "points_per_race": [25, null, null, null]
+        "name": "Mart",
+        "team": "?",
+        "points_per_race": [null, null, null, null]
       },
       {
-        "name": "Driver B1",
-        "team": "Team Beta",
-        "points_per_race": [25, null, null, null]
+        "name": "Leroy",
+        "team": "?",
+        "points_per_race": [null, null, null, null]
       },
       {
-        "name": "Driver B2",
-        "team": "Team Beta",
-        "points_per_race": [25, null, null, null]
+        "name": "Luuk",
+        "team": "?",
+        "points_per_race": [null, null, null, null]
+      },
+      {
+        "name": "Michel",
+        "team": "?",
+        "points_per_race": [null, null, null, null]
+      },
+      {
+        "name": "Lex",
+        "team": "Team Orange",
+        "points_per_race": [null, null, null, null]
+      },
+      {
+        "name": "Rolf",
+        "team": "Team Orange",
+        "points_per_race": [null, null, null, null]
       }
     ]
   }
