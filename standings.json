@@ -2,7 +2,7 @@
     "drivers": [
       {
         "name": "Riccardo",
-        "team": "Team Blue",
+        "team": "Team Blauw",
         "points_per_race": [ 6, null, null, null]
       },
       {
@@ -17,7 +17,7 @@
       },
       {
         "name": "Luuk",
-        "team": null,
+        "team": "Team Groen",
         "points_per_race": [ 4, null, null, null]
       },
       {
@@ -27,17 +27,17 @@
       },
       {
         "name": "Michel",
-        "team": "Team Blue",
+        "team": "Team Blauw",
         "points_per_race": [10, null, null, null]
       },
       {
         "name": "Lex",
-        "team": "Team Orange",
+        "team": "Team Oranje",
         "points_per_race": [12, null, null, null]
       },
       {
         "name": "Rolf",
-        "team": "Team Orange",
+        "team": "Team Oranje",
         "points_per_race": [ 8, null, null, null]
       }
     ]

@@ -156,6 +156,10 @@ footer p {
     background-color: rgb(252, 230, 189) !important;
 }
 
+.red {
+    background-color: rgb(252, 171, 157) !important;
+}
+
 .green {
     background-color: rgb(218, 255, 218) !important;
 }
