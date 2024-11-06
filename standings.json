@@ -3,42 +3,42 @@
       {
         "name": "Riccardo",
         "team": "Team Blue",
-        "points_per_race": [null, null, null, null]
+        "points_per_race": [ 6, null, null, null]
       },
       {
         "name": "Martin",
-        "team": null,
-        "points_per_race": [null, null, null, null]
+        "team": "Team Rood",
+        "points_per_race": [ 1, null, null, null]
       },
       {
         "name": "Leroy",
         "team": "Team Groen",
-        "points_per_race": [null, null, null, null]
+        "points_per_race": [ 2, null, null, null]
       },
       {
         "name": "Luuk",
         "team": null,
-        "points_per_race": [null, null, null, null]
+        "points_per_race": [ 4, null, null, null]
       },
       {
         "name": "Mike",
-        "team": null,
+        "team": "Team Rood",
         "points_per_race": [null, null, null, null]
       },
       {
         "name": "Michel",
         "team": "Team Blue",
-        "points_per_race": [null, null, null, null]
+        "points_per_race": [10, null, null, null]
       },
       {
         "name": "Lex",
         "team": "Team Orange",
-        "points_per_race": [null, null, null, null]
+        "points_per_race": [12, null, null, null]
       },
       {
         "name": "Rolf",
         "team": "Team Orange",
-        "points_per_race": [null, null, null, null]
+        "points_per_race": [ 8, null, null, null]
       }
     ]
   }
