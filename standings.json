@@ -7,7 +7,7 @@
       },
       {
         "name": "Martin",
-        "team": "?",
+        "team": null,
         "points_per_race": [null, null, null, null]
       },
       {
@@ -17,7 +17,12 @@
       },
       {
         "name": "Luuk",
-        "team": "?",
+        "team": null,
+        "points_per_race": [null, null, null, null]
+      },
+      {
+        "name": "Mike",
+        "team": null,
         "points_per_race": [null, null, null, null]
       },
       {

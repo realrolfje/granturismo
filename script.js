@@ -59,16 +59,18 @@ function displayDriverStandings(drivers) {
     drivers.forEach((driver, index) => {
         const row = document.createElement('tr');
 
-        if (driver.team.includes("Orange")) {
-            row.classList.add('orange');
-        }
+        if (driver.team != null) {
+            if (driver.team.includes("Orange")) {
+                row.classList.add('orange');
+            }
 
-        if (driver.team.includes("Groen")) {
-            row.classList.add('green');
-        }
+            if (driver.team.includes("Groen")) {
+                row.classList.add('green');
+            }
 
-        if (driver.team.includes("Blue")) {
-            row.classList.add('blue');
+            if (driver.team.includes("Blue")) {
+                row.classList.add('blue');
+            }
         }
 
         // Position
@@ -175,7 +177,7 @@ function displayTeamStandings(teams) {
 
     // Create table body
     const tbody = document.createElement('tbody');
-    teams.forEach((team, index) => {
+    teams.filter((team) => team.name != null).forEach((team, index) => {
         const row = document.createElement('tr');
 
         if (team.name.includes("Orange")) {
