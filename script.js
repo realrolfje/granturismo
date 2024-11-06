@@ -92,7 +92,15 @@ function displayDriverStandings(drivers) {
 
         // Team Name
         const teamCell = document.createElement('td');
-        teamCell.textContent = driver.team;
+
+        const carName = document.createElement('span')
+        carName.classList.add("carname")
+        carName.textContent = driver.car
+
+        teamCell.innerText = driver.team
+        teamCell.appendChild(document.createElement('br'))
+        teamCell.appendChild(carName)
+        
         teamCell.setAttribute('data-label', 'Team');
         row.appendChild(teamCell);
 
