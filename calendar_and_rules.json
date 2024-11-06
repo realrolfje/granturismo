@@ -67,11 +67,6 @@
             "details": {
                 "Track": "Layout A",
                 "Room mode": "Practice/Race",
-                "settings": "nog niet bekend"
-            },
-            "details-secret": {
-                "Track": "Sardegna",
-                "Room mode": "Practice/Race",
                 "Race type": "For Real",
                 "Auto Start": "Off",
                 "Laps": "15",
@@ -130,12 +125,7 @@
             "date": "2024-11-20",
             "location": "Circuit de Barcelona-Catalunya",
             "details": {
-                "Track": "Circuit de Barcelona-Catalunya, Grand Prix Layout",
-                "Room mode": "Practice/Race",
-                "settings": "nog niet bekend"
-            },
-            "details-secret": {
-                "Track": "?",
+                "Track": "Grand Prix Layout",
                 "Room mode": "Practice/Race",
                 "Race type": "For Real",
                 "Auto Start": "Off",
