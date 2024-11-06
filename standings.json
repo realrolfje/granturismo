@@ -2,11 +2,11 @@
     "drivers": [
       {
         "name": "Riccardo",
-        "team": "?",
+        "team": "Team Blue",
         "points_per_race": [null, null, null, null]
       },
       {
-        "name": "Mart",
+        "name": "Martin",
         "team": "?",
         "points_per_race": [null, null, null, null]
       },
@@ -22,7 +22,7 @@
       },
       {
         "name": "Michel",
-        "team": "?",
+        "team": "Team Blue",
         "points_per_race": [null, null, null, null]
       },
       {

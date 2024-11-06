@@ -152,6 +152,18 @@ footer p {
     text-align: center;
 }
 
+.orange {
+    background-color: rgb(252, 230, 189) !important;
+}
+
+.green {
+    background-color: rgb(218, 255, 218) !important;
+}
+
+.blue {
+    background-color: rgb(218, 235, 255) !important;
+}
+
 /* Adjust spacing for schedule section */
 #schedule-container {
     margin-top: 1em;
