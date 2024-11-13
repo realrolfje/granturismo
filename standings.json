@@ -4,7 +4,7 @@
         "name": "Riccardo",
         "team": "Team Blauw",
         "car" : "McLaren 650S GT3 '15",
-        "points_per_race": [ 6, null, null, null]
+        "points_per_race": [ 6, 8, null, null]
       },
       {
         "name": "Martin",
@@ -16,13 +16,13 @@
         "name": "Leroy",
         "team": "Team Groen",
         "car" : "Volkswagen Beetle Gr.3",
-        "points_per_race": [ 2, null, null, null]
+        "points_per_race": [ 2, 12, null, null]
       },
       {
         "name": "Luuk",
         "team": "Team Groen",
         "car" : "Volkswagen Beetle Gr.3",
-        "points_per_race": [ 4, null, null, null]
+        "points_per_race": [ 4, 2, null, null]
       },
       {
         "name": "Mike",
@@ -33,19 +33,19 @@
         "name": "Michel",
         "team": "Team Blauw",
         "car" : "McLaren 650S GT3 '15",
-        "points_per_race": [10, null, null, null]
+        "points_per_race": [10, 4, null, null]
       },
       {
         "name": "Lex",
         "team": "Team Oranje",
         "car" : "Lamborghini Huracán GT3 '15",
-        "points_per_race": [12, null, null, null]
+        "points_per_race": [12, 6, null, null]
       },
       {
         "name": "Rolf",
         "team": "Team Oranje",
         "car" : "Lamborghini Huracán GT3 '15",
-        "points_per_race": [ 8, null, null, null]
+        "points_per_race": [ 8, 10, null, null]
       }
     ]
   }
