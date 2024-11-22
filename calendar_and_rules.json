@@ -183,14 +183,9 @@
         {
             "race": "Race 4",
             "date": "2024-11-27",
-            "location": "?",
+            "location": "Croatia, Dragon Trail",
             "details": {
-                "Track": "?",
-                "Room mode": "Practice/Race",
-                "settings": "nog niet bekend"
-            },
-            "details-secret": {
-                "Track": "?",
+                "Track": "Seaside (Kust)",
                 "Room mode": "Practice/Race",
                 "Race type": "For Real",
                 "Auto Start": "Off",
