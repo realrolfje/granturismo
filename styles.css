@@ -151,6 +151,10 @@ footer p {
 .center {
     text-align: center;
 }
+.strikethrough {
+    text-decoration: line-through;
+    color:#f60808
+}
 
 .orange {
     background-color: rgb(252, 230, 189) !important;

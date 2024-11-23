@@ -17,6 +17,30 @@ fetch('calendar_and_rules.json')
     })
     .catch(error => console.error('Error fetching calendar and rules:', error));
 
+function indexOfLowestNumber(arr) {
+    let minIndex = -1;
+    let minValue = Infinity;
+
+    for (let i = 0; i < arr.length; i++) {
+        let value = arr[i];
+
+        // Treat null as 0
+        if (value === null) {
+            value = 0;
+        }
+
+        // Check if the value is a valid number
+        if (typeof value === 'number' && !isNaN(value)) {
+            if (value < minValue) {
+                minValue = value;
+                minIndex = i;
+            }
+        }
+    }
+
+    return minIndex;
+}
+
 // Function to display driver standings
 function displayDriverStandings(drivers) {
     const table = document.getElementById('driver-standings-table');
@@ -27,6 +51,10 @@ function displayDriverStandings(drivers) {
     // Calculate total points and sort drivers
     drivers.forEach(driver => {
         driver.totalPoints = driver.points_per_race.reduce((a, b) => a + b, 0);
+
+        // Remove lowest score
+        index_to_remove = indexOfLowestNumber(driver.points_per_race);
+        driver.totalPoints = driver.totalPoints - driver.points_per_race[index_to_remove];
     });
 
     drivers.sort((a, b) => b.totalPoints - a.totalPoints);
@@ -104,12 +132,21 @@ function displayDriverStandings(drivers) {
         teamCell.setAttribute('data-label', 'Team');
         row.appendChild(teamCell);
 
+        index_to_remove = indexOfLowestNumber(driver.points_per_race);
         // Points per race
         driver.points_per_race.forEach((points, idx) => {
             const pointsCell = document.createElement('td');
-            pointsCell.textContent = points;
+            if (points > 0  ) {
+                pointsCell.innerHTML = `&nbsp;${points}&nbsp;`
+            } else {
+                pointsCell.innerHTML = `&nbsp;`
+            }
+
             pointsCell.setAttribute('data-label', `Race ${idx + 1}`);
             pointsCell.classList.add('center');
+            if (idx == index_to_remove) {
+                pointsCell.classList.add('strikethrough')
+            }
             row.appendChild(pointsCell);
         });
 
