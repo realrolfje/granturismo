@@ -24,9 +24,9 @@ function indexOfLowestNumber(arr) {
     for (let i = 0; i < arr.length; i++) {
         let value = arr[i];
 
-        // Treat null as incomplete series
+        // Treat null as 0
         if (value === null) {
-            return -1
+            value = 0;
         }
 
         // Check if the value is a valid number
@@ -54,7 +54,7 @@ function displayDriverStandings(drivers) {
 
         // Remove lowest score
         index_to_remove = indexOfLowestNumber(driver.points_per_race);
-        if (index_to_remove > -1) driver.totalPoints = driver.totalPoints - driver.points_per_race[index_to_remove];
+        driver.totalPoints = driver.totalPoints - driver.points_per_race[index_to_remove];
     });
 
     drivers.sort((a, b) => b.totalPoints - a.totalPoints);

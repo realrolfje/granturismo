@@ -2,7 +2,7 @@
     "calendar": [
         {
             "race": "Race 1",
-            "date": "2024-12-11",
+            "date": "2024-11-06",
             "location": "Trial Mountain Circuit",
             "details": {
                 "Track": "Trail Mountain Circuit, Full Course",
@@ -32,7 +32,7 @@
                 "Race Finish Delay": "30 seconds",
                 "Nitrous/Overtaking Multiplier": "Default",
                 "Regulation Settings": null,
-                "Filter by Category": "Porsche 911 Turbo S (992) '20",
+                "Filter by Category": "Gr.3",
                 "PP Limit": "No Limit",
                 "Max. Power Output": "No Limit",
                 "Minimum weight": "No Limit",
@@ -62,7 +62,7 @@
         },
         {
             "race": "Race 2",
-            "date": "2024-12-18",
+            "date": "2024-11-13",
             "location": "Sardegna - Road Track",
             "details": {
                 "Track": "Layout A",
@@ -92,7 +92,7 @@
                 "Race Finish Delay": "30 seconds",
                 "Nitrous/Overtaking Multiplier": "Default",
                 "Regulation Settings": null,
-                "Filter by Category": "Porsche 911 Turbo S (992) '20",
+                "Filter by Category": "Gr.3",
                 "PP Limit": "No Limit",
                 "Max. Power Output": "No Limit",
                 "Minimum weight": "No Limit",
@@ -122,7 +122,7 @@
         },
         {
             "race": "Race 3",
-            "date": "2024-12-25",
+            "date": "2024-11-20",
             "location": "Circuit de Barcelona-Catalunya",
             "details": {
                 "Track": "Grand Prix Layout",
@@ -152,7 +152,7 @@
                 "Race Finish Delay": "30 seconds",
                 "Nitrous/Overtaking Multiplier": "Default",
                 "Regulation Settings": null,
-                "Filter by Category": "Porsche 911 Turbo S (992) '20",
+                "Filter by Category": "Gr.3",
                 "PP Limit": "No Limit",
                 "Max. Power Output": "No Limit",
                 "Minimum weight": "No Limit",
@@ -182,7 +182,7 @@
         },
         {
             "race": "Race 4",
-            "date": "2024-01-01",
+            "date": "2024-11-27",
             "location": "Croatia, Dragon Trail",
             "details": {
                 "Track": "Seaside (Kust)",
@@ -212,7 +212,7 @@
                 "Race Finish Delay": "30 seconds",
                 "Nitrous/Overtaking Multiplier": "Default",
                 "Regulation Settings": null,
-                "Filter by Category": "Porsche 911 Turbo S (992) '20",
+                "Filter by Category": "Gr.3",
                 "PP Limit": "No Limit",
                 "Max. Power Output": "No Limit",
                 "Minimum weight": "No Limit",
