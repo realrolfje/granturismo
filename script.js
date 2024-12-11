@@ -57,7 +57,10 @@ function displayDriverStandings(drivers) {
         if (index_to_remove > -1) driver.totalPoints = driver.totalPoints - driver.points_per_race[index_to_remove];
     });
 
-    drivers.sort((a, b) => b.totalPoints - a.totalPoints);
+    drivers.sort((a, b) => {
+        if (a.totalPoints != b.totalPoints) return b.totalPoints - a.totalPoints
+        else return a.name.localeCompare(b.name);
+    });
 
     // Create table header
     const thead = document.createElement('thead');
@@ -188,7 +191,10 @@ function calculateTeamPoints(drivers) {
     });
 
     // Sort teams by total points in descending order
-    teams.sort((a, b) => b.totalPoints - a.totalPoints);
+    teams.sort((a, b) => {
+        if (a.totalPoints != b.totalPoints) return b.totalPoints - a.totalPoints;
+        else return a.name.localeCompare(b.name);
+    });
 
     return teams;
 }
