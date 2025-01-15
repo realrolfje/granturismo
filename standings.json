@@ -2,7 +2,7 @@
     "drivers": [
       {
         "name": "Riccardo",  "team": "Team Blauw", "car" : "Porsche 911 Turbo S (992) '20",
-        "points_per_race": [ 4, 8, null, null]
+        "points_per_race": [ 4, 8, 8, null]
       },
       {
         "name": "Martin", "team": "Team Rood", "car" : "Porsche 911 Turbo S (992) '20",
@@ -10,11 +10,11 @@
       },
       {
         "name": "Leroy", "team": "Team Groen", "car" : "Porsche 911 Turbo S (992) '20",
-        "points_per_race": [ 8, 2, null, null]
+        "points_per_race": [ 8, 2, 2, null]
       },
       {
         "name": "Luuk", "team": "Team Groen", "car" : "Porsche 911 Turbo S (992) '20",
-        "points_per_race": [ 0, 4, null, null]
+        "points_per_race": [ 0, 4, 4, null]
       },
       {
         "name": "Mike", "team": "Team Rood", "car" : "Porsche 911 Turbo S (992) '20",
@@ -22,15 +22,15 @@
       },
       {
         "name": "Michel", "team": "Team Blauw", "car" : "Porsche 911 Turbo S (992) '20",
-        "points_per_race": [ 6, 10, null, null]
+        "points_per_race": [ 6, 10, 12, null]
       },
       {
         "name": "Lex", "team": "Team Oranje", "car" : "Porsche 911 Turbo S (992) '20",
-        "points_per_race": [ 12, 12, null, null]
+        "points_per_race": [ 12, 12, 10, null]
       },
       {
         "name": "Rolf", "team": "Team Oranje", "car" : "Porsche 911 Turbo S (992) '20",
-        "points_per_race": [ 10, 6, null, null]
+        "points_per_race": [ 10, 6, 6, null]
       }
     ]
   }
