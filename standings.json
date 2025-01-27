@@ -1,36 +1,12 @@
 {
     "drivers": [
-      {
-        "name": "Riccardo",  "team": "Team Blauw", "car" : "Porsche 911 Turbo S (992) '20",
-        "points_per_race": [ 4, 8, 8, 6]
-      },
-      {
-        "name": "Martin", "team": "Team Rood", "car" : "Porsche 911 Turbo S (992) '20",
-        "points_per_race": [ 0, null, null, null]
-      },
-      {
-        "name": "Leroy", "team": "Team Groen", "car" : "Porsche 911 Turbo S (992) '20",
-        "points_per_race": [ 8, 2, 2, 8]
-      },
-      {
-        "name": "Luuk", "team": "Team Groen", "car" : "Porsche 911 Turbo S (992) '20",
-        "points_per_race": [ 0, 4, 4, 2]
-      },
-      {
-        "name": "Mike", "team": "Team Rood", "car" : "Porsche 911 Turbo S (992) '20",
-        "points_per_race": [ 0, 0, null, null]
-      },
-      {
-        "name": "Michel", "team": "Team Blauw", "car" : "Porsche 911 Turbo S (992) '20",
-        "points_per_race": [ 6, 10, 12, 10]
-      },
-      {
-        "name": "Lex", "team": "Team Oranje", "car" : "Porsche 911 Turbo S (992) '20",
-        "points_per_race": [ 12, 12, 10, 4]
-      },
-      {
-        "name": "Rolf", "team": "Team Oranje", "car" : "Porsche 911 Turbo S (992) '20",
-        "points_per_race": [ 10, 6, 6, 12]
-      }
+      {"name": "Leroy",    "team": "De controllers", "car" : "BAC mono",  "points_per_race": [null, null, null, null]},
+      {"name": "Lex",      "team": "De twee L's",    "car" : "BAC mono",  "points_per_race": [null, null, null, null]},
+      {"name": "Luuk",     "team": "De twee L's",    "car" : "BAC mono",  "points_per_race": [null, null, null, null]},
+      {"name": "Martin",   "team": "De zoete inval", "car" : "BAC mono",  "points_per_race": [null, null, null, null]},
+      {"name": "Michel",   "team": "De controllers", "car" : "BAC mono",  "points_per_race": [null, null, null, null]},
+      {"name": "Mike",     "team": "De zoete inval", "car" : "BAC mono",  "points_per_race": [null, null, null, null]},
+      {"name": "Riccardo", "team": "Team Tikkie",    "car" : "BAC mono",  "points_per_race": [null, null, null, null]},
+      {"name": "Rolf",     "team": "Team Tikkie",    "car" : "BAC mono",  "points_per_race": [null, null, null, null]}
     ]
   }

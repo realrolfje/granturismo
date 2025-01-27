@@ -91,19 +91,19 @@ function displayDriverStandings(drivers) {
         const row = document.createElement('tr');
 
         if (driver.team != null) {
-            if (driver.team.includes("twee")) {
+            if (driver.team.includes("Oranje")) {
                 row.classList.add('orange');
             }
 
-            if (driver.team.includes("controllers")) {
+            if (driver.team.includes("Rood")) {
                 row.classList.add('red');
             }    
     
-            if (driver.team.includes("Tikkie")) {
+            if (driver.team.includes("Groen")) {
                 row.classList.add('green');
             }
 
-            if (driver.team.includes("zoet")) {
+            if (driver.team.includes("Blauw")) {
                 row.classList.add('blue');
             }
         }
@@ -234,20 +234,20 @@ function displayTeamStandings(teams) {
     const tbody = document.createElement('tbody');
     teams.filter((team) => team.name != null).forEach((team, index) => {
         const row = document.createElement('tr');
- 
-        if (team.name.includes("twee")) {
+
+        if (team.name.includes("Oranje")) {
             row.classList.add('orange');
         }
 
-        if (team.name.includes("controllers")) {
+        if (team.name.includes("Rood")) {
             row.classList.add('red');
         }
 
-        if (team.name.includes("Tikkie")) {
+        if (team.name.includes("Groen")) {
             row.classList.add('green');
         }
 
-        if (team.name.includes("zoet")) {
+        if (team.name.includes("Blauw")) {
             row.classList.add('blue');
         }
 
