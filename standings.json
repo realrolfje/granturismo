@@ -1,12 +1,12 @@
 {
     "drivers": [
-      {"name": "Leroy",    "team": "De controllers", "car" : "BAC mono",  "points_per_race": [2, null, null, null]},
-      {"name": "Lex",      "team": "De twee L's",    "car" : "BAC mono",  "points_per_race": [12, null, null, null]},
-      {"name": "Luuk",     "team": "De twee L's",    "car" : "BAC mono",  "points_per_race": [6, null, null, null]},
-      {"name": "Martin",   "team": "De zoete inval", "car" : "BAC mono",  "points_per_race": [0, null, null, null]},
-      {"name": "Michel",   "team": "De controllers", "car" : "BAC mono",  "points_per_race": [10, null, null, null]},
-      {"name": "Mike",     "team": "De zoete inval", "car" : "BAC mono",  "points_per_race": [0, null, null, null]},
-      {"name": "Riccardo", "team": "Team Tikkie",    "car" : "BAC mono",  "points_per_race": [8, null, null, null]},
-      {"name": "Rolf",     "team": "Team Tikkie",    "car" : "BAC mono",  "points_per_race": [4, null, null, null]}
+      {"name": "Leroy",    "team": "De controllers", "car" : "BAC mono",  "points_per_race": [ 2,  8, null, null]},
+      {"name": "Lex",      "team": "De twee L's",    "car" : "BAC mono",  "points_per_race": [12, 12, null, null]},
+      {"name": "Luuk",     "team": "De twee L's",    "car" : "BAC mono",  "points_per_race": [ 6,  2, null, null]},
+      {"name": "Martin",   "team": "De zoete inval", "car" : "BAC mono",  "points_per_race": [ 0,  0, null, null]},
+      {"name": "Michel",   "team": "De controllers", "car" : "BAC mono",  "points_per_race": [10,  6, null, null]},
+      {"name": "Mike",     "team": "De zoete inval", "car" : "BAC mono",  "points_per_race": [ 0,  0, null, null]},
+      {"name": "Riccardo", "team": "Team Tikkie",    "car" : "BAC mono",  "points_per_race": [ 8, 10, null, null]},
+      {"name": "Rolf",     "team": "Team Tikkie",    "car" : "BAC mono",  "points_per_race": [ 4,  4, null, null]}
     ]
   }
