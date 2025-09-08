@@ -21,8 +21,6 @@ function indexOfLowestNumber(arr) {
     let minIndex = -1;
     let minValue = Infinity;
 
-    if (arr.length <=1) return -1;
-
     for (let i = 0; i < arr.length; i++) {
         let value = arr[i];
 
