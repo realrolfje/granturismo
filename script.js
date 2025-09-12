@@ -287,6 +287,16 @@ function displayTeamStandings(teams) {
     table.appendChild(tbody);
 }
 
+// Returns "true" if a date in the form YYYY-MM-DD is in the past
+function isBeforeToday(dateString) {
+  const [y, m, d] = dateString.split('-').map(Number);
+  const input = new Date(y, m - 1, d);      // local midnight of that date
+  if (isNaN(input.getTime())) throw new Error('Invalid date');
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);               // local midnight today
+  return input < today;
+}
+
 // Function to display schedule
 function displaySchedule(calendar) {
     const container = document.getElementById('schedule-container');
@@ -302,16 +312,35 @@ function displaySchedule(calendar) {
         // Create a button for the collapsible header
         const collapsibleButton = document.createElement('button');
         collapsibleButton.classList.add('collapsible');
+
+        const inthepast = isBeforeToday(event.date)
+
         collapsibleButton.textContent = `${event.date} - ${event.race} : ${event.location}`;
-        collapsibleButton.addEventListener('click', function () {
-            this.classList.toggle('active');
-            const content = this.nextElementSibling;
-            if (content.style.maxHeight) {
-                content.style.maxHeight = null;
-            } else {
-                content.style.maxHeight = content.scrollHeight + 'px';
-            }
-        });
+
+        if (inthepast) {
+            collapsibleButton.classList.add('past-event');
+
+            collapsibleButton.addEventListener('click', function () {
+                this.classList.toggle('active-past');
+                const content = this.nextElementSibling;
+                if (content.style.maxHeight) {
+                    content.style.maxHeight = null;
+                } else {
+                    content.style.maxHeight = content.scrollHeight + 'px';
+                }
+            });
+        } else {
+            collapsibleButton.addEventListener('click', function () {
+                this.classList.toggle('active');
+                const content = this.nextElementSibling;
+                if (content.style.maxHeight) {
+                    content.style.maxHeight = null;
+                } else {
+                    content.style.maxHeight = content.scrollHeight + 'px';
+                }
+            });
+        }
+
 
         // Create a div for the collapsible content
         const contentDiv = document.createElement('div');
@@ -329,6 +358,11 @@ function displaySchedule(calendar) {
                 headerCell.textContent = key;
                 headerCell.colSpan = 2;
                 headerCell.classList.add('detail-section-header');
+                
+                if (inthepast) {
+                    // headerCell.classList.add('past-event');
+                    headerCell.classList.add('past-event-text');
+                }
 
                 row.appendChild(headerCell);
             } else {
@@ -336,10 +370,16 @@ function displaySchedule(calendar) {
                 const keyCell = document.createElement('td');
                 keyCell.textContent = key;
                 keyCell.classList.add('detail-key');
+                if (inthepast) {
+                    keyCell.classList.add('past-event-text');
+                }
 
                 const valueCell = document.createElement('td');
                 valueCell.textContent = value;
                 valueCell.classList.add('detail-value');
+                if (inthepast) {
+                    valueCell.classList.add('past-event-text');
+                }
 
                 row.appendChild(keyCell);
                 row.appendChild(valueCell);

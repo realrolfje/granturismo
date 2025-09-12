@@ -89,6 +89,15 @@ footer p {
     border-radius: 5px;
 }
 
+.past-event {
+    background-color: #bdc3c7;
+}
+
+.past-event-text {
+    background-color: #dfe6e9 !important;
+    color: #bdc3c7;
+}
+
 .collapsible:hover {
     background-color: #4f6f90;
 }
@@ -96,6 +105,11 @@ footer p {
 .collapsible.active {
     background-color: #1abc9c;
 }
+
+.collapsible.active-past {
+    background-color: #b1b6b5;
+}
+
 
 .collapsible::after {
     content: '\002B';
