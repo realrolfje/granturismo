@@ -119,19 +119,17 @@
                 "ABS": "No Limit",
                 "Auto-Drive": "Prohibited"
             }
-        }
-    ],
-    "hidden": [
+        },
         {
             "race": "Race 3",
-            "date": "2025-02-12",
-            "location": "Nurburg Ring",
+            "date": "2025-09-17",
+            "location": "Dragon Trail Gardens Reversed",
             "details": {
-                "Track": "Sprint Layout",
+                "Track": "Dragon Trail Gardens Reversed",
                 "Room mode": "Practice/Race",
                 "Race type": "For Real",
                 "Auto Start": "Off",
-                "Laps": "15",
+                "Laps": "19",
                 "Time/Weather settings": null,
                 "Weather": "Preset, S07 Dry",
                 "Equal conditions": "Off",
@@ -139,17 +137,17 @@
                 "Variable time speed": "0x",
                 "Race Settings": null,
                 "Start type": "Grid Start with False Start Check",
-                "Grid Order": "Fastest First",
+                "Grid Order": "Reverse Grid",
                 "BoP/Tuning Prohibited": "On",
                 "Settings options": "All",
-                "Boost": "Strong",
-                "Slipstream strength": "Strong",
+                "Boost": "Weak",
+                "Slipstream strength": "Realistic",
                 "Visible Damage": "On",
                 "Mechanical Damage": "Heavy",
-                "Tyre Wear Rate": "1x",
-                "Fuel Consumption Rate": "Off",
-                "Refueling speed": "--",
-                "Initial Fueal": "20 Litres",
+                "Tyre Wear Rate": "7x",
+                "Fuel Consumption Rate": "6x",
+                "Refueling speed": "20 litre/second",
+                "Initial Fueal": "full",
                 "Grip Reduction off track": "Low",
                 "Race Finish Delay": "30 seconds",
                 "Nitrous/Overtaking Multiplier": "Default",
@@ -181,7 +179,9 @@
                 "ABS": "No Limit",
                 "Auto-Drive": "Prohibited"
             }
-        },
+        }
+    ],
+    "hidden": [
         {
             "race": "Race 4",
             "date": "2025-04-09",
