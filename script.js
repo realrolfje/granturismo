@@ -89,6 +89,8 @@ function displayDriverStandings(drivers) {
 
     // Create table body
     const tbody = document.createElement('tbody');
+    let place = 0
+    let lastScore = -1
     drivers.forEach((driver, index) => {
         const row = document.createElement('tr');
 
@@ -112,7 +114,13 @@ function displayDriverStandings(drivers) {
 
         // Position
         const positionCell = document.createElement('td');
-        positionCell.textContent = index + 1;
+        if (lastScore != driver.totalPoints) {
+            place += 1
+            positionCell.textContent = place;
+        } else {
+            positionCell.textContent = "";
+        }
+        lastScore = driver.totalPoints;
         positionCell.setAttribute('data-label', 'Position');
         positionCell.classList.add('center');
         row.appendChild(positionCell);
