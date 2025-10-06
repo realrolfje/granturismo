@@ -328,7 +328,7 @@
                 "Mechanical Damage": "Heavy",
                 "Tyre Wear Rate": "10x",
                 "Fuel Consumption Rate": "10x",
-                "Refueling speed": "20 Litre/sec",
+                "Refueling speed": "3 Litre/sec",
                 "Initial Fuel": "100 Litres",
                 "Grip Reduction off track": "Low",
                 "Race Finish Delay": "40 seconds",
