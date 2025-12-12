@@ -180,9 +180,15 @@ function renderExtraFields() {
 }
 
 function parseFieldValue(field, rawValue) {
-  if (rawValue === null || rawValue === undefined) return undefined;
+  if (rawValue === null || rawValue === undefined || rawValue === '') {
+    if (field.defaultValue !== undefined) return field.defaultValue;
+    return undefined;
+  }
   let value = typeof rawValue === 'string' ? rawValue.trim() : rawValue;
-  if (value === '') return undefined;
+  if (value === '') {
+    if (field.defaultValue !== undefined) return field.defaultValue;
+    return undefined;
+  }
   if (typeof field.parse === 'function') {
     value = field.parse(value);
   } else if (field.type === 'number') {
@@ -206,7 +212,7 @@ function buildRaceObject(form) {
     track,
     variant: formData.get('variant'),
     date,
-    laps: Number.isFinite(lapsValue) && lapsValue > 0 ? lapsValue : undefined
+    laps: Number.isFinite(lapsValue) && lapsValue > 0 ? lapsValue : Number.parseInt(form.querySelector('#race-laps')?.getAttribute('value'), 10) || undefined
   };
 
   const definitions = window.raceFieldDefinitions || [];
