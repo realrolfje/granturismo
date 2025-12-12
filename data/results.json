@@ -1,0 +1,84 @@
+{
+  "results": [
+    {
+      "raceId": "race-1",
+      "finishers": [
+        {
+          "driverId": "peter",
+          "car": "Porsche 911 RSR '17",
+          "teamId": "team-1"
+        },
+        {
+          "driverId": "jack",
+          "car": "Ferrari 458 Italia GT3",
+          "teamId": "team-1"
+        },
+        {
+          "driverId": "henk",
+          "car": "Skoda Octavia Touring Car",
+          "teamId": "team-2"
+        },
+        {
+          "driverId": "sarah",
+          "car": "Toyota GR Supra Racing Concept",
+          "teamId": "team-4"
+        },
+        {
+          "driverId": "mika",
+          "car": "BMW M6 GT3",
+          "teamId": "team-3"
+        },
+        {
+          "driverId": "elin",
+          "car": "Audi R8 LMS",
+          "teamId": "team-3"
+        },
+        {
+          "driverId": "diego",
+          "car": "Chevrolet Corvette C7 Gr.3",
+          "teamId": "team-5"
+        }
+      ]
+    },
+    {
+      "raceId": "race-2",
+      "finishers": [
+        {
+          "driverId": "sarah",
+          "car": "Nissan GT-R NISMO GT3",
+          "teamId": "team-4"
+        },
+        {
+          "driverId": "peter",
+          "car": "Porsche 911 RSR '17",
+          "teamId": "team-1"
+        },
+        {
+          "driverId": "henk",
+          "car": "Skoda Octavia Touring Car",
+          "teamId": "team-2"
+        },
+        {
+          "driverId": "ren",
+          "car": "Honda NSX Concept-GT",
+          "teamId": "team-4"
+        },
+        {
+          "driverId": "lucia",
+          "car": "Ford GT LM Spec II",
+          "teamId": "team-5"
+        },
+        {
+          "driverId": "marcus",
+          "car": "Mercedes-AMG GT3",
+          "teamId": "team-6"
+        },
+        {
+          "driverId": "alessia",
+          "car": "Lamborghini Huracán GT3",
+          "teamId": "team-6"
+        }
+      ]
+    }
+  ]
+}

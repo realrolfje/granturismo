@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Gran Turismo 7 | Scoring Rules</title>
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <link rel="stylesheet" href="styles.css" />
+    <script src="theme.js" defer></script>
+    <script src="counts.js" defer></script>
+  </head>
+  <body class="theme-dark">
+    <header class="hero" id="top">
+      <button id="theme-toggle" class="theme-toggle" type="button" aria-pressed="false">Light mode</button>
+      <div class="hero__content">
+        <p class="eyebrow">Gran Turismo 7</p>
+        <h1>Scoring & Tie-breakers</h1>
+        <p class="lede">
+          Understand how championship points are awarded each race and how we break ties when
+          drivers share the same score in the standings.
+        </p>
+        <div class="hero__nav" role="navigation">
+          <a class="pill-link" href="index.html">Standings</a>
+          <a class="pill-link" href="teams.html">Teams &amp; Drivers</a>
+          <a class="pill-link" href="results.html">Race Results</a>
+          <a id="upcoming-pill" class="pill-link" href="races.html">Upcoming Races</a>
+          <a class="pill-link pill-link--active" href="rules.html">Scoring Rules</a>
+          <a class="pill-link" href="editor.html">Race Editor</a>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <section class="panel panel--rules">
+        <div class="panel__header">
+          <h2>Points Breakdown</h2>
+          <p>Each classified finisher earns points according to final position. Positions beyond 7th still receive the participation award.</p>
+        </div>
+        <div class="points-grid">
+          <div>
+            <h3>Projected grid</h3>
+            <ol class="points-list">
+              <li><span>1st</span><strong>12 pts</strong></li>
+              <li><span>2nd</span><strong>10 pts</strong></li>
+              <li><span>3rd</span><strong>8 pts</strong></li>
+              <li><span>4th</span><strong>6 pts</strong></li>
+              <li><span>5th</span><strong>4 pts</strong></li>
+              <li><span>6th</span><strong>2 pts</strong></li>
+              <li><span>7th</span><strong>1 pt</strong></li>
+            </ol>
+          </div>
+          <div class="rule-card">
+            <h3>Participation bonus</h3>
+            <p>
+              Any driver finishing outside the top 7 still earns <strong>1 point</strong> for completing the race.
+              DNS/DNF results yield no points.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section class="panel panel--rules">
+        <div class="panel__header">
+          <h2>Tie-breaking Procedure</h2>
+          <p>If two or more drivers tie on points, we apply the following criteria until the tie is broken.</p>
+        </div>
+        <ol class="rule-list">
+          <li>
+            <strong>Total Wins</strong>
+            <p>The driver with the greater number of race victories ranks ahead.</p>
+          </li>
+          <li>
+            <strong>Best Finish</strong>
+            <p>If wins are equal, we compare the single best finishing position across the season (1st beats 2nd, etc.).</p>
+          </li>
+          <li>
+            <strong>Alphabetical Order</strong>
+            <p>
+              When points, wins, and best finish all match, we fall back to the driver name (alphabetical) to keep the
+              table deterministic.
+            </p>
+          </li>
+        </ol>
+        <p class="muted">
+          These rules mirror how the site currently sorts standings, so what you see on the scoreboard always reflects this logic.
+        </p>
+      </section>
+    </main>
+  </body>
+</html>

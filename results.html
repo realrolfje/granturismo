@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Gran Turismo 7 | Race Results</title>
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <link rel="stylesheet" href="styles.css" />
+    <script src="theme.js" defer></script>
+    <script src="main.js" defer></script>
+  </head>
+  <body class="theme-dark">
+    <header class="hero" id="top">
+      <button id="theme-toggle" class="theme-toggle" type="button" aria-pressed="false">Light mode</button>
+      <div class="hero__content">
+        <p class="eyebrow">Gran Turismo 7</p>
+        <h1>Race Results</h1>
+        <p class="lede">
+          Review finish orders, cars, and team colors for every completed league event. Upcoming events live on the dedicated schedule page.
+        </p>
+        <div class="hero__nav" role="navigation">
+          <a class="pill-link" href="index.html">Standings</a>
+          <a class="pill-link" href="teams.html">Teams &amp; Drivers</a>
+          <a class="pill-link pill-link--active" href="results.html">Race Results</a>
+          <a id="upcoming-pill" class="pill-link" href="races.html">Upcoming Races</a>
+          <a class="pill-link" href="rules.html">Scoring Rules</a>
+          <a class="pill-link" href="editor.html">Race Editor</a>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <section id="races-section" class="panel" aria-labelledby="races-heading">
+        <div class="panel__header">
+          <h2 id="races-heading">Completed Races</h2>
+          <p>Races appear once a result exists in <code>data/results.json</code>. Add finishers there to expand the list.</p>
+        </div>
+        <div id="races-container" class="race-list"></div>
+      </section>
+    </main>
+
+    <template id="race-card-template">
+      <article class="race-card">
+        <header>
+          <div>
+            <p class="eyebrow"></p>
+            <h3></h3>
+          </div>
+          <p class="race-card__meta"></p>
+        </header>
+        <div class="table-wrapper">
+          <table>
+            <thead>
+              <tr>
+                <th scope="col">Pos</th>
+                <th scope="col">Driver</th>
+                <th scope="col">Car</th>
+                <th scope="col">Team</th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </article>
+    </template>
+  </body>
+</html>

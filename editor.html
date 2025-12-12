@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Gran Turismo 7 | Race Editor</title>
+    <link rel="stylesheet" href="styles.css" />
+    <script src="theme.js" defer></script>
+    <script src="counts.js" defer></script>
+    <script src="editor.js" defer></script>
+  </head>
+  <body class="theme-dark">
+    <header class="hero" id="top">
+      <button id="theme-toggle" class="theme-toggle" type="button" aria-pressed="false">Light mode</button>
+      <div class="hero__content">
+        <p class="eyebrow">Gran Turismo 7</p>
+        <h1>Race Editor</h1>
+        <p class="lede">
+          Build a race JSON snippet by choosing an official GT7 track, date, and metadata. Paste the output into
+          <code>data/races.json</code> to add the event to the site.
+        </p>
+        <div class="hero__nav" role="navigation">
+          <a class="pill-link" href="index.html">Standings</a>
+          <a class="pill-link" href="teams.html">Teams &amp; Drivers</a>
+          <a class="pill-link" href="results.html">Race Results</a>
+          <a id="upcoming-pill" class="pill-link" href="races.html">Upcoming Races</a>
+          <a class="pill-link" href="rules.html">Scoring Rules</a>
+          <a class="pill-link pill-link--active" href="editor.html">Race Editor</a>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <section class="panel panel--rules" aria-labelledby="editor-heading">
+        <div class="panel__header">
+          <h2 id="editor-heading">Generate race JSON</h2>
+          <p>All tracks come from the official GT7 track list. Fields marked * are required.</p>
+        </div>
+        <div class="editor-grid">
+          <form id="race-form" class="editor-form" autocomplete="off">
+            <div class="form-field">
+              <label for="race-id">Race ID *</label>
+              <input id="race-id" name="raceId" required placeholder="race-3" />
+              <p id="id-warning" class="warning" hidden>This ID already exists. Use a unique identifier.</p>
+            </div>
+            <div class="form-field">
+              <label for="race-title">Race title *</label>
+              <input id="race-title" name="title" required placeholder="World Series Round" />
+            </div>
+            <div class="form-field">
+              <label for="track-input">Track *</label>
+              <div class="combo">
+                <input
+                  id="track-input"
+                  type="search"
+                  inputmode="search"
+                  required
+                  placeholder="Start typing a track name"
+                  autocomplete="off"
+                  autocorrect="off"
+                  autocapitalize="none"
+                  spellcheck="false"
+                  aria-autocomplete="list"
+                  aria-controls="track-suggestions"
+                  aria-expanded="false"
+                />
+                <input type="hidden" id="track-value" name="track" />
+                <ul id="track-suggestions" class="combo__list" hidden></ul>
+              </div>
+            </div>
+            <div class="form-field">
+              <label for="variant-select">Variant *</label>
+              <select id="variant-select" name="variant" required disabled></select>
+            </div>
+            <div class="form-field">
+              <label for="race-date">Date *</label>
+              <input id="race-date" name="date" type="date" required />
+            </div>
+            <div class="form-field">
+              <label for="race-laps">Laps *</label>
+              <input id="race-laps" name="laps" type="number" min="1" required placeholder="15" />
+            </div>
+            <div class="form-field">
+              <label for="race-weather">Weather</label>
+              <input id="race-weather" name="weather" placeholder="Dry" />
+            </div>
+          </form>
+
+          <div class="editor-output">
+            <div class="editor-output__header">
+              <h3>Race JSON</h3>
+              <button type="button" id="copy-json" class="pill-link copy-btn">Copy</button>
+            </div>
+            <pre id="race-json-preview" class="json-preview">{
+  "id": "race-3",
+  "title": "World Series at Suzuka",
+  "track": "Suzuka Circuit",
+  "date": "2024-05-03",
+  "laps": 15,
+  "weather": "Overcast"
+}</pre>
+            <p class="muted note">Paste the snippet into <code>data/races.json</code> inside the <code>"races"</code> array, keeping the JSON valid.</p>
+            <p id="copy-feedback" class="muted" hidden>JSON copied to clipboard.</p>
+          </div>
+        </div>
+      </section>
+    </main>
+  </body>
+</html>

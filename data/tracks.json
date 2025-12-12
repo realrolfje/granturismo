@@ -1,0 +1,325 @@
+{
+  "tracks": [
+    {
+      "name": "24 Heures du Mans race track",
+      "variants": [
+        "Full Course",
+        "No chicane"
+      ]
+    },
+    {
+      "name": "Alsace",
+      "variants": [
+        "Test Course",
+        "Test Course Reverse",
+        "Village",
+        "Village Reverse"
+      ]
+    },
+    {
+      "name": "Autodrome Lago Maggiore",
+      "variants": [
+        "Center",
+        "Center Reverse",
+        "East",
+        "East End",
+        "East End Reverse",
+        "East Reverse",
+        "Full Course",
+        "Full Course Reverse",
+        "West",
+        "West End",
+        "West End Reverse",
+        "West Reverse"
+      ]
+    },
+    {
+      "name": "Autodromo Nazionale Monza",
+      "variants": [
+        "Full Course",
+        "No Chicane"
+      ]
+    },
+    {
+      "name": "Autopolis International Racing Course",
+      "variants": [
+        "Full Course",
+        "Short Course"
+      ]
+    },
+    {
+      "name": "Autódromo de Interlagos",
+      "variants": [
+        "Full Course"
+      ]
+    },
+    {
+      "name": "BB Raceway",
+      "variants": [
+        "Full Course",
+        "Reverse"
+      ]
+    },
+    {
+      "name": "Blue Moon Bay Speedway",
+      "variants": [
+        "Full Course",
+        "Infield A",
+        "Infield A Reverse",
+        "Infield B",
+        "Infield B Reverse",
+        "Reverse"
+      ]
+    },
+    {
+      "name": "Brands Hatch",
+      "variants": [
+        "Grand Prix Circuit",
+        "Indy Circuit"
+      ]
+    },
+    {
+      "name": "Circuit de Barcelona-Catalunya",
+      "variants": [
+        "GP Layout",
+        "GP Layout No Chicane",
+        "National Layout",
+        "Rallycross Layout"
+      ]
+    },
+    {
+      "name": "Circuit de Sainte-Croix",
+      "variants": [
+        "A",
+        "A Reverse",
+        "B",
+        "B Reverse",
+        "C",
+        "C Reverse"
+      ]
+    },
+    {
+      "name": "Circuit de Spa-Francorchamps",
+      "variants": [
+        "Full Course",
+        "Spa 24h layout"
+      ]
+    },
+    {
+      "name": "Circuit Gilles-Villeneuve",
+      "variants": [
+        "Full Course"
+      ]
+    },
+    {
+      "name": "Colorado Springs",
+      "variants": [
+        "Lake",
+        "Lake Reverse"
+      ]
+    },
+    {
+      "name": "Daytona",
+      "variants": [
+        "Road Course",
+        "Tri-Oval"
+      ]
+    },
+    {
+      "name": "Deep Forest Raceway",
+      "variants": [
+        "Full Course",
+        "Reverse"
+      ]
+    },
+    {
+      "name": "Dragon Trail",
+      "variants": [
+        "Gardens",
+        "Gardens Reverse",
+        "Seaside",
+        "Seaside Reverse"
+      ]
+    },
+    {
+      "name": "Eiger Nordwand",
+      "variants": [
+        "Full Course",
+        "Reverse"
+      ]
+    },
+    {
+      "name": "Fishermans Ranch",
+      "variants": [
+        "Full Course",
+        "Reverse"
+      ]
+    },
+    {
+      "name": "Fuji International Speedway",
+      "variants": [
+        "Full Course",
+        "Short"
+      ]
+    },
+    {
+      "name": "Goodwood Motor Circuit",
+      "variants": [
+        "Full Course"
+      ]
+    },
+    {
+      "name": "Grand Valley",
+      "variants": [
+        "Highway 1",
+        "Highway 1 Reverse",
+        "South",
+        "South Reverse"
+      ]
+    },
+    {
+      "name": "High Speed Ring",
+      "variants": [
+        "Full Course",
+        "Reverse"
+      ]
+    },
+    {
+      "name": "Kyoto Driving Park",
+      "variants": [
+        "Miyabi",
+        "Yamagiwa",
+        "Yamagiwa Reverse",
+        "Yamagiwa+Miyabi",
+        "Yamagiwa+Miyabi Reverse"
+      ]
+    },
+    {
+      "name": "Lake Louise",
+      "variants": [
+        "Long Track",
+        "Long Track Reverse",
+        "Short Track",
+        "Short Track Reverse",
+        "Tri-Oval",
+        "Tri-Oval Reverse"
+      ]
+    },
+    {
+      "name": "Michelin Raceway Road Atlanta",
+      "variants": [
+        "Full Course"
+      ]
+    },
+    {
+      "name": "Mount Panorama Motor Racing Circuit",
+      "variants": [
+        "Full Course"
+      ]
+    },
+    {
+      "name": "Northern Isle Speedway",
+      "variants": [
+        "Full Course"
+      ]
+    },
+    {
+      "name": "Nürburgring",
+      "variants": [
+        "24h",
+        "Endurance",
+        "Endurance II",
+        "GP",
+        "Nordschleife",
+        "Nordschleife Tourist",
+        "Sprint"
+      ]
+    },
+    {
+      "name": "Red Bull Ring",
+      "variants": [
+        "Full Course",
+        "Short Track"
+      ]
+    },
+    {
+      "name": "Sardegna",
+      "variants": [
+        "Road Track - A",
+        "Road Track - A Reverse",
+        "Road Track - B",
+        "Road Track - B Reverse",
+        "Road Track - C",
+        "Road Track - C Reverse",
+        "Windmills",
+        "Windmills Reverse"
+      ]
+    },
+    {
+      "name": "Special Stage Route X",
+      "variants": [
+        "Full Course"
+      ]
+    },
+    {
+      "name": "Suzuka Circuit",
+      "variants": [
+        "East Course",
+        "Full Course"
+      ]
+    },
+    {
+      "name": "Tokyo Expressway",
+      "variants": [
+        "Central Clockwise",
+        "Central Counterclockwise",
+        "East Clockwise",
+        "East Counterclockwise",
+        "South Clockwise",
+        "South Counterclockwise"
+      ]
+    },
+    {
+      "name": "Trial Mountain Circuit",
+      "variants": [
+        "Full Course",
+        "Reverse"
+      ]
+    },
+    {
+      "name": "Tsukuba Circuit",
+      "variants": [
+        "Full Course"
+      ]
+    },
+    {
+      "name": "Watkins Glen",
+      "variants": [
+        "Long Course",
+        "Short Course"
+      ]
+    },
+    {
+      "name": "WeatherTech Raceway Laguna Seca",
+      "variants": [
+        "Full Course"
+      ]
+    },
+    {
+      "name": "Willow Springs International Raceway",
+      "variants": [
+        "Big Willow",
+        "Horse Thief Mile",
+        "Horse Thief Mile Reverse",
+        "Streets of Willow Springs",
+        "Streets of Willow Springs Reverse"
+      ]
+    },
+    {
+      "name": "Yas Marina Circuit",
+      "variants": [
+        "Full Course"
+      ]
+    }
+  ]
+}

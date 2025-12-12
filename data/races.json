@@ -1,0 +1,31 @@
+{
+  "races": [
+    {
+      "id": "race-1",
+      "title": "Manufacturers Cup Round 1",
+      "track": "Circuit de Spa-Francorchamps",
+      "variant": "Full Course",
+      "date": "2024-04-05",
+      "laps": 12,
+      "weather": "Dry"
+    },
+    {
+      "id": "race-2",
+      "title": "Nations Cup at Trial Mountain",
+      "track": "Trial Mountain",
+      "variant": "Full Course",
+      "date": "2024-04-19",
+      "laps": 10,
+      "weather": "Mixed"
+    },
+    {
+      "id": "race-3",
+      "title": "World Series at Suzuka",
+      "track": "Suzuka Circuit",
+      "variant": "Full Course",
+      "date": "2024-05-03",
+      "laps": 15,
+      "weather": "Overcast"
+    }
+  ]
+}

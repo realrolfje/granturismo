@@ -1,0 +1,187 @@
+async function loadEditorData() {
+  const [tracksRes, racesRes] = await Promise.all([
+    fetch('data/tracks.json'),
+    fetch('data/races.json')
+  ]);
+
+  [tracksRes, racesRes].forEach((res) => {
+    if (!res.ok) {
+      throw new Error(`Failed to load ${res.url}`);
+    }
+  });
+
+  const [tracksData, racesData] = await Promise.all([tracksRes.json(), racesRes.json()]);
+  return { tracks: tracksData.tracks || [], races: racesData.races || [] };
+}
+
+function populateTrackSelect(tracks) {
+  const trackInput = document.getElementById('track-input');
+  const trackValue = document.getElementById('track-value');
+  const suggestionsList = document.getElementById('track-suggestions');
+  const variantSelect = document.getElementById('variant-select');
+  if (!trackInput || !trackValue || !suggestionsList || !variantSelect) return;
+
+  const renderSuggestions = (items = []) => {
+    suggestionsList.textContent = '';
+    if (!items.length) {
+      suggestionsList.hidden = true;
+      trackInput.setAttribute('aria-expanded', 'false');
+      return;
+    }
+
+    items.slice(0, 8).forEach((name) => {
+      const li = document.createElement('li');
+      li.textContent = name;
+      li.tabIndex = 0;
+      li.addEventListener('mousedown', (event) => {
+        event.preventDefault();
+        selectTrack(name);
+      });
+      suggestionsList.appendChild(li);
+    });
+    suggestionsList.hidden = false;
+    trackInput.setAttribute('aria-expanded', 'true');
+  };
+
+  const selectTrack = (name) => {
+    trackInput.value = name;
+    trackValue.value = name;
+    renderSuggestions([]);
+    updateVariants();
+  };
+
+  const updateVariants = () => {
+    const query = trackInput.value.trim().toLowerCase();
+    const selected = tracks.find((t) => t.name.toLowerCase() === query);
+
+    variantSelect.textContent = '';
+    if (!selected) {
+      trackValue.value = '';
+      variantSelect.disabled = true;
+      variantSelect.removeAttribute('required');
+      const placeholder = document.createElement('option');
+      placeholder.value = '';
+      placeholder.textContent = 'Select a track first';
+      placeholder.disabled = true;
+      placeholder.selected = true;
+      variantSelect.appendChild(placeholder);
+      return;
+    }
+
+    trackValue.value = selected.name;
+    variantSelect.disabled = false;
+    variantSelect.setAttribute('required', 'required');
+    selected.variants.forEach((variant) => {
+      const option = document.createElement('option');
+      option.value = variant;
+      option.textContent = variant;
+      variantSelect.appendChild(option);
+    });
+  };
+
+  const handleInput = () => {
+    const value = trackInput.value.trim().toLowerCase();
+    const matches = value
+      ? tracks.filter((track) => track.name.toLowerCase().includes(value)).map((track) => track.name)
+      : tracks.map((track) => track.name);
+    renderSuggestions(matches);
+    updateVariants();
+  };
+
+  trackInput.addEventListener('input', handleInput);
+  trackInput.addEventListener('focus', handleInput);
+  trackInput.addEventListener('blur', () => {
+    setTimeout(() => {
+      suggestionsList.hidden = true;
+      trackInput.setAttribute('aria-expanded', 'false');
+    }, 150);
+  });
+}
+
+function buildRaceObject(form) {
+  const formData = new FormData(form);
+  const lapsValue = Number.parseInt(formData.get('laps'), 10);
+  const race = {
+    id: formData.get('raceId').trim(),
+    title: formData.get('title').trim(),
+    track: formData.get('track')?.trim(),
+    variant: formData.get('variant'),
+    date: formData.get('date'),
+    laps: Number.isFinite(lapsValue) && lapsValue > 0 ? lapsValue : undefined,
+    weather: formData.get('weather').trim()
+  };
+
+  Object.keys(race).forEach((key) => {
+    if (race[key] === '' || race[key] === undefined) {
+      delete race[key];
+    }
+  });
+
+  return race;
+}
+
+function updatePreview(form, existingIds) {
+  const preview = document.getElementById('race-json-preview');
+  const warning = document.getElementById('id-warning');
+  if (!preview) return;
+
+  const race = buildRaceObject(form);
+  const raceId = race.id || '';
+  if (warning) {
+    warning.hidden = !(raceId && existingIds.has(raceId));
+  }
+
+  const formatted = JSON.stringify(race, null, 2);
+  preview.textContent = formatted;
+}
+
+function setupCopyButton() {
+  const button = document.getElementById('copy-json');
+  const preview = document.getElementById('race-json-preview');
+  const feedback = document.getElementById('copy-feedback');
+  if (!button || !preview) return;
+
+  button.addEventListener('click', async () => {
+    try {
+      await navigator.clipboard.writeText(preview.textContent);
+      if (feedback) {
+        feedback.hidden = false;
+        feedback.textContent = 'JSON copied to clipboard.';
+        setTimeout(() => {
+          feedback.hidden = true;
+        }, 2000);
+      }
+    } catch (err) {
+      console.error('Clipboard copy failed', err);
+      if (feedback) {
+        feedback.hidden = false;
+        feedback.textContent = 'Unable to copy. Please select and copy manually.';
+      }
+    }
+  });
+}
+
+async function initEditor() {
+  const form = document.getElementById('race-form');
+  if (!form) return;
+
+  try {
+    const { tracks, races } = await loadEditorData();
+    populateTrackSelect(tracks);
+    const existingIds = new Set(races.map((race) => race.id));
+
+    const update = () => updatePreview(form, existingIds);
+    form.addEventListener('input', update);
+    form.addEventListener('change', update);
+    update();
+    setupCopyButton();
+  } catch (err) {
+    console.error(err);
+    const preview = document.getElementById('race-json-preview');
+    if (preview) {
+      preview.textContent = 'Unable to load track list. Please reload the page.';
+    }
+  }
+}
+
+document.addEventListener('DOMContentLoaded', initEditor);
