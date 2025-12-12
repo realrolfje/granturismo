@@ -55,16 +55,35 @@ function renderUpcoming(races = [], completedSet = new Set()) {
   upcoming.forEach((race) => {
     const card = document.createElement('article');
     card.className = 'upcoming-card';
-    const header = document.createElement('header');
-    header.innerHTML = `
-      <p class="eyebrow">${buildTrackLabel(race)}</p>
-      <h3>${race.title || race.id}</h3>
-    `;
-    card.appendChild(header);
+    card.setAttribute('tabindex', '0');
+    card.setAttribute('aria-expanded', 'false');
+
+    const summary = document.createElement('div');
+    summary.className = 'upcoming-card__summary';
+    const title = document.createElement('h3');
+    title.textContent = race.title || race.id;
+
+    const meta = document.createElement('div');
+    meta.className = 'upcoming-card__meta';
+
+    const trackSpan = document.createElement('span');
+    trackSpan.textContent = buildTrackLabel(race);
+    const dateSpan = document.createElement('span');
+    dateSpan.textContent = formatDate(race.date);
+
+    meta.appendChild(trackSpan);
+    meta.appendChild(dateSpan);
+
+    summary.appendChild(title);
+    summary.appendChild(meta);
+
+    const details = document.createElement('div');
+    details.className = 'upcoming-card__details';
 
     const list = document.createElement('ul');
     const rows = [
       { label: 'Date', value: formatDate(race.date) },
+      { label: 'Track', value: buildTrackLabel(race) },
       { label: 'Laps', value: race.laps ?? 'TBC' }
     ];
 
@@ -89,7 +108,25 @@ function renderUpcoming(races = [], completedSet = new Set()) {
       list.appendChild(li);
     });
 
-    card.appendChild(list);
+    details.appendChild(list);
+
+    const toggleDetails = () => {
+      const expanded = card.getAttribute('aria-expanded') === 'true';
+      card.setAttribute('aria-expanded', String(!expanded));
+      details.hidden = expanded;
+    };
+
+    summary.addEventListener('click', toggleDetails);
+    summary.addEventListener('keydown', (event) => {
+      if (event.key === 'Enter' || event.key === ' ') {
+        event.preventDefault();
+        toggleDetails();
+      }
+    });
+
+    details.hidden = true;
+    card.appendChild(summary);
+    card.appendChild(details);
     container.appendChild(card);
   });
 }
