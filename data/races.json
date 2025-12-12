@@ -26,6 +26,33 @@
       "date": "2024-05-03",
       "laps": 15,
       "weather": "Overcast"
+    },
+    {
+      "id": "race-4",
+      "title": "Smurfs!",
+      "track": "Suzuka Circuit",
+      "variant": "Full Course",
+      "date": "2024-05-03",
+      "laps": 15,
+      "weather": "Overcast"
+    },
+    {
+      "id": "race-5",
+      "title": "Smurfs2!",
+      "track": "Suzuka Circuit",
+      "variant": "Full Course",
+      "date": "2024-05-03",
+      "laps": 15,
+      "weather": "Overcast"
+    },
+    {
+      "id": "race-6",
+      "title": "Smurfs2!",
+      "track": "Suzuka Circuit",
+      "variant": "Full Course",
+      "date": "2024-05-03",
+      "laps": 15,
+      "weather": "Overcast"
     }
   ]
 }

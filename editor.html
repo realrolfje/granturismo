@@ -39,13 +39,12 @@
         <div class="editor-grid">
           <form id="race-form" class="editor-form" autocomplete="off">
             <div class="form-field">
-              <label for="race-id">Race ID *</label>
-              <input id="race-id" name="raceId" required placeholder="race-3" />
-              <p id="id-warning" class="warning" hidden>This ID already exists. Use a unique identifier.</p>
-            </div>
-            <div class="form-field">
               <label for="race-title">Race title *</label>
               <input id="race-title" name="title" required placeholder="World Series Round" />
+            </div>
+            <div class="form-field">
+              <label for="race-date">Date *</label>
+              <input id="race-date" name="date" type="date" required />
             </div>
             <div class="form-field">
               <label for="track-input">Track *</label>
@@ -73,10 +72,6 @@
               <select id="variant-select" name="variant" required disabled></select>
             </div>
             <div class="form-field">
-              <label for="race-date">Date *</label>
-              <input id="race-date" name="date" type="date" required />
-            </div>
-            <div class="form-field">
               <label for="race-laps">Laps *</label>
               <input id="race-laps" name="laps" type="number" min="1" required placeholder="15" />
             </div>
@@ -99,6 +94,7 @@
   "laps": 15,
   "weather": "Overcast"
 }</pre>
+            <p id="id-warning" class="muted" hidden></p>
             <p class="muted note">Paste the snippet into <code>data/races.json</code> inside the <code>"races"</code> array, keeping the JSON valid.</p>
             <p id="copy-feedback" class="muted" hidden>JSON copied to clipboard.</p>
           </div>

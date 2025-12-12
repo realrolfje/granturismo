@@ -98,15 +98,45 @@ function populateTrackSelect(tracks) {
   });
 }
 
+function slugify(value = '') {
+  return value
+    .toString()
+    .trim()
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-+|-+$/g, '');
+}
+
+function generateRaceId({ title = '', date = '', track = '' } = {}) {
+  const dateSlug = slugify(date);
+  const titleSlug = slugify(title);
+  const trackSlug = slugify(track);
+  const parts = [];
+  if (dateSlug) parts.push(dateSlug);
+  if (titleSlug) {
+    parts.push(titleSlug);
+  } else if (trackSlug) {
+    parts.push(trackSlug);
+  }
+  if (!parts.length) {
+    parts.push(trackSlug || 'race');
+  }
+  return parts.join('-');
+}
+
 function buildRaceObject(form) {
   const formData = new FormData(form);
   const lapsValue = Number.parseInt(formData.get('laps'), 10);
+  const title = formData.get('title')?.trim() || '';
+  const track = formData.get('track')?.trim() || '';
+  const date = formData.get('date') || '';
+
   const race = {
-    id: formData.get('raceId').trim(),
-    title: formData.get('title').trim(),
-    track: formData.get('track')?.trim(),
+    id: generateRaceId({ title, date, track }),
+    title,
+    track,
     variant: formData.get('variant'),
-    date: formData.get('date'),
+    date,
     laps: Number.isFinite(lapsValue) && lapsValue > 0 ? lapsValue : undefined,
     weather: formData.get('weather').trim()
   };
@@ -126,9 +156,20 @@ function updatePreview(form, existingIds) {
   if (!preview) return;
 
   const race = buildRaceObject(form);
-  const raceId = race.id || '';
+  const raceId = race.id;
   if (warning) {
-    warning.hidden = !(raceId && existingIds.has(raceId));
+    if (!race.title || !race.date) {
+      warning.hidden = true;
+      warning.textContent = '';
+    } else if (existingIds.has(raceId)) {
+      warning.hidden = false;
+      warning.textContent = `ID conflict: ${raceId} already exists. Adjust the title or date.`;
+      warning.classList.add('warning');
+    } else {
+      warning.hidden = false;
+      warning.textContent = `Generated ID: ${raceId}`;
+      warning.classList.remove('warning');
+    }
   }
 
   const formatted = JSON.stringify(race, null, 2);
