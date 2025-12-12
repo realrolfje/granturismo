@@ -3,12 +3,51 @@
 
   const raceFieldDefinitions = [
     {
+      id: 'roomMode',
+      label: 'Room Mode',
+      type: 'select',
+      options: [option('Free Run'), option('Practice/Race'), option('Practice/Qualifier/Race'), option('Practice/Endurance Race'), option('Practice/Qualifier/Endurance Race')],
+      defaultValue: 'Practice/Race',
+    },
+    {
+      id: 'raceType',
+      label: 'Race Type',
+      type: 'select',
+      options: [option('Race for Fun'), option('Free Run'), option('Drift'), option('Race for Real')],
+      defaultValue: 'Race for Fun',
+    },
+    {
+      id: 'maxParticipants',
+      label: 'Max. Participants',
+      type: 'number',
+      min: 2,
+      max: 16,
+      defaultValue: 10,
+      parse: (value) => {
+        const parsed = Number.parseInt(value, 10);
+        if (!Number.isFinite(parsed)) return 3;
+        return Math.min(16, Math.max(2, parsed));
+      }
+    },
+    {
+      id: 'autoStart',
+      label: 'Auto-Start',
+      type: 'number',
+      min: 0,
+      max: 10,
+      defaultValue: 0,
+      parse: (value) => {
+        const parsed = Number.parseInt(value, 10);
+        if (!Number.isFinite(parsed)) return 3;
+        return Math.min(10, Math.max(0, parsed));
+      }
+    },
+    {
       id: 'weather',
       label: 'Weather',
       type: 'select',
       options: [option('Dry'), option('Mixed'), option('Wet'), option('Storm'), option('Dynamic')],
-      defaultValue: 'Dry',
-      displayLabel: 'Weather'
+      defaultValue: 'Dry'
     },
     {
       id: 'allowedTyres',
@@ -26,8 +65,7 @@
           return value.join(', ');
         }
         return value || '';
-      },
-      displayLabel: 'Tyres'
+      }
     },
     {
       id: 'fuelingSpeed',
@@ -40,8 +78,7 @@
         const parsed = Number.parseInt(value, 10);
         if (!Number.isFinite(parsed)) return 3;
         return Math.min(20, Math.max(3, parsed));
-      },
-      displayLabel: 'Fueling Speed'
+      }
     },
     {
       id: 'raceNotes',
@@ -49,7 +86,6 @@
       type: 'textarea',
       placeholder: 'Night race, heavy damage, BOP off…',
       defaultValue: '',
-      displayLabel: 'Notes',
       span: 2
     }
   ];

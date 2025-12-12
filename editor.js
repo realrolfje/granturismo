@@ -254,27 +254,14 @@ function buildRaceObject(form) {
 
 function updatePreview(form, existingIds) {
   const preview = document.getElementById('race-json-preview');
-  const warning = document.getElementById('id-warning');
   const copyButton = document.getElementById('copy-json');
   if (!preview) return;
 
   const race = buildRaceObject(form);
   const raceId = race.id;
   let hasError = false;
-  if (warning) {
-    if (!race.title || !race.date) {
-      warning.hidden = true;
-      warning.textContent = '';
-    } else if (existingIds.has(raceId)) {
-      warning.hidden = false;
-      warning.textContent = `ID conflict: ${raceId} already exists. Adjust the title or date.`;
-      warning.classList.add('warning');
-      hasError = true;
-    } else {
-      warning.hidden = false;
-      warning.textContent = `Generated ID: ${raceId}`;
-      warning.classList.remove('warning');
-    }
+  if (existingIds.has(raceId)) {
+    hasError = true;
   }
 
   if (copyButton) {
