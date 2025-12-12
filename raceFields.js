@@ -36,10 +36,16 @@
       min: 0,
       max: 10,
       defaultValue: 0,
+      unit: 'minutes',
       parse: (value) => {
         const parsed = Number.parseInt(value, 10);
-        if (!Number.isFinite(parsed)) return 3;
+        if (!Number.isFinite(parsed)) return 0;
         return Math.min(10, Math.max(0, parsed));
+      },
+      format: (value) => {
+        const numeric = Number(value);
+        if (!Number.isFinite(numeric) || numeric <= 0) return 'Off';
+        return `${numeric}`;
       }
     },
     {

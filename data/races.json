@@ -55,22 +55,22 @@
       "weather": "Overcast"
     },
     {
-      "id": "2025-12-10-ricardoootjeee",
-      "title": "Ricardoootjeee!!!",
-      "track": "Autodromo Nazionale Monza",
-      "variant": "Full Course",
-      "date": "2025-12-10"
-    },
-    {
-      "id": "race",
-      "variant": null,
+      "id": "2025-12-10-sfdsdf",
+      "title": "sfdsdf",
+      "track": "24 Heures du Mans race track",
+      "variant": "No chicane",
+      "date": "2025-12-10",
       "laps": 15,
+      "roomMode": "Practice/Race",
+      "raceType": "Race for Fun",
+      "maxParticipants": 10,
+      "autoStart": 4,
       "weather": "Dry",
       "allowedTyres": [
         "Racing Soft",
         "Racing Medium"
       ],
-      "raceNotes": "Ricardo zegt hoi"
+      "fuelingSpeed": 3
     }
   ]
 }

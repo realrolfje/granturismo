@@ -92,6 +92,9 @@ function renderUpcoming(races = [], completedSet = new Set()) {
       } else if (Array.isArray(value)) {
         formatted = value.join(', ');
       }
+      if (field.unit && formatted !== 'Off') {
+        formatted = `${formatted} ${field.unit}`;
+      }
       rows.push({
         label: field.displayLabel || field.label,
         value: formatted || 'TBC'
