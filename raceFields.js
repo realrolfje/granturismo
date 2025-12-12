@@ -35,7 +35,8 @@
       type: 'textarea',
       placeholder: 'Night race, heavy damage, BOP off…',
       defaultValue: '',
-      displayLabel: 'Notes'
+      displayLabel: 'Notes',
+      span: 2
     }
   ];
 

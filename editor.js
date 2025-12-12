@@ -159,6 +159,9 @@ function renderExtraFields() {
   definitions.forEach((field) => {
     const wrapper = document.createElement('div');
     wrapper.className = 'form-field';
+    if (field.span === 2) {
+      wrapper.classList.add('form-field--span-2');
+    }
 
     const label = document.createElement('label');
     label.setAttribute('for', field.id);
