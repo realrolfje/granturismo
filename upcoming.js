@@ -50,20 +50,46 @@ function renderUpcoming(races = [], completedSet = new Set()) {
     return;
   }
 
+  const definitions = window.raceFieldDefinitions || [];
+
   upcoming.forEach((race) => {
     const card = document.createElement('article');
     card.className = 'upcoming-card';
-    card.innerHTML = `
-      <header>
-        <p class="eyebrow">${buildTrackLabel(race)}</p>
-        <h3>${race.title || race.id}</h3>
-      </header>
-      <ul>
-        <li><span>Date</span><strong>${formatDate(race.date)}</strong></li>
-        <li><span>Laps</span><strong>${race.laps ?? 'TBC'}</strong></li>
-        <li><span>Weather</span><strong>${race.weather || 'TBC'}</strong></li>
-      </ul>
+    const header = document.createElement('header');
+    header.innerHTML = `
+      <p class="eyebrow">${buildTrackLabel(race)}</p>
+      <h3>${race.title || race.id}</h3>
     `;
+    card.appendChild(header);
+
+    const list = document.createElement('ul');
+    const rows = [
+      { label: 'Date', value: formatDate(race.date) },
+      { label: 'Laps', value: race.laps ?? 'TBC' }
+    ];
+
+    definitions.forEach((field) => {
+      const value = race[field.id];
+      if (value === undefined || value === null || value === '') return;
+      let formatted = value;
+      if (typeof field.format === 'function') {
+        formatted = field.format(value);
+      } else if (Array.isArray(value)) {
+        formatted = value.join(', ');
+      }
+      rows.push({
+        label: field.displayLabel || field.label,
+        value: formatted || 'TBC'
+      });
+    });
+
+    rows.forEach(({ label, value }) => {
+      const li = document.createElement('li');
+      li.innerHTML = `<span>${label}</span><strong>${value}</strong>`;
+      list.appendChild(li);
+    });
+
+    card.appendChild(list);
     container.appendChild(card);
   });
 }

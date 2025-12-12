@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="styles.css" />
     <script src="theme.js" defer></script>
     <script src="counts.js" defer></script>
+    <script src="raceFields.js" defer></script>
     <script src="editor.js" defer></script>
   </head>
   <body class="theme-dark">
@@ -75,10 +76,7 @@
               <label for="race-laps">Laps *</label>
               <input id="race-laps" name="laps" type="number" min="1" required placeholder="15" />
             </div>
-            <div class="form-field">
-              <label for="race-weather">Weather</label>
-              <input id="race-weather" name="weather" placeholder="Dry" />
-            </div>
+            <div id="extra-fields"></div>
           </form>
 
           <div class="editor-output">

@@ -124,6 +124,72 @@ function generateRaceId({ title = '', date = '', track = '' } = {}) {
   return parts.join('-');
 }
 
+function createFieldControl(field) {
+  const type = field.type || 'text';
+  if (type === 'select') {
+    const select = document.createElement('select');
+    (field.options || []).forEach((option) => {
+      const value = typeof option === 'string' ? option : option.value;
+      const label = typeof option === 'string' ? option : option.label;
+      const opt = document.createElement('option');
+      opt.value = value;
+      opt.textContent = label;
+      select.appendChild(opt);
+    });
+    return select;
+  }
+  if (type === 'textarea') {
+    return document.createElement('textarea');
+  }
+  const input = document.createElement('input');
+  input.type = type === 'number' ? 'number' : type;
+  if (type === 'number') {
+    if (Number.isFinite(field.min)) input.min = field.min;
+    if (Number.isFinite(field.max)) input.max = field.max;
+  }
+  return input;
+}
+
+function renderExtraFields() {
+  const container = document.getElementById('extra-fields');
+  if (!container) return;
+  container.textContent = '';
+  const definitions = window.raceFieldDefinitions || [];
+
+  definitions.forEach((field) => {
+    const wrapper = document.createElement('div');
+    wrapper.className = 'form-field';
+
+    const label = document.createElement('label');
+    label.setAttribute('for', field.id);
+    label.textContent = field.label;
+    wrapper.appendChild(label);
+
+    const control = createFieldControl(field);
+    control.id = field.id;
+    control.name = field.id;
+    if (field.placeholder) control.placeholder = field.placeholder;
+    if (field.defaultValue !== undefined) control.value = field.defaultValue;
+
+    wrapper.appendChild(control);
+    container.appendChild(wrapper);
+  });
+}
+
+function parseFieldValue(field, rawValue) {
+  if (rawValue === null || rawValue === undefined) return undefined;
+  let value = typeof rawValue === 'string' ? rawValue.trim() : rawValue;
+  if (value === '') return undefined;
+  if (typeof field.parse === 'function') {
+    value = field.parse(value);
+  } else if (field.type === 'number') {
+    const parsed = Number(value);
+    value = Number.isFinite(parsed) ? parsed : undefined;
+  }
+  if (Array.isArray(value) && value.length === 0) return undefined;
+  return value;
+}
+
 function buildRaceObject(form) {
   const formData = new FormData(form);
   const lapsValue = Number.parseInt(formData.get('laps'), 10);
@@ -137,9 +203,16 @@ function buildRaceObject(form) {
     track,
     variant: formData.get('variant'),
     date,
-    laps: Number.isFinite(lapsValue) && lapsValue > 0 ? lapsValue : undefined,
-    weather: formData.get('weather').trim()
+    laps: Number.isFinite(lapsValue) && lapsValue > 0 ? lapsValue : undefined
   };
+
+  const definitions = window.raceFieldDefinitions || [];
+  definitions.forEach((field) => {
+    const value = parseFieldValue(field, formData.get(field.id));
+    if (value !== undefined) {
+      race[field.id] = value;
+    }
+  });
 
   Object.keys(race).forEach((key) => {
     if (race[key] === '' || race[key] === undefined) {
@@ -209,6 +282,7 @@ async function initEditor() {
   try {
     const { tracks, races } = await loadEditorData();
     populateTrackSelect(tracks);
+    renderExtraFields();
     const existingIds = new Set(races.map((race) => race.id));
 
     const update = () => updatePreview(form, existingIds);
