@@ -173,6 +173,26 @@ function renderExtraFields() {
     control.name = field.id;
     if (field.placeholder) control.placeholder = field.placeholder;
     if (field.defaultValue !== undefined) control.value = field.defaultValue;
+    const updateValidityState = () => {
+      if (control.type === 'number') {
+        const numeric = Number(control.value);
+        const belowMin = Number.isFinite(field.min) && numeric < field.min;
+        const aboveMax = Number.isFinite(field.max) && numeric > field.max;
+        if (!Number.isFinite(numeric) || belowMin || aboveMax) {
+          wrapper.classList.add('form-field--invalid');
+          return;
+        }
+      }
+      if (!control.checkValidity()) {
+        wrapper.classList.add('form-field--invalid');
+      } else {
+        wrapper.classList.remove('form-field--invalid');
+      }
+    };
+    control.addEventListener('input', updateValidityState);
+    control.addEventListener('blur', updateValidityState);
+    control.addEventListener('change', updateValidityState);
+    updateValidityState();
 
     wrapper.appendChild(control);
     container.appendChild(wrapper);
@@ -235,10 +255,12 @@ function buildRaceObject(form) {
 function updatePreview(form, existingIds) {
   const preview = document.getElementById('race-json-preview');
   const warning = document.getElementById('id-warning');
+  const copyButton = document.getElementById('copy-json');
   if (!preview) return;
 
   const race = buildRaceObject(form);
   const raceId = race.id;
+  let hasError = false;
   if (warning) {
     if (!race.title || !race.date) {
       warning.hidden = true;
@@ -247,11 +269,26 @@ function updatePreview(form, existingIds) {
       warning.hidden = false;
       warning.textContent = `ID conflict: ${raceId} already exists. Adjust the title or date.`;
       warning.classList.add('warning');
+      hasError = true;
     } else {
       warning.hidden = false;
       warning.textContent = `Generated ID: ${raceId}`;
       warning.classList.remove('warning');
     }
+  }
+
+  if (copyButton) {
+    const invalidInputs = form.querySelectorAll('input:invalid, select:invalid, textarea:invalid');
+    const allFields = form.querySelectorAll('.form-field');
+    allFields.forEach((field) => field.classList.remove('form-field--invalid'));
+    invalidInputs.forEach((el) => {
+      const wrapper = el.closest('.form-field');
+      if (wrapper) {
+        wrapper.classList.add('form-field--invalid');
+      }
+    });
+    const hasInvalid = form.querySelector('.form-field--invalid');
+    copyButton.disabled = hasError || hasInvalid || !form.checkValidity();
   }
 
   const formatted = JSON.stringify(race, null, 2);

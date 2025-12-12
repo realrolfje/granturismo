@@ -286,7 +286,7 @@ body.theme-light .theme-toggle {
 .editor-form {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 1rem;
+  gap: 0.75rem;
 }
 
 .editor-form .form-field--span-2 {
@@ -296,7 +296,8 @@ body.theme-light .theme-toggle {
 .form-field {
   display: flex;
   flex-direction: column;
-  gap: 0.35rem;
+  gap: 0.25rem;
+  min-height: 95px;
 }
 
 .form-field label {
@@ -315,6 +316,14 @@ body.theme-light .theme-toggle {
   background: rgba(0, 0, 0, 0.15);
   color: var(--text);
   font-size: 1rem;
+  transition: border-color 150ms ease, background 150ms ease;
+}
+
+.form-field--invalid input,
+.form-field--invalid select,
+.form-field--invalid textarea {
+  border-color: #ff6b6b !important;
+  background: rgba(255, 107, 107, 0.1) !important;
 }
 
 #extra-fields {
@@ -386,6 +395,12 @@ body.theme-light .form-field textarea {
 .copy-btn {
   font-size: 0.65rem;
   padding: 0.45rem 0.75rem;
+  transition: opacity 150ms ease;
+}
+
+.copy-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
 }
 
 .json-preview {

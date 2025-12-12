@@ -62,16 +62,15 @@
       "date": "2025-12-10"
     },
     {
-      "id": "2026-01-02-test-24h",
-      "title": "test 24h",
-      "track": "24 Heures du Mans race track",
-      "variant": "No chicane",
-      "date": "2026-01-02",
+      "id": "race",
+      "variant": null,
+      "laps": 15,
       "weather": "Dry",
       "allowedTyres": [
         "Racing Soft",
         "Racing Medium"
-      ]
+      ],
+      "raceNotes": "Ricardo zegt hoi"
     }
   ]
 }

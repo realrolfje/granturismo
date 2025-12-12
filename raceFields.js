@@ -30,6 +30,20 @@
       displayLabel: 'Tyres'
     },
     {
+      id: 'fuelingSpeed',
+      label: 'Fueling Speed (L/s)',
+      type: 'number',
+      min: 3,
+      max: 20,
+      defaultValue: 3,
+      parse: (value) => {
+        const parsed = Number.parseInt(value, 10);
+        if (!Number.isFinite(parsed)) return 3;
+        return Math.min(20, Math.max(3, parsed));
+      },
+      displayLabel: 'Fueling Speed'
+    },
+    {
       id: 'raceNotes',
       label: 'Special Notes',
       type: 'textarea',
