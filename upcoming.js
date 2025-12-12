@@ -81,11 +81,7 @@ function renderUpcoming(races = [], completedSet = new Set()) {
     details.className = 'upcoming-card__details';
 
     const list = document.createElement('ul');
-    const rows = [
-      { label: 'Date', value: formatDate(race.date) },
-      { label: 'Track', value: buildTrackLabel(race) },
-      { label: 'Laps', value: race.laps ?? 'TBC' }
-    ];
+    const rows = [{ label: 'Laps', value: race.laps ?? 'TBC' }];
 
     definitions.forEach((field) => {
       const value = race[field.id];
