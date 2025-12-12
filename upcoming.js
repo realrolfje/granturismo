@@ -33,7 +33,11 @@ function renderUpcoming(races = [], completedSet = new Set()) {
   container.textContent = '';
 
   const upcoming = (races || []).filter((race) => !completedSet.has(race.id));
-  upcoming.sort((a, b) => new Date(a.date || 0) - new Date(b.date || 0));
+  upcoming.sort((a, b) => {
+    const timeA = a.date ? new Date(a.date).getTime() : Number.MAX_SAFE_INTEGER;
+    const timeB = b.date ? new Date(b.date).getTime() : Number.MAX_SAFE_INTEGER;
+    return timeA - timeB;
+  });
 
   const pillText = upcoming.length ? `Upcoming Races (${upcoming.length})` : 'Upcoming Races';
   if (pill) {
