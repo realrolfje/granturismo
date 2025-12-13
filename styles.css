@@ -330,6 +330,38 @@ body.theme-light .theme-toggle {
   display: contents;
 }
 
+.repeatable-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.repeatable-row {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.repeatable-row select {
+  flex: 1;
+}
+
+.repeatable-add-btn,
+.repeatable-remove-btn {
+  font-size: 0.75rem;
+  padding: 0.3rem 0.75rem;
+  border: 1px solid var(--border);
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--text);
+  border-radius: 999px;
+  cursor: pointer;
+}
+
+.repeatable-remove-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
 body.theme-light .form-field input,
 body.theme-light .form-field select,
 body.theme-light .form-field textarea {

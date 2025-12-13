@@ -152,11 +152,113 @@ function createFieldControl(field) {
 
 function renderExtraFields() {
   const container = document.getElementById('extra-fields');
+  const form = document.getElementById('race-form');
   if (!container) return;
   container.textContent = '';
   const definitions = window.raceFieldDefinitions || [];
 
-  definitions.forEach((field) => {
+  const dispatchFormEvent = () => {
+    if (form) {
+      form.dispatchEvent(new Event('input', { bubbles: true }));
+    }
+  };
+
+  const createRepeatableSelect = (field, wrapper) => {
+    const list = document.createElement('div');
+    list.className = 'repeatable-list';
+    const addButton = document.createElement('button');
+    addButton.type = 'button';
+    addButton.className = 'pill-link repeatable-add-btn';
+    addButton.textContent = field.addButtonLabel || 'Add entry';
+
+    const minItems = Number.isFinite(field.minItems) ? field.minItems : 1;
+    const maxItems = Number.isFinite(field.maxItems) ? field.maxItems : Infinity;
+
+    const getDefaultEntry = () => {
+      if (Array.isArray(field.defaultValue) && field.defaultValue.length) {
+        return field.defaultValue[0];
+      }
+      const [firstOption] = field.options || [];
+      if (!firstOption) return '';
+      if (typeof firstOption === 'string') return firstOption;
+      return firstOption.value;
+    };
+
+    const values = Array.isArray(field.defaultValue) ? field.defaultValue.slice() : [];
+    while (values.length < minItems) {
+      values.push(getDefaultEntry());
+    }
+
+    const updateValidity = () => {
+      const invalidSelect = wrapper.querySelector('select:invalid');
+      if (invalidSelect || !values.length) {
+        wrapper.classList.add('form-field--invalid');
+        wrapper.dataset.repeatableInvalid = 'true';
+      } else {
+        wrapper.classList.remove('form-field--invalid');
+        delete wrapper.dataset.repeatableInvalid;
+      }
+    };
+
+    const renderRows = () => {
+      list.textContent = '';
+      values.forEach((value, index) => {
+        const row = document.createElement('div');
+        row.className = 'repeatable-row';
+
+        const select = document.createElement('select');
+        select.name = `${field.id}[]`;
+        select.required = true;
+        (field.options || []).forEach((option) => {
+          const optionValue = typeof option === 'string' ? option : option.value;
+          const optionLabel = typeof option === 'string' ? option : option.label;
+          const opt = document.createElement('option');
+          opt.value = optionValue;
+          opt.textContent = optionLabel;
+          if (optionValue === value) opt.selected = true;
+          select.appendChild(opt);
+        });
+
+        select.addEventListener('change', () => {
+          values[index] = select.value;
+          updateValidity();
+          dispatchFormEvent();
+        });
+
+        const removeButton = document.createElement('button');
+        removeButton.type = 'button';
+        removeButton.className = 'repeatable-remove-btn';
+        removeButton.textContent = 'Remove';
+        removeButton.disabled = values.length <= minItems;
+        removeButton.addEventListener('click', () => {
+          if (values.length <= minItems) return;
+          values.splice(index, 1);
+          renderRows();
+          dispatchFormEvent();
+        });
+
+        row.appendChild(select);
+        row.appendChild(removeButton);
+        list.appendChild(row);
+      });
+      addButton.disabled = values.length >= maxItems;
+      updateValidity();
+    };
+
+    addButton.addEventListener('click', () => {
+      if (values.length >= maxItems) return;
+      values.push(getDefaultEntry());
+      renderRows();
+      dispatchFormEvent();
+    });
+
+    renderRows();
+
+    wrapper.appendChild(list);
+    wrapper.appendChild(addButton);
+  };
+
+  const renderField = (field) => {
     const wrapper = document.createElement('div');
     wrapper.className = 'form-field';
     if (field.span === 2) {
@@ -164,9 +266,17 @@ function renderExtraFields() {
     }
 
     const label = document.createElement('label');
-    label.setAttribute('for', field.id);
+    if (field.type !== 'repeatable-select') {
+      label.setAttribute('for', field.id);
+    }
     label.textContent = field.label;
     wrapper.appendChild(label);
+
+    if (field.type === 'repeatable-select') {
+      createRepeatableSelect(field, wrapper);
+      container.appendChild(wrapper);
+      return wrapper;
+    }
 
     const control = createFieldControl(field);
     control.id = field.id;
@@ -196,7 +306,10 @@ function renderExtraFields() {
 
     wrapper.appendChild(control);
     container.appendChild(wrapper);
-  });
+    return wrapper;
+  };
+
+  definitions.forEach((field) => renderField(field));
 }
 
 function parseFieldValue(field, rawValue) {
@@ -237,8 +350,14 @@ function buildRaceObject(form) {
 
   const definitions = window.raceFieldDefinitions || [];
   definitions.forEach((field) => {
-    const value = parseFieldValue(field, formData.get(field.id));
-    if (value !== undefined) {
+    let value;
+    if (field.type === 'repeatable-select') {
+      const values = formData.getAll(`${field.id}[]`).filter(Boolean);
+      value = values.length ? values : field.defaultValue || [];
+    } else {
+      value = parseFieldValue(field, formData.get(field.id));
+    }
+    if (value !== undefined && !(Array.isArray(value) && value.length === 0)) {
       race[field.id] = value;
     }
   });
@@ -274,6 +393,8 @@ function updatePreview(form, existingIds) {
         wrapper.classList.add('form-field--invalid');
       }
     });
+    const repeatableInvalids = form.querySelectorAll('.form-field[data-repeatable-invalid="true"]');
+    repeatableInvalids.forEach((wrapper) => wrapper.classList.add('form-field--invalid'));
     const hasInvalid = form.querySelector('.form-field--invalid');
     copyButton.disabled = hasError || hasInvalid || !form.checkValidity();
   }
