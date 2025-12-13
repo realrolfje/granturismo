@@ -64,7 +64,7 @@
       "roomMode": "Practice/Race",
       "raceType": "Race for Fun",
       "maxParticipants": 10,
-      "autoStart": 4,
+      "autoStart": 0,
       "weather": "Dry",
       "allowedTyres": [
         "Racing Soft",
