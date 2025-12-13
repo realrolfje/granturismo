@@ -166,10 +166,6 @@ function renderExtraFields() {
   const createRepeatableSelect = (field, wrapper) => {
     const list = document.createElement('div');
     list.className = 'repeatable-list';
-    const addButton = document.createElement('button');
-    addButton.type = 'button';
-    addButton.className = 'pill-link repeatable-add-btn';
-    addButton.textContent = field.addButtonLabel || 'Add entry';
 
     const minItems = Number.isFinite(field.minItems) ? field.minItems : 1;
     const maxItems = Number.isFinite(field.maxItems) ? field.maxItems : Infinity;
@@ -225,37 +221,46 @@ function renderExtraFields() {
           dispatchFormEvent();
         });
 
-        const removeButton = document.createElement('button');
-        removeButton.type = 'button';
-        removeButton.className = 'repeatable-remove-btn';
-        removeButton.textContent = 'Remove';
-        removeButton.disabled = values.length <= minItems;
-        removeButton.addEventListener('click', () => {
-          if (values.length <= minItems) return;
-          values.splice(index, 1);
-          renderRows();
-          dispatchFormEvent();
-        });
-
+        const isLast = index === values.length - 1;
+        const canAddMore = values.length < maxItems;
+        const canRemove = values.length > minItems;
+        const actionButton = document.createElement('button');
+        actionButton.type = 'button';
+        actionButton.className = 'repeatable-action-btn';
         row.appendChild(select);
-        row.appendChild(removeButton);
+        row.appendChild(actionButton);
+
+        if (isLast) {
+          actionButton.classList.add('repeatable-add-btn');
+          actionButton.textContent = '+';
+          actionButton.title = field.addButtonLabel || 'Add entry';
+          actionButton.disabled = !canAddMore;
+          actionButton.addEventListener('click', () => {
+            if (!canAddMore) return;
+            values.push(getDefaultEntry());
+            renderRows();
+            dispatchFormEvent();
+          });
+        } else {
+          actionButton.classList.add('repeatable-remove-btn');
+          actionButton.textContent = '-';
+          actionButton.disabled = !canRemove;
+          actionButton.addEventListener('click', () => {
+            if (!canRemove) return;
+            values.splice(index, 1);
+            renderRows();
+            dispatchFormEvent();
+          });
+        }
+
         list.appendChild(row);
       });
-      addButton.disabled = values.length >= maxItems;
       updateValidity();
     };
-
-    addButton.addEventListener('click', () => {
-      if (values.length >= maxItems) return;
-      values.push(getDefaultEntry());
-      renderRows();
-      dispatchFormEvent();
-    });
 
     renderRows();
 
     wrapper.appendChild(list);
-    wrapper.appendChild(addButton);
   };
 
   const renderField = (field) => {

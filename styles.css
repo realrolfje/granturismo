@@ -346,20 +346,57 @@ body.theme-light .theme-toggle {
   flex: 1;
 }
 
-.repeatable-add-btn,
-.repeatable-remove-btn {
-  font-size: 0.75rem;
-  padding: 0.3rem 0.75rem;
+.repeatable-action-btn {
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
   border: 1px solid var(--border);
-  background: rgba(255, 255, 255, 0.05);
+  background: rgba(255, 255, 255, 0.08);
   color: var(--text);
-  border-radius: 999px;
+  font-size: 1.1rem;
+  font-weight: 600;
   cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.repeatable-remove-btn:disabled {
+.repeatable-add-btn {
+  background: #1aa750;
+  border-color: #1aa750;
+  color: #fff;
+}
+
+.repeatable-remove-btn {
+  background: #c62828;
+  border-color: #c62828;
+  color: #fff;
+}
+
+.repeatable-action-btn:disabled {
   opacity: 0.4;
   cursor: not-allowed;
+}
+
+body.theme-light .repeatable-action-btn {
+  background: rgba(0, 0, 0, 0.04);
+  color: #0b0d17;
+}
+
+body.theme-light .repeatable-action-btn {
+  border-color: rgba(0, 0, 0, 0.2);
+}
+
+body.theme-light .repeatable-add-btn {
+  background: #15a14a;
+  border-color: #15a14a;
+  color: #fff;
+}
+
+body.theme-light .repeatable-remove-btn {
+  background: #d32f2f;
+  border-color: #d32f2f;
+  color: #fff;
 }
 
 body.theme-light .form-field input,
