@@ -334,6 +334,7 @@ body.theme-light .theme-toggle {
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
+  margin-bottom: 1.5rem;
 }
 
 .repeatable-row {
