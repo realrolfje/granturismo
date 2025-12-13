@@ -66,6 +66,26 @@
       defaultValue: 'Dry'
     },
     {
+      id: 'timeOfDay',
+      label: 'Time of Day',
+      type: 'select',
+      options: [option('Dawn'), option('Sunrise'), option('Early Morning'), option('Late Morning'), option('Afternoon'), option('Evening'), option('Sunset'), option('Twilight'), option('Night')],
+      defaultValue: 'Afternoon'
+    },
+    {
+      id: 'variableTimeSpeet',
+      label: 'Variable Time Speed Rate',
+      type: 'number',
+      min: 0,
+      max: 30,
+      defaultValue: 1,
+      parse: (value) => {
+        const parsed = Number.parseInt(value, 10);
+        if (!Number.isFinite(parsed)) return 1;
+        return Math.min(30, Math.max(0, parsed));
+      }
+    },
+    {
       id: 'allowedTyres',
       label: 'Allowed Tyres',
       type: 'text',
