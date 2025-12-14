@@ -51,6 +51,8 @@ function renderUpcoming(races = [], completedSet = new Set()) {
   }
 
   const definitions = window.raceFieldDefinitions || [];
+  const definitionMap = new Map(definitions.map((field) => [field.id, field]));
+  const fieldGroups = window.raceFieldGroups || [];
 
   upcoming.forEach((race) => {
     const card = document.createElement('article');
@@ -80,34 +82,66 @@ function renderUpcoming(races = [], completedSet = new Set()) {
     const details = document.createElement('div');
     details.className = 'upcoming-card__details';
 
-    const list = document.createElement('ul');
-    const rows = [{ label: 'Laps', value: race.laps ?? 'TBC' }];
+    const detailGroups = [
+      {
+        label: 'Event Basics',
+        rows: [
+          { label: 'Title', value: race.title || race.id || 'TBC' },
+          { label: 'Date', value: formatDate(race.date) }
+        ]
+      },
+      {
+        label: 'Track Details',
+        rows: [{ label: 'Track', value: buildTrackLabel(race) }]
+      }
+    ];
 
-    definitions.forEach((field) => {
-      const value = race[field.id];
-      if (value === undefined || value === null || value === '') return;
-      let formatted = value;
-      if (typeof field.format === 'function') {
-        formatted = field.format(value);
-      } else if (Array.isArray(value)) {
-        formatted = value.join(', ');
-      }
-      if (field.unit && formatted !== 'Off') {
-        formatted = `${formatted} ${field.unit}`;
-      }
-      rows.push({
-        label: field.displayLabel || field.label,
-        value: formatted || 'TBC'
+    const dynamicGroups = fieldGroups
+      .map((group) => {
+        const rows = [];
+        (group.fields || []).forEach((field) => {
+          const definition = definitionMap.get(field.id) || field;
+          const value = race[field.id];
+          if (value === undefined || value === null || value === '' || (Array.isArray(value) && !value.length)) return;
+          let formatted = value;
+          if (typeof definition.format === 'function') {
+            formatted = definition.format(value);
+          } else if (Array.isArray(value)) {
+            formatted = value.join(', ');
+          }
+          if (definition.unit && formatted !== 'Off') {
+            formatted = `${formatted} ${definition.unit}`;
+          }
+          rows.push({
+            label: definition.displayLabel || definition.label,
+            value: formatted || 'TBC'
+          });
+        });
+        if (!rows.length) return null;
+        return { label: group.label, rows };
+      })
+      .filter(Boolean);
+
+    detailGroups.push(...dynamicGroups);
+
+    detailGroups
+      .filter((group) => Array.isArray(group.rows) && group.rows.length)
+      .forEach((group) => {
+        const groupWrapper = document.createElement('div');
+        groupWrapper.className = 'upcoming-detail-group';
+        const heading = document.createElement('h4');
+        heading.className = 'upcoming-detail-group__title';
+        heading.textContent = group.label;
+        groupWrapper.appendChild(heading);
+        const list = document.createElement('ul');
+        group.rows.forEach(({ label, value }) => {
+          const li = document.createElement('li');
+          li.innerHTML = `<span>${label}</span><strong>${value}</strong>`;
+          list.appendChild(li);
+        });
+        groupWrapper.appendChild(list);
+        details.appendChild(groupWrapper);
       });
-    });
-
-    rows.forEach(({ label, value }) => {
-      const li = document.createElement('li');
-      li.innerHTML = `<span>${label}</span><strong>${value}</strong>`;
-      list.appendChild(li);
-    });
-
-    details.appendChild(list);
 
     const toggleDetails = () => {
       const expanded = card.getAttribute('aria-expanded') === 'true';

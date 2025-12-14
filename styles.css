@@ -300,6 +300,18 @@ body.theme-light .theme-toggle {
   min-height: 95px;
 }
 
+.form-group-heading {
+  grid-column: 1 / -1;
+  margin: 0.35rem 0 0.2rem;
+  padding: 0.25rem 0.6rem;
+  font-size: 0.75rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--muted);
+  background: linear-gradient(90deg, rgba(255, 196, 0, 0.2), rgba(255, 196, 0, 0.08));
+  border-radius: 0.5rem;
+}
+
 .form-field label {
   font-size: 0.8rem;
   letter-spacing: 0.08em;
@@ -536,6 +548,27 @@ body.theme-light .json-preview {
   display: none;
   padding: 0 1.25rem 1rem;
   border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.upcoming-detail-group {
+  padding-top: 0.75rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.upcoming-detail-group:first-child {
+  border-top: none;
+  padding-top: 0.5rem;
+}
+
+.upcoming-detail-group__title {
+  margin: 0 0 0.5rem;
+  font-size: 0.75rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--muted);
+  background: linear-gradient(90deg, rgba(255, 168, 0, 0.2), rgba(255, 168, 0, 0.05));
+  padding: 0.3rem 0.65rem;
+  border-radius: 0.45rem;
 }
 
 .upcoming-card__details ul {

@@ -156,6 +156,7 @@ function renderExtraFields() {
   if (!container) return;
   container.textContent = '';
   const definitions = window.raceFieldDefinitions || [];
+  const groups = window.raceFieldGroups || [];
 
   const dispatchFormEvent = () => {
     if (form) {
@@ -288,6 +289,7 @@ function renderExtraFields() {
     control.name = field.id;
     if (field.placeholder) control.placeholder = field.placeholder;
     if (field.defaultValue !== undefined) control.value = field.defaultValue;
+    if (field.required) control.required = true;
     const updateValidityState = () => {
       if (control.type === 'number') {
         const numeric = Number(control.value);
@@ -314,7 +316,19 @@ function renderExtraFields() {
     return wrapper;
   };
 
-  definitions.forEach((field) => renderField(field));
+  if (groups.length) {
+    groups.forEach((group) => {
+      if (group.label) {
+        const heading = document.createElement('div');
+        heading.className = 'form-group-heading';
+        heading.textContent = group.label;
+        container.appendChild(heading);
+      }
+      (group.fields || []).forEach((field) => renderField(field));
+    });
+  } else {
+    definitions.forEach((field) => renderField(field));
+  }
 }
 
 function parseFieldValue(field, rawValue) {
@@ -339,7 +353,6 @@ function parseFieldValue(field, rawValue) {
 
 function buildRaceObject(form) {
   const formData = new FormData(form);
-  const lapsValue = Number.parseInt(formData.get('laps'), 10);
   const title = formData.get('title')?.trim() || '';
   const track = formData.get('track')?.trim() || '';
   const date = formData.get('date') || '';
@@ -349,8 +362,7 @@ function buildRaceObject(form) {
     title,
     track,
     variant: formData.get('variant'),
-    date,
-    laps: Number.isFinite(lapsValue) && lapsValue > 0 ? lapsValue : Number.parseInt(form.querySelector('#race-laps')?.getAttribute('value'), 10) || undefined
+    date
   };
 
   const definitions = window.raceFieldDefinitions || [];
