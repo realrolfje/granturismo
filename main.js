@@ -308,10 +308,7 @@ function renderStandings({ driverStandings, teamStandings, drivers, races }) {
       <td>${index + 1}</td>
       <td>
         <div class="driver-row__header">
-          <span>${driver?.name || entry.driverId}</span>
-          <button class="driver-row__toggle" aria-label="Toggle breakdown for ${
-            driver?.name || entry.driverId
-          }" aria-expanded="false" aria-controls="${rowId}-details">Details</button>
+          <span class="driver-row__name">${driver?.name || entry.driverId}</span>
         </div>
       </td>
       <td>${entry.points}</td>
@@ -362,24 +359,14 @@ function renderStandings({ driverStandings, teamStandings, drivers, races }) {
       detailsTr.classList.add('standings-row-alt');
     }
 
-    const toggle = tr.querySelector('.driver-row__toggle');
     const toggleRow = () => {
       const expanded = tr.getAttribute('aria-expanded') === 'true';
       tr.setAttribute('aria-expanded', String(!expanded));
-      toggle.setAttribute('aria-expanded', String(!expanded));
       detailsTr.setAttribute('aria-hidden', String(expanded));
       detailsTr.classList.toggle('driver-row__details--open', !expanded);
     };
 
-    toggle.addEventListener('click', (event) => {
-      event.stopPropagation();
-      toggleRow();
-    });
-
     tr.addEventListener('click', (event) => {
-      if (event.target instanceof HTMLElement && event.target.closest('button')) {
-        return;
-      }
       toggleRow();
     });
 
@@ -410,7 +397,6 @@ function renderStandings({ driverStandings, teamStandings, drivers, races }) {
       <td>
         <div class="team-row__header">
           <span class="team-pill" style="background:${teamColor};color:${pillTextColor}">${entry.name}</span>
-          <button class="team-row__toggle" aria-label="Toggle driver breakdown for ${entry.name}" aria-expanded="false" aria-controls="${rowId}-details">Details</button>
         </div>
       </td>
       <td>${entry.points}</td>
@@ -456,24 +442,14 @@ function renderStandings({ driverStandings, teamStandings, drivers, races }) {
       </td>
     `;
 
-    const toggleButton = tr.querySelector('.team-row__toggle');
     const toggleRow = () => {
       const expanded = tr.getAttribute('aria-expanded') === 'true';
       tr.setAttribute('aria-expanded', String(!expanded));
-      toggleButton.setAttribute('aria-expanded', String(!expanded));
       detailsTr.setAttribute('aria-hidden', String(expanded));
       detailsTr.classList.toggle('team-row__details--open', !expanded);
     };
 
-    toggleButton.addEventListener('click', (event) => {
-      event.stopPropagation();
-      toggleRow();
-    });
-
     tr.addEventListener('click', (event) => {
-      if (event.target instanceof HTMLElement && event.target.closest('button')) {
-        return;
-      }
       toggleRow();
     });
 

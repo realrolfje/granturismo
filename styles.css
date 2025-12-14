@@ -791,16 +791,13 @@ body.theme-light .json-preview {
 }
 
 .standings-row-alt td {
-  background-color: rgba(137, 136, 136, 0.091);
+  background-color: rgb(245, 245, 245);
 }
 
 .standings-table tbody tr.expandable-row {
   cursor: pointer;
+  height: 3em;
   transition: background 150ms ease;
-}
-
-.standings-table tbody tr.expandable-row:hover {
-  background: rgba(224, 71, 71, 0.04);
 }
 
 .driver-row__header {
@@ -810,21 +807,12 @@ body.theme-light .json-preview {
   gap: 0.5rem;
 }
 
-.driver-row__toggle {
-  border: 1px solid var(--border);
-  background: transparent;
-  color: var(--muted);
-  border-radius: 999px;
-  padding: 0.1rem 0.8rem;
-  font-size: 0.75rem;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  cursor: pointer;
-}
-
-.driver-row__toggle:focus-visible {
-  outline: 2px solid var(--accent);
-  outline-offset: 2px;
+.driver-row__name {
+  flex: 1;
+  min-width: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .driver-row__details {
@@ -868,7 +856,6 @@ body.theme-light .json-preview {
   justify-content: space-between;
   align-items: center;
   gap: 0.5rem;
-  min-height: 0;
 }
 
 .team-pill {
@@ -881,16 +868,9 @@ body.theme-light .json-preview {
   border-radius: 999px;
   letter-spacing: 0.02em;
   text-transform: uppercase;
-}
-
-.team-row__toggle {
-  background: none;
-  border: 1px solid var(--border);
-  color: var(--text);
-  padding: 0.2rem 0.65rem;
-  border-radius: 999px;
-  cursor: pointer;
-  font-size: 0.75rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .team-row__details {
@@ -902,16 +882,14 @@ body.theme-light .json-preview {
 }
 
 .team-row__details td {
-  background-color: inherit;
   border-bottom: none;
   padding-top: 0;
 }
 
 .team-row__details-wrapper {
-  padding: 0.35rem 0.5rem 0.65rem;
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 0.15rem 0.75rem 0.5rem;
+  border: 1px solid rgba(140, 139, 139, 0.55);
   border-radius: 0.5rem;
-  background: inherit;
 }
 
 .team-row__details table {
