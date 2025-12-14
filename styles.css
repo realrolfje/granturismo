@@ -296,8 +296,8 @@ body.theme-light .theme-toggle {
 .form-field {
   display: flex;
   flex-direction: column;
+  margin-bottom: 0.5em;
   gap: 0.25rem;
-  min-height: 95px;
 }
 
 .form-field__label-row {
@@ -408,6 +408,13 @@ body.theme-light .theme-toggle {
   display: flex;
   align-items: center;
   gap: 0.5rem;
+  position: relative;
+}
+
+.multi-select__option input {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
 }
 
 .multi-select__marker {
@@ -423,9 +430,13 @@ body.theme-light .theme-toggle {
 }
 
 .multi-select__option input:checked + .multi-select__marker {
-  background: var(--accent);
-  border-color: var(--accent);
+  background: #1aa750;
+  border-color: #1aa750;
   color: #fff;
+}
+
+.multi-select__marker {
+  cursor: pointer;
 }
 
 .multi-select__option input:checked + .multi-select__marker::after {

@@ -167,6 +167,10 @@ function createFieldControl(field) {
       optionWrapper.appendChild(marker);
       optionWrapper.appendChild(labelText);
       wrapper.appendChild(optionWrapper);
+      marker.addEventListener('click', () => {
+        input.checked = !input.checked;
+        input.dispatchEvent(new Event('change', { bubbles: true }));
+      });
     });
     return wrapper;
   }
@@ -383,19 +387,23 @@ function renderExtraFields() {
 
     const control = createFieldControl(field);
     control.id = field.id;
-    control.name = field.id;
+    if (field.type !== 'multi-select') {
+      control.name = field.id;
+    }
     if (field.placeholder) control.placeholder = field.placeholder;
     if (field.defaultValue !== undefined) {
       if (field.type === 'multi-select' && Array.isArray(field.defaultValue)) {
         const defaults = new Set(field.defaultValue.map((val) => String(val)));
-        Array.from(control.options || []).forEach((option) => {
-          option.selected = defaults.has(option.value);
+        Array.from(control.querySelectorAll('input[type="checkbox"]') || []).forEach((checkbox) => {
+          const isDefault = defaults.has(checkbox.value);
+          checkbox.checked = isDefault;
+          checkbox.defaultChecked = isDefault;
         });
       } else {
         control.value = field.defaultValue;
       }
     }
-    if (field.required) control.required = true;
+    if (field.required && field.type !== 'multi-select') control.required = true;
     const updateValidityState = () => {
       if (field.type === 'number' || field.type === 'decimal') {
         const numeric = Number(control.value);
@@ -406,23 +414,32 @@ function renderExtraFields() {
           return;
         }
       }
-      if (field.type === 'multi-select' && field.required) {
-        const selected = Array.from(control.selectedOptions || []);
-        if (!selected.length) {
+      if (field.type === 'multi-select') {
+        const checkboxes = Array.from(control.querySelectorAll('input[type="checkbox"]') || []);
+        const hasSelection = checkboxes.some((cb) => cb.checked);
+        if (field.required && !hasSelection) {
           wrapper.classList.add('form-field--invalid');
           return;
         }
       }
-      const canCheckValidity = typeof control.checkValidity === 'function';
-      if (canCheckValidity && !control.checkValidity()) {
-        wrapper.classList.add('form-field--invalid');
-      } else {
-        wrapper.classList.remove('form-field--invalid');
+      if (typeof control.checkValidity === 'function') {
+        if (!control.checkValidity()) {
+          wrapper.classList.add('form-field--invalid');
+          return;
+        }
       }
+      wrapper.classList.remove('form-field--invalid');
     };
-    control.addEventListener('input', updateValidityState);
-    control.addEventListener('blur', updateValidityState);
-    control.addEventListener('change', updateValidityState);
+    const attachListeners = (element) => {
+      element.addEventListener('input', updateValidityState);
+      element.addEventListener('blur', updateValidityState);
+      element.addEventListener('change', updateValidityState);
+    };
+    if (field.type === 'multi-select') {
+      control.querySelectorAll('input[type="checkbox"]').forEach((checkbox) => attachListeners(checkbox));
+    } else {
+      attachListeners(control);
+    }
     updateValidityState();
 
     wrapper.appendChild(control);
