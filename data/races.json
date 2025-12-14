@@ -55,10 +55,10 @@
       "weather": "Overcast"
     },
     {
-      "id": "2025-12-31-sdfsdfsdfdsf",
-      "title": "sdfsdfsdfdsf",
+      "id": "2025-12-31-sdfsdfsdfdsfdsfdsf",
+      "title": "sdfsdfsdfdsfdsfdsf",
       "track": "Autodrome Lago Maggiore",
-      "variant": "Center Reverse",
+      "variant": "East End",
       "date": "2025-12-31",
       "roomMode": "Practice/Race",
       "roomPrivacy": "Friends",
@@ -92,10 +92,26 @@
       "qualifyContinuationTime": 60,
       "tyreWearRateQualifier": -1,
       "fuelConsumptionRateQualifier": -1,
-      "allowedTyres": [
-        "Racing Soft",
-        "Racing Medium"
-      ]
+      "initialFuelQualifier": 1,
+      "slipStreamQualifier": "Real",
+      "filteryCategory": "No Limit",
+      "ppLimit": 99,
+      "maxPowerOutput": 97,
+      "minimumWeight": 499,
+      "allowedTyres": "No Limit",
+      "tyreCompounds": [
+        "Hard",
+        "Medium",
+        "Soft"
+      ],
+      "nitrous": "Unrestricted",
+      "kartUsage": "Off",
+      "engineSwap": "Unrestricted",
+      "tuningParts": "Unrestricted",
+      "yearLowerLimit": 1929,
+      "yearUpperLimit": 1929,
+      "driveTrain": "Unrestricted",
+      "aspiration": "Unrestricted"
     }
   ]
 }

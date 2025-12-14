@@ -608,6 +608,109 @@
       ]
     },
     {
+      id: 'penaltySettings',
+      label: 'Penalty Settings',
+      fields: [
+        {
+          id: 'shortcutPenalty',
+          label: 'Shortcut Penalty',
+          type: 'select',
+          options: [option('Off'), option('Weak'), option('Strong')],
+          defaultValue: 'Weak'
+        },
+        {
+          id: 'wallCollisionPenalty',
+          label: 'Wall Collision Penalty',
+          type: 'select',
+          options: [option('Off'), option('Time Penalty (Weak)'), option('Time Penalty (Strong)')],
+          defaultValue: 'Off'
+        },
+        {
+          id: 'correctCourse',
+          label: 'Correct Course After Wall Collision',
+          type: 'select',
+          options: [option('Off'), option('On')],
+          defaultValue: 'On'
+        },
+        {
+          id: 'carcollisionPenalty',
+          label: 'Car Collision Penalty',
+          type: 'select',
+          options: [option('Off'), option('On')],
+          defaultValue: 'On'
+        },
+        {
+          id: 'pitlaneCuttingPenalty',
+          label: 'Pit Lane Cutting Penalty',
+          type: 'select',
+          options: [option('Off'), option('On')],
+          defaultValue: 'On'
+        },
+        {
+          id: 'ghostingDuringRace',
+          label: 'Ghosting During Race',
+          type: 'select',
+          options: [option('Off'), option('On')],
+          defaultValue: 'Off'
+        }
+      ]
+    },
+    {
+      id: 'drivingOptions',
+      label: 'Driving Option Limitations',
+      fields: [
+        {
+          id: 'counterSteeringAssistance',
+          label: 'Counter Steering Assistance',
+          type: 'select',
+          options: [option('No Limit'), option('Prohibited')],
+          defaultValue: 'No Limit'
+        },
+        {
+          id: 'activeStabilityManagement',
+          label: 'Active Stability Management (ASM)',
+          type: 'select',
+          options: [option('No Limit'), option('Prohibited')],
+          defaultValue: 'No Limit'
+        },
+        {
+          id: 'activeStabilityManagement',
+          label: 'Active Stability Management (ASM)',
+          type: 'select',
+          options: [option('No Limit'), option('Prohibited')],
+          defaultValue: 'No Limit'
+        },
+        {
+          id: 'drivingLaneAssist',
+          label: 'Driving Lane Assist',
+          type: 'select',
+          options: [option('No Limit'), option('Prohibited')],
+          defaultValue: 'No Limit'
+        },
+        {
+          id: 'tractionControl',
+          label: 'Traction Control',
+          type: 'select',
+          options: [option('No Limit'), option('Prohibited')],
+          defaultValue: 'No Limit'
+        },
+        {
+          id: 'abs',
+          label: 'ABS',
+          type: 'select',
+          options: [option('No Limit'), option('Prohibited')],
+          defaultValue: 'No Limit'
+        },
+        {
+          id: 'autoDrive',
+          label: 'Auto-Drive',
+          type: 'select',
+          options: [option('No Limit'), option('Prohibited')],
+          defaultValue: 'No Limit'
+        }
+      ]
+    },
+    {
       id: 'notes',
       label: 'Other/Notes',
       fields: [
