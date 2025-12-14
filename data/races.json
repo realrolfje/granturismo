@@ -55,22 +55,29 @@
       "weather": "Overcast"
     },
     {
-      "id": "2025-12-10-sfdsdf",
-      "title": "sfdsdf",
-      "track": "24 Heures du Mans race track",
-      "variant": "No chicane",
-      "date": "2025-12-10",
-      "laps": 15,
+      "id": "2025-12-19-test-4532354324",
+      "title": "Test 4532354324",
+      "track": "Autódromo de Interlagos",
+      "variant": "Full Course",
+      "date": "2025-12-19",
       "roomMode": "Practice/Race",
       "raceType": "Race for Fun",
       "maxParticipants": 10,
       "autoStart": 0,
-      "weather": "Dry",
+      "timeLimit": "--",
+      "laps": 15,
+      "weatherSegments": [
+        "S01 Dry, Cloudless and Pleasant",
+        "S05 Misty, Cloudless and Sunny"
+      ],
+      "timeOfDay": "Afternoon",
+      "variableTimeSpeet": 3,
       "allowedTyres": [
         "Racing Soft",
         "Racing Medium"
       ],
-      "fuelingSpeed": 3
+      "fuelingSpeed": 3,
+      "raceNotes": "Doe je best"
     }
   ]
 }
