@@ -89,15 +89,13 @@
           max: 10,
           defaultValue: 0,
           unit: 'minutes',
+          valueLabels: {
+            0: 'Off'
+          },
           parse: (value) => {
             const parsed = Number.parseInt(value, 10);
             if (!Number.isFinite(parsed)) return 0;
             return Math.min(10, Math.max(0, parsed));
-          },
-          format: (value) => {
-            const numeric = Number(value);
-            if (!Number.isFinite(numeric) || numeric <= 0) return 'Off';
-            return `${numeric}`;
           }
         }
       ]
@@ -168,6 +166,7 @@
           min: 0,
           max: 30,
           defaultValue: 1,
+          unit: 'x',
           parse: (value) => {
             const parsed = Number.parseInt(value, 10);
             if (!Number.isFinite(parsed)) return 1;
@@ -243,6 +242,11 @@
           min: 0,
           max: 50,
           defaultValue: 1,
+          valueLabels: {
+            0: 'Off'
+          },
+
+          unit: 'x',
           parse: (value) => {
             const parsed = Number.parseInt(value, 10);
             if (!Number.isFinite(parsed)) return 1;
@@ -256,6 +260,7 @@
           min: 0,
           max: 50,
           defaultValue: 1,
+          unit: 'x',
           parse: (value) => {
             const parsed = Number.parseInt(value, 10);
             if (!Number.isFinite(parsed)) return 1;
@@ -269,6 +274,7 @@
           min: 1,
           max: 20,
           defaultValue: 3,
+          unit: 'Litre/Sec',
           parse: (value) => {
             const parsed = Number.parseInt(value, 10);
             if (!Number.isFinite(parsed)) return 1;
@@ -277,11 +283,16 @@
         },
         {
           id: 'initialFuel',
-          label: 'Refuelling Speed (0=Default)',
+          label: 'Initial Fuel',
           type: 'number',
           min: 0,
           max: 100,
           defaultValue: 0,
+          valueLabels: {
+            0: 'Default'
+          },
+          unit: 'Litres',
+
           parse: (value) => {
             const parsed = Number.parseInt(value, 10);
             if (!Number.isFinite(parsed)) return 0;
@@ -302,6 +313,7 @@
           min: 30,
           max: 180,
           defaultValue: 60,
+          unit: 'seconds',
           parse: (value) => {
             const parsed = Number.parseInt(value, 10);
             if (!Number.isFinite(parsed)) return 0;
@@ -316,6 +328,10 @@
           max: 10.0,
           step: 0.1,
           defaultValue: 1,
+          unit: 'x',
+          valueLabels: {
+            1: 'Default'
+          },
           parse: (value) => {
             const parsed = Number.parseFloat(value);
             if (!Number.isFinite(parsed)) return 1;

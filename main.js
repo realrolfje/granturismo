@@ -436,20 +436,51 @@ function formatDate(dateStr) {
   return date.toLocaleDateString(undefined, { month: 'short', day: 'numeric', year: 'numeric' });
 }
 
+function getFieldValueLabel(field = {}, value) {
+  const labels = field.valueLabels;
+  if (!labels || value === undefined || value === null) return undefined;
+  if (Array.isArray(value)) return undefined;
+  const keys = [];
+  const asString = String(value);
+  keys.push(asString);
+  const numeric = Number(value);
+  if (Number.isFinite(numeric)) {
+    keys.push(String(numeric));
+    keys.push(numeric.toFixed(1));
+    keys.push(numeric.toFixed(2));
+    keys.push(numeric.toFixed(0));
+  }
+  const seen = new Set();
+  for (const key of keys) {
+    if (seen.has(key)) continue;
+    seen.add(key);
+    if (Object.prototype.hasOwnProperty.call(labels, key)) {
+      return labels[key];
+    }
+  }
+  return undefined;
+}
+
 function formatFieldValueFromDefinition(field = {}, value) {
   if (value === undefined || value === null || value === '' || (Array.isArray(value) && !value.length)) {
     return undefined;
   }
-  let formatted = value;
+  const mapped = getFieldValueLabel(field, value);
+  if (mapped !== undefined) return mapped;
   if (typeof field.format === 'function') {
-    formatted = field.format(value);
-  } else if (Array.isArray(value)) {
-    formatted = value.join(', ');
+    const result = field.format(value);
+    if (field.unit && typeof result === 'number') {
+      return `${result} ${field.unit}`;
+    }
+    return result;
   }
-  if (field.unit && formatted !== 'Off') {
-    formatted = `${formatted} ${field.unit}`;
+  if (Array.isArray(value)) {
+    return value.join(', ');
   }
-  return formatted;
+  if (field.unit && typeof value === 'number') {
+    return `${value} ${field.unit}`;
+  }
+  return value;
 }
 
 function buildRaceDetailGroups(meta = {}, raceId, fieldGroups = [], definitionMap = new Map()) {

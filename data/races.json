@@ -55,29 +55,47 @@
       "weather": "Overcast"
     },
     {
-      "id": "2025-12-19-test-4532354324",
-      "title": "Test 4532354324",
-      "track": "Autódromo de Interlagos",
-      "variant": "Full Course",
-      "date": "2025-12-19",
+      "id": "2025-12-25-sdfsdfsdf",
+      "title": "sdfsdfsdf",
+      "track": "Autopolis International Racing Course",
+      "variant": "Short Course",
+      "date": "2025-12-25",
       "roomMode": "Practice/Race",
+      "roomPrivacy": "Friends",
       "raceType": "Race for Fun",
       "maxParticipants": 10,
       "autoStart": 0,
-      "timeLimit": "--",
       "laps": 15,
+      "timeLimit": "--",
       "weatherSegments": [
         "S01 Dry, Cloudless and Pleasant",
-        "S05 Misty, Cloudless and Sunny"
+        "S01 Dry, Cloudless and Pleasant",
+        "S01 Dry, Cloudless and Pleasant",
+        "S01 Dry, Cloudless and Pleasant",
+        "S01 Dry, Cloudless and Pleasant"
       ],
+      "equalConditions": "Off",
       "timeOfDay": "Afternoon",
-      "variableTimeSpeet": 3,
+      "variableTimeSpeed": 1,
+      "startType": "Fastest First",
+      "gridOrder": "Grid Start",
+      "bopTuning": "Off",
+      "tuningOptionsAllowed": "All",
+      "boost": "Weak",
+      "slipStream": "Real",
+      "visibleDamage": "On",
+      "mechanicalDamage": "Light",
+      "tyreWearRate": 0,
+      "fuelConsumptionRate": 1,
+      "refuellingSpeed": 3,
+      "initialFuel": 0,
+      "gripReduction": "Low",
+      "raceFinishDelay": 60,
+      "nitrousMultiplier": 1,
       "allowedTyres": [
         "Racing Soft",
         "Racing Medium"
-      ],
-      "fuelingSpeed": 3,
-      "raceNotes": "Doe je best"
+      ]
     }
   ]
 }

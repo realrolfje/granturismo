@@ -298,6 +298,14 @@ function renderExtraFields() {
     if (field.placeholder) control.placeholder = field.placeholder;
     if (field.defaultValue !== undefined) control.value = field.defaultValue;
     if (field.required) control.required = true;
+    if (field.valueLabels) {
+      const tooltip = Object.entries(field.valueLabels)
+        .map(([raw, label]) => `${raw} → ${label}`)
+        .join('\n');
+      if (tooltip) {
+        control.title = tooltip;
+      }
+    }
     const updateValidityState = () => {
       if (field.type === 'number' || field.type === 'decimal') {
         const numeric = Number(control.value);
