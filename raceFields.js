@@ -311,14 +311,16 @@
         {
           id: 'nitrousMultiplier',
           label: 'Nitrous/Overtraking Usage Multiplier',
-          type: 'number',
+          type: 'decimal',
           min: 0.1,
           max: 10.0,
+          step: 0.1,
           defaultValue: 1,
           parse: (value) => {
-            const parsed = Number.parseInt(value, 10);
-            if (!Number.isFinite(parsed)) return 0;
-            return Math.min(10.0, Math.max(0.1, parsed));
+            const parsed = Number.parseFloat(value);
+            if (!Number.isFinite(parsed)) return 1;
+            const clamped = Math.min(10, Math.max(0.1, parsed));
+            return Math.round(clamped * 10) / 10;
           }
         }
       ]

@@ -141,11 +141,19 @@ function createFieldControl(field) {
   if (type === 'textarea') {
     return document.createElement('textarea');
   }
+
   const input = document.createElement('input');
-  input.type = type === 'number' ? 'number' : type;
-  if (type === 'number') {
+  const numericTypes = new Set(['number', 'decimal']);
+  const isNumeric = numericTypes.has(type);
+  input.type = isNumeric ? 'number' : type;
+  if (isNumeric) {
     if (Number.isFinite(field.min)) input.min = field.min;
     if (Number.isFinite(field.max)) input.max = field.max;
+    if (field.step) {
+      input.step = field.step;
+    } else if (type === 'decimal') {
+      input.step = '0.1';
+    }
   }
   return input;
 }
@@ -291,7 +299,7 @@ function renderExtraFields() {
     if (field.defaultValue !== undefined) control.value = field.defaultValue;
     if (field.required) control.required = true;
     const updateValidityState = () => {
-      if (control.type === 'number') {
+      if (field.type === 'number' || field.type === 'decimal') {
         const numeric = Number(control.value);
         const belowMin = Number.isFinite(field.min) && numeric < field.min;
         const aboveMax = Number.isFinite(field.max) && numeric > field.max;
@@ -343,7 +351,7 @@ function parseFieldValue(field, rawValue) {
   }
   if (typeof field.parse === 'function') {
     value = field.parse(value);
-  } else if (field.type === 'number') {
+  } else if (field.type === 'number' || field.type === 'decimal') {
     const parsed = Number(value);
     value = Number.isFinite(parsed) ? parsed : undefined;
   }
