@@ -833,11 +833,15 @@ body.theme-light .json-preview {
 
 .driver-row__details--open {
   display: table-row;
-  background-color: inherit;
+}
+
+.driver-row__details td {
+  border-bottom: none;
+  padding-top: 0;
 }
 
 .driver-row__details-wrapper {
-  padding: 0.5rem 0.25rem 0.75rem;
+  padding: 0.15rem 0 0.5rem;
 }
 
 .driver-row__details table {
@@ -885,10 +889,14 @@ body.theme-light .json-preview {
   display: table-row;
 }
 
+.team-row__details td {
+  background-color: inherit;
+  border-bottom: none;
+  padding-top: 0;
+}
+
 .team-row__details-wrapper {
-  padding: 0.5rem 0.5rem 0.75rem;
-  border-radius: 0.5rem;
-  background: rgba(255, 255, 255, 0.02);
+  padding: 0.15rem 0 0.5rem;
 }
 
 .team-row__details table {
