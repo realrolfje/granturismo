@@ -846,9 +846,57 @@ body.theme-light .json-preview {
 }
 
 .team-row {
+  position: relative;
+}
+
+.team-row__header {
   display: flex;
+  justify-content: space-between;
   align-items: center;
   gap: 0.5rem;
+}
+
+.team-row__info {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.team-row__toggle {
+  background: none;
+  border: 1px solid var(--border);
+  color: var(--text);
+  padding: 0.2rem 0.65rem;
+  border-radius: 999px;
+  cursor: pointer;
+  font-size: 0.75rem;
+}
+
+.team-row__details {
+  display: none;
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.team-row__details--open {
+  display: table-row;
+}
+
+.team-row__details-wrapper {
+  padding: 0.5rem 0.5rem 0.75rem;
+  border-radius: 0.5rem;
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.team-row__details table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.team-row__details table th,
+.team-row__details table td {
+  text-align: left;
+  padding: 0.35rem 0.4rem;
+  font-size: 0.85rem;
 }
 
 .team-chip {

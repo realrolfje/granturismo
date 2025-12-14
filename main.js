@@ -176,11 +176,18 @@ function computeTeamStandings({ driverStandings = [], teams = [] }) {
       name: team?.name || 'Independent Drivers',
       color: team?.color || '#ffd166',
       points: 0,
-      wins: 0
+      wins: 0,
+      drivers: []
     };
 
     entry.points += driver.points;
     entry.wins += driver.wins;
+    entry.drivers.push({
+      driverId: driver.driverId,
+      points: driver.points,
+      wins: driver.wins,
+      races: driver.races
+    });
     teamStats.set(teamKey, entry);
   });
 
@@ -373,19 +380,94 @@ function renderStandings({ driverStandings, teamStandings, drivers, races }) {
   });
 
   teamStandings.forEach((entry, index) => {
+    const rowId = `team-${entry.id}`;
     const tr = document.createElement('tr');
+    tr.classList.add('team-row', 'expandable-row');
+    tr.setAttribute('data-team-id', entry.id);
+    tr.setAttribute('aria-expanded', 'false');
+    tr.setAttribute('tabindex', '0');
     tr.innerHTML = `
       <td>${index + 1}</td>
       <td>
-        <div class="team-row">
-          <span class="team-chip" style="background:${entry.color}"></span>
-          <span>${entry.name}</span>
+        <div class="team-row__header">
+          <div class="team-row__info">
+            <span class="team-chip" style="background:${entry.color}"></span>
+            <span>${entry.name}</span>
+          </div>
+          <button class="team-row__toggle" aria-label="Toggle driver breakdown for ${entry.name}" aria-expanded="false" aria-controls="${rowId}-details">Details</button>
         </div>
       </td>
       <td>${entry.points}</td>
       <td>${entry.wins}</td>
     `;
+
+    const detailsTr = document.createElement('tr');
+    detailsTr.classList.add('team-row__details');
+    detailsTr.id = `${rowId}-details`;
+    detailsTr.setAttribute('aria-hidden', 'true');
+
+    const driverRows = (entry.drivers || [])
+      .sort((a, b) => b.points - a.points)
+      .map((driverEntry) => {
+        const driver = driverMap.get(driverEntry.driverId);
+        return `
+          <tr>
+            <td>${driver?.name || driverEntry.driverId}</td>
+            <td>${driverEntry.points} pts</td>
+            <td>${driverEntry.wins} wins</td>
+          </tr>
+        `;
+      });
+
+    detailsTr.innerHTML = `
+      <td colspan="4">
+        <div class="team-row__details-wrapper">
+          <table>
+            <thead>
+              <tr>
+                <th scope="col">Driver</th>
+                <th scope="col">Points</th>
+                <th scope="col">Wins</th>
+              </tr>
+            </thead>
+            <tbody>
+              ${driverRows.join('') || '<tr><td colspan="3">No drivers yet</td></tr>'}
+            </tbody>
+          </table>
+        </div>
+      </td>
+    `;
+
+    const toggleButton = tr.querySelector('.team-row__toggle');
+    const toggleRow = () => {
+      const expanded = tr.getAttribute('aria-expanded') === 'true';
+      tr.setAttribute('aria-expanded', String(!expanded));
+      toggleButton.setAttribute('aria-expanded', String(!expanded));
+      detailsTr.setAttribute('aria-hidden', String(expanded));
+      detailsTr.classList.toggle('team-row__details--open', !expanded);
+    };
+
+    toggleButton.addEventListener('click', (event) => {
+      event.stopPropagation();
+      toggleRow();
+    });
+
+    tr.addEventListener('click', (event) => {
+      if (event.target instanceof HTMLElement && event.target.closest('button')) {
+        return;
+      }
+      toggleRow();
+    });
+
+    tr.addEventListener('keydown', (event) => {
+      if (event.key === 'Enter' || event.key === ' ') {
+        event.preventDefault();
+        toggleRow();
+      }
+    });
+
     teamBody.appendChild(tr);
+    teamBody.appendChild(detailsTr);
   });
 
   const driverLeader = driverStandings.find((entry) => entry.races > 0);
