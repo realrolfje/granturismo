@@ -770,8 +770,79 @@ body.theme-light .json-preview {
   margin: 0.2rem 0 0;
 }
 
+.race-card__title-btn {
+  background: none;
+  border: none;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+  padding: 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.race-card__title-btn::after {
+  content: '›';
+  font-size: 1.1rem;
+  transition: transform 0.2s ease;
+}
+
+.race-card--details-open .race-card__title-btn::after {
+  transform: rotate(90deg);
+}
+
+.race-card__title-btn--static {
+  cursor: default;
+}
+
 .race-card__meta {
   margin: 0;
+  color: var(--muted);
+}
+
+.race-card__details {
+  display: none;
+  border-top: 1px solid var(--border);
+  padding-top: 0.75rem;
+}
+
+.race-card--details-open .race-card__details {
+  display: block;
+}
+
+.race-card__details .upcoming-detail-group {
+  border-top-color: rgba(255, 255, 255, 0.12);
+}
+
+.race-card__details ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.race-card__details li {
+  display: grid;
+  grid-template-columns: minmax(140px, 0.4fr) 1fr;
+  align-items: center;
+  column-gap: 1rem;
+  font-size: 0.95rem;
+  padding-bottom: 0.2rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.race-card__details li:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.race-card__details li span {
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 0.7rem;
   color: var(--muted);
 }
 

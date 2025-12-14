@@ -436,6 +436,90 @@ function formatDate(dateStr) {
   return date.toLocaleDateString(undefined, { month: 'short', day: 'numeric', year: 'numeric' });
 }
 
+function formatFieldValueFromDefinition(field = {}, value) {
+  if (value === undefined || value === null || value === '' || (Array.isArray(value) && !value.length)) {
+    return undefined;
+  }
+  let formatted = value;
+  if (typeof field.format === 'function') {
+    formatted = field.format(value);
+  } else if (Array.isArray(value)) {
+    formatted = value.join(', ');
+  }
+  if (field.unit && formatted !== 'Off') {
+    formatted = `${formatted} ${field.unit}`;
+  }
+  return formatted;
+}
+
+function buildRaceDetailGroups(meta = {}, raceId, fieldGroups = [], definitionMap = new Map()) {
+  const groups = [];
+  const eventRows = [];
+  if (meta.title) {
+    eventRows.push({ label: 'Race Title', value: meta.title });
+  }
+  if (raceId) {
+    eventRows.push({ label: 'Race ID', value: raceId });
+  }
+  eventRows.push({ label: 'Date', value: formatDate(meta.date) });
+  if (eventRows.length) {
+    groups.push({ label: 'Event Basics', rows: eventRows });
+  }
+
+  const trackRows = [];
+  if (meta.track) {
+    trackRows.push({ label: 'Track', value: meta.track });
+  }
+  if (meta.variant) {
+    trackRows.push({ label: 'Layout', value: meta.variant });
+  }
+  if (trackRows.length) {
+    groups.push({ label: 'Track Details', rows: trackRows });
+  }
+
+  fieldGroups.forEach((group) => {
+    const rows = [];
+    (group.fields || []).forEach((field) => {
+      const definition = definitionMap.get(field.id) || field;
+      const formatted = formatFieldValueFromDefinition(definition, meta[field.id]);
+      if (formatted === undefined) return;
+      rows.push({
+        label: definition.displayLabel || definition.label,
+        value: formatted
+      });
+    });
+    if (rows.length) {
+      groups.push({ label: group.label, rows });
+    }
+  });
+
+  return groups;
+}
+
+function renderDetailGroups(container, groups = []) {
+  if (!container) return;
+  container.textContent = '';
+  groups.forEach((group) => {
+    if (!group || !Array.isArray(group.rows) || !group.rows.length) return;
+    const wrapper = document.createElement('div');
+    wrapper.className = 'upcoming-detail-group';
+    const heading = document.createElement('h4');
+    heading.className = 'upcoming-detail-group__title';
+    heading.textContent = group.label;
+    wrapper.appendChild(heading);
+
+    const list = document.createElement('ul');
+    group.rows.forEach(({ label, value }) => {
+      const li = document.createElement('li');
+      li.innerHTML = `<span>${label}</span><strong>${value}</strong>`;
+      list.appendChild(li);
+    });
+
+    wrapper.appendChild(list);
+    container.appendChild(wrapper);
+  });
+}
+
 function renderRaces({ racesMeta, raceResults, drivers, teams }) {
   const container = document.getElementById('races-container');
   const template = document.getElementById('race-card-template');
@@ -445,14 +529,47 @@ function renderRaces({ racesMeta, raceResults, drivers, teams }) {
   const raceMap = mapById(racesMeta.races || []);
   const driverMap = mapById(drivers || []);
   const teamMap = mapById(teams || []);
+  const definitionMap = new Map((window.raceFieldDefinitions || []).map((field) => [field.id, field]));
+  const fieldGroups = window.raceFieldGroups || [];
 
   (raceResults.results || []).forEach((race) => {
     const meta = raceMap.get(race.raceId) || {};
     const instance = template.content.firstElementChild.cloneNode(true);
     const trackLabel = meta.variant ? `${meta.track} • ${meta.variant}` : meta.track || 'Custom Track';
     instance.querySelector('.eyebrow').textContent = trackLabel;
-    instance.querySelector('h3').textContent = meta.title || `Race ${race.raceId}`;
+    const raceTitle = meta.title || `Race ${race.raceId}`;
+    const titleButton = instance.querySelector('.race-card__title-btn');
+    if (titleButton) {
+      titleButton.textContent = raceTitle;
+      titleButton.setAttribute('aria-expanded', 'false');
+    } else {
+      const fallbackTitle = instance.querySelector('h3');
+      if (fallbackTitle) {
+        fallbackTitle.textContent = raceTitle;
+      }
+    }
     instance.querySelector('.race-card__meta').textContent = `${formatDate(meta.date)} • ${meta.laps ? `${meta.laps} laps` : 'Lap count TBC'}`;
+    const details = instance.querySelector('.race-card__details');
+    const detailGroups = buildRaceDetailGroups(meta, race.raceId, fieldGroups, definitionMap);
+    if (details && detailGroups.length) {
+      const detailsId = `race-details-${race.raceId}`;
+      details.id = detailsId;
+      details.hidden = true;
+      renderDetailGroups(details, detailGroups);
+      if (titleButton) {
+        titleButton.setAttribute('aria-controls', detailsId);
+        titleButton.addEventListener('click', () => {
+          const expanded = titleButton.getAttribute('aria-expanded') === 'true';
+          const nextState = !expanded;
+          titleButton.setAttribute('aria-expanded', String(nextState));
+          details.hidden = !nextState;
+          instance.classList.toggle('race-card--details-open', nextState);
+        });
+      }
+    } else if (titleButton) {
+      titleButton.disabled = true;
+      titleButton.classList.add('race-card__title-btn--static');
+    }
 
     const tbody = instance.querySelector('tbody');
     (race.finishers || []).forEach((finisher, index) => {

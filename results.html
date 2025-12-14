@@ -7,6 +7,7 @@
     <link rel="icon" type="image/x-icon" href="favicon.ico">
     <link rel="stylesheet" href="styles.css" />
     <script src="theme.js" defer></script>
+    <script src="raceFields.js" defer></script>
     <script src="main.js" defer></script>
   </head>
   <body class="theme-dark">
@@ -44,10 +45,13 @@
         <header>
           <div>
             <p class="eyebrow"></p>
-            <h3></h3>
+            <h3>
+              <button type="button" class="race-card__title-btn"></button>
+            </h3>
           </div>
           <p class="race-card__meta"></p>
         </header>
+        <div class="race-card__details" hidden></div>
         <div class="table-wrapper">
           <table>
             <thead>
