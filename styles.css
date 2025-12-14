@@ -790,13 +790,17 @@ body.theme-light .json-preview {
   text-align: right;
 }
 
+.standings-row-alt td {
+  background-color: rgba(137, 136, 136, 0.091);
+}
+
 .standings-table tbody tr.expandable-row {
   cursor: pointer;
   transition: background 150ms ease;
 }
 
 .standings-table tbody tr.expandable-row:hover {
-  background: rgba(255, 255, 255, 0.04);
+  background: rgba(224, 71, 71, 0.04);
 }
 
 .driver-row__header {
@@ -825,11 +829,11 @@ body.theme-light .json-preview {
 
 .driver-row__details {
   display: none;
-  background: rgba(255, 255, 255, 0.02);
 }
 
 .driver-row__details--open {
   display: table-row;
+  background-color: inherit;
 }
 
 .driver-row__details-wrapper {

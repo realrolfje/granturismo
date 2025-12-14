@@ -291,6 +291,9 @@ function renderStandings({ driverStandings, teamStandings, drivers, races }) {
     const rowId = `driver-${entry.driverId}`;
     const tr = document.createElement('tr');
     tr.classList.add('expandable-row');
+    if (index % 2 === 1) {
+      tr.classList.add('standings-row-alt');
+    }
     tr.setAttribute('data-driver-id', entry.driverId);
     tr.setAttribute('aria-expanded', 'false');
     tr.setAttribute('tabindex', '0');
@@ -383,6 +386,9 @@ function renderStandings({ driverStandings, teamStandings, drivers, races }) {
     const rowId = `team-${entry.id}`;
     const tr = document.createElement('tr');
     tr.classList.add('team-row', 'expandable-row');
+    if (index % 2 === 1) {
+      tr.classList.add('standings-row-alt');
+    }
     tr.setAttribute('data-team-id', entry.id);
     tr.setAttribute('aria-expanded', 'false');
     tr.setAttribute('tabindex', '0');
