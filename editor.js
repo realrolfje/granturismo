@@ -279,12 +279,69 @@ function renderExtraFields() {
       wrapper.classList.add('form-field--span-2');
     }
 
+    const labelRow = document.createElement('div');
+    labelRow.className = 'form-field__label-row';
     const label = document.createElement('label');
     if (field.type !== 'repeatable-select') {
       label.setAttribute('for', field.id);
     }
     label.textContent = field.label;
-    wrapper.appendChild(label);
+    labelRow.appendChild(label);
+
+    const addValueHints = () => {
+      if (!field.valueLabels) return;
+      const entries = Object.entries(field.valueLabels);
+      if (!entries.length) return;
+      const hintButton = document.createElement('button');
+      hintButton.type = 'button';
+      hintButton.className = 'field-hint';
+      hintButton.setAttribute('aria-label', `Show hints for ${field.label}`);
+      hintButton.setAttribute('aria-expanded', 'false');
+      hintButton.textContent = '?';
+
+      const popover = document.createElement('div');
+      popover.className = 'field-hint__popover';
+      popover.hidden = true;
+      popover.setAttribute('role', 'tooltip');
+      const list = document.createElement('ul');
+      entries.forEach(([value, description]) => {
+        const li = document.createElement('li');
+        li.innerHTML = `<strong>${value}</strong> – ${description}`;
+        list.appendChild(li);
+      });
+      popover.appendChild(list);
+
+      const closePopover = () => {
+        hintButton.setAttribute('aria-expanded', 'false');
+        popover.hidden = true;
+        document.removeEventListener('click', handleDocumentClick);
+      };
+
+      const handleDocumentClick = (event) => {
+        if (!wrapper.contains(event.target)) {
+          closePopover();
+        }
+      };
+
+      hintButton.addEventListener('click', (event) => {
+        event.stopPropagation();
+        const expanded = hintButton.getAttribute('aria-expanded') === 'true';
+        if (expanded) {
+          closePopover();
+        } else {
+          hintButton.setAttribute('aria-expanded', 'true');
+          popover.hidden = false;
+          setTimeout(() => document.addEventListener('click', handleDocumentClick), 0);
+        }
+      });
+
+      labelRow.appendChild(hintButton);
+      labelRow.appendChild(popover);
+    };
+
+    addValueHints();
+
+    wrapper.appendChild(labelRow);
 
     if (field.type === 'repeatable-select') {
       createRepeatableSelect(field, wrapper);
@@ -298,14 +355,6 @@ function renderExtraFields() {
     if (field.placeholder) control.placeholder = field.placeholder;
     if (field.defaultValue !== undefined) control.value = field.defaultValue;
     if (field.required) control.required = true;
-    if (field.valueLabels) {
-      const tooltip = Object.entries(field.valueLabels)
-        .map(([raw, label]) => `${raw} → ${label}`)
-        .join('\n');
-      if (tooltip) {
-        control.title = tooltip;
-      }
-    }
     const updateValidityState = () => {
       if (field.type === 'number' || field.type === 'decimal') {
         const numeric = Number(control.value);

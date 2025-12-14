@@ -245,7 +245,6 @@
           valueLabels: {
             0: 'Off'
           },
-
           unit: 'x',
           parse: (value) => {
             const parsed = Number.parseInt(value, 10);
@@ -260,6 +259,9 @@
           min: 0,
           max: 50,
           defaultValue: 1,
+          valueLabels: {
+            0: 'Off'
+          },
           unit: 'x',
           parse: (value) => {
             const parsed = Number.parseInt(value, 10);

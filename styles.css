@@ -300,6 +300,13 @@ body.theme-light .theme-toggle {
   min-height: 95px;
 }
 
+.form-field__label-row {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  position: relative;
+}
+
 .form-group-heading {
   grid-column: 1 / -1;
   margin: 0.35rem 0 0.2rem;
@@ -317,6 +324,7 @@ body.theme-light .theme-toggle {
   letter-spacing: 0.08em;
   text-transform: uppercase;
   color: var(--muted);
+  margin: 0;
 }
 
 .form-field input,
@@ -340,6 +348,54 @@ body.theme-light .theme-toggle {
 
 #extra-fields {
   display: contents;
+}
+
+.field-hint {
+  width: 1.3rem;
+  height: 1.3rem;
+  border-radius: 50%;
+  border: 1px solid var(--border);
+  background: rgba(255, 255, 255, 0.08);
+  color: var(--text);
+  font-size: 0.8rem;
+  font-weight: 700;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+}
+
+.field-hint__popover {
+  position: absolute;
+  top: calc(100% + 0.3rem);
+  right: 0;
+  min-width: 220px;
+  max-width: 320px;
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 0.6rem;
+  padding: 0.6rem 0.75rem;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.45);
+  z-index: 5;
+}
+
+.field-hint__popover ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.field-hint__popover li {
+  font-size: 0.85rem;
+  color: var(--text);
+}
+
+.field-hint__popover strong {
+  font-size: 0.85rem;
 }
 
 .repeatable-list {
