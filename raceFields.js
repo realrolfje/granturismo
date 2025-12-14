@@ -49,6 +49,19 @@
           defaultValue: 'Practice/Race',
         },
         {
+          id: 'roomPrivacy',
+          label: 'Room Privacy',
+          type: 'select',
+          options: [option('Public'), option('Friends Only'), option('Private')],
+          defaultValue: 'Friends',
+        },
+      ]
+    },
+    {
+      id: 'roomSettings',
+      label: 'Room Settings',
+      fields: [
+        {
           id: 'raceType',
           label: 'Race Type',
           type: 'select',
@@ -86,22 +99,12 @@
             if (!Number.isFinite(numeric) || numeric <= 0) return 'Off';
             return `${numeric}`;
           }
-        },
-        {
-          id: 'timeLimit',
-          label: 'Time Limit (Endurance)',
-          type: 'select',
-          options: [
-            option('--'), option('1 Minute'), option('2 Minutes'), option('3 Minutes'), option('5 Minutes'), option('10 Minutes'), option('15 Minutes'), option('20 Minutes'), option('25 Minutes'), option('30 Minutes'), option('40 Minutes'), option('50 Minutes'), option('60 Minutes'), option('90 Minutes'),
-            option('2 Hours'), option('3 Hours'), option('4 Hours'), option('5 Hours'), option('6 Hours'), option('7 Hours'), option('8 Hours'), option('9 Hours'), option('10 Hours'), option('11 Hours'), option('12 Hours'), option('13 Hours'), option('14 Hours'), option('15 Hours'), option('16 Hours'), option('17 Hours'), option('18 Hours'), option('19 Hours'), option('20 Hours'), option('21 Hours'), option('22 Hours'), option('23 Hours'), option('24 Hours'),
-          ],
-          defaultValue: '--'
         }
       ]
     },
     {
-      id: 'conditions',
-      label: 'Track & Weather',
+      id: 'trackSettings',
+      label: 'Track Settings',
       fields: [
         {
           id: 'laps',
@@ -117,6 +120,22 @@
           }
         },
         {
+          id: 'timeLimit',
+          label: 'Time Limit (Endurance)',
+          type: 'select',
+          options: [
+            option('--'), option('1 Minute'), option('2 Minutes'), option('3 Minutes'), option('5 Minutes'), option('10 Minutes'), option('15 Minutes'), option('20 Minutes'), option('25 Minutes'), option('30 Minutes'), option('40 Minutes'), option('50 Minutes'), option('60 Minutes'), option('90 Minutes'),
+            option('2 Hours'), option('3 Hours'), option('4 Hours'), option('5 Hours'), option('6 Hours'), option('7 Hours'), option('8 Hours'), option('9 Hours'), option('10 Hours'), option('11 Hours'), option('12 Hours'), option('13 Hours'), option('14 Hours'), option('15 Hours'), option('16 Hours'), option('17 Hours'), option('18 Hours'), option('19 Hours'), option('20 Hours'), option('21 Hours'), option('22 Hours'), option('23 Hours'), option('24 Hours'),
+          ],
+          defaultValue: '--'
+        }
+      ]
+    },
+    {
+      id: 'timeWeatherSettings',
+      label: 'Time/Weather Settings',
+      fields: [
+        {
           id: 'weatherSegments',
           label: 'Weather Timeline',
           type: 'repeatable-select',
@@ -129,6 +148,13 @@
           format: (values) => (Array.isArray(values) ? values.join(' → ') : values)
         },
         {
+          id: 'equalConditions',
+          label: 'Equal Conditions Mode',
+          type: 'select',
+          options: [option('Off'), option('On')],
+          defaultValue: 'Off'
+        },
+        {
           id: 'timeOfDay',
           label: 'Time of Day',
           type: 'select',
@@ -136,7 +162,7 @@
           defaultValue: 'Afternoon'
         },
         {
-          id: 'variableTimeSpeet',
+          id: 'variableTimeSpeed',
           label: 'Variable Time Speed Rate',
           type: 'number',
           min: 0,
@@ -151,9 +177,157 @@
       ]
     },
     {
-      id: 'strategy',
-      label: 'Strategy & Notes',
+      id: 'raceSettings',
+      label: 'Race Settings',
       fields: [
+        {
+          id: 'startType',
+          label: 'Start Type',
+          type: 'select',
+          options: [option('Fastest First'), option('Slowest First')],
+          defaultValue: 'Fastest First'
+        },
+        {
+          id: 'gridOrder',
+          label: 'Grid Order',
+          type: 'select',
+          options: [option('Grid Start'), option('Grid Start with False Start Check'), option('Rolling Start')],
+          defaultValue: 'Grid Start'
+        },
+        {
+          id: 'bopTuning',
+          label: 'BoP/Tuning Prohibited',
+          type: 'select',
+          options: [option('Off'), option('On (no tuning allowed)')],
+          defaultValue: 'Off'
+        },
+        {
+          id: 'tuningOptionsAllowed',
+          label: 'Settings Options',
+          type: 'select',
+          options: [option('Pipes'), option('Turbo')],
+          defaultValue: 'All'
+        },
+        {
+          id: 'boost',
+          label: 'Boost',
+          type: 'select',
+          options: [option('Strong'), option('Weak'), option('Off')],
+          defaultValue: 'Weak'
+        },
+        {
+          id: 'slipStream',
+          label: 'Slipstream Strength',
+          type: 'select',
+          options: [option('Strong'), option('Weak'), option('Real'), option('Off')],
+          defaultValue: 'Real'
+        },
+        {
+          id: 'visibleDamage',
+          label: 'Visible Damage',
+          type: 'select',
+          options: [option('On'), option('Off')],
+          defaultValue: 'On'
+        },
+        {
+          id: 'mechanicalDamage',
+          label: 'Mechanical Damage',
+          type: 'select',
+          options: [option('None'), option('Light'), option('Heavy')],
+          defaultValue: 'Light'
+        },
+        {
+          id: 'tyreWearRate',
+          label: 'Tyre Wear Rate',
+          type: 'number',
+          min: 0,
+          max: 50,
+          defaultValue: 1,
+          parse: (value) => {
+            const parsed = Number.parseInt(value, 10);
+            if (!Number.isFinite(parsed)) return 1;
+            return Math.min(50, Math.max(0, parsed));
+          }
+        },
+        {
+          id: 'fuelConsumptionRate',
+          label: 'Fuel Consumption Rate',
+          type: 'number',
+          min: 0,
+          max: 50,
+          defaultValue: 1,
+          parse: (value) => {
+            const parsed = Number.parseInt(value, 10);
+            if (!Number.isFinite(parsed)) return 1;
+            return Math.min(50, Math.max(0, parsed));
+          }
+        },
+        {
+          id: 'refuellingSpeed',
+          label: 'Refuelling Speed',
+          type: 'number',
+          min: 1,
+          max: 20,
+          defaultValue: 3,
+          parse: (value) => {
+            const parsed = Number.parseInt(value, 10);
+            if (!Number.isFinite(parsed)) return 1;
+            return Math.min(20, Math.max(1, parsed));
+          }
+        },
+        {
+          id: 'initialFuel',
+          label: 'Refuelling Speed (0=Default)',
+          type: 'number',
+          min: 0,
+          max: 100,
+          defaultValue: 0,
+          parse: (value) => {
+            const parsed = Number.parseInt(value, 10);
+            if (!Number.isFinite(parsed)) return 0;
+            return Math.min(100, Math.max(0, parsed));
+          }
+        },
+        {
+          id: 'gripReduction',
+          label: 'Grip Reduction Off Track',
+          type: 'select',
+          options: [option('Low'), option('Real')],
+          defaultValue: 'Low'
+        },
+        {
+          id: 'raceFinishDelay',
+          label: 'Race Finish Delay',
+          type: 'number',
+          min: 30,
+          max: 180,
+          defaultValue: 60,
+          parse: (value) => {
+            const parsed = Number.parseInt(value, 10);
+            if (!Number.isFinite(parsed)) return 0;
+            return Math.min(180, Math.max(30, parsed));
+          }
+        },
+        {
+          id: 'nitrousMultiplier',
+          label: 'Nitrous/Overtraking Usage Multiplier',
+          type: 'number',
+          min: 0.1,
+          max: 10.0,
+          defaultValue: 1,
+          parse: (value) => {
+            const parsed = Number.parseInt(value, 10);
+            if (!Number.isFinite(parsed)) return 0;
+            return Math.min(10.0, Math.max(0.1, parsed));
+          }
+        }
+      ]
+    },
+    {
+      id: 'raceSettings',
+      label: 'Race Settings',
+      fields: [
+
         {
           id: 'allowedTyres',
           label: 'Allowed Tyres',
@@ -170,19 +344,6 @@
               return value.join(', ');
             }
             return value || '';
-          }
-        },
-        {
-          id: 'fuelingSpeed',
-          label: 'Fueling Speed (L/s)',
-          type: 'number',
-          min: 3,
-          max: 20,
-          defaultValue: 3,
-          parse: (value) => {
-            const parsed = Number.parseInt(value, 10);
-            if (!Number.isFinite(parsed)) return 3;
-            return Math.min(20, Math.max(3, parsed));
           }
         },
         {
