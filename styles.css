@@ -859,17 +859,28 @@ body.theme-light .json-preview {
   position: relative;
 }
 
+.team-row--tinted td {
+  background: var(--team-row-tint, transparent);
+}
+
 .team-row__header {
   display: flex;
   justify-content: space-between;
   align-items: center;
   gap: 0.5rem;
+  min-height: 0;
 }
 
-.team-row__info {
+.team-pill {
   display: inline-flex;
   align-items: center;
-  gap: 0.35rem;
+  gap: 0.45rem;
+  font-weight: 600;
+  font-size: 0.85rem;
+  padding: 0.1rem 0.7rem;
+  border-radius: 999px;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
 }
 
 .team-row__toggle {
@@ -884,7 +895,6 @@ body.theme-light .json-preview {
 
 .team-row__details {
   display: none;
-  background: rgba(255, 255, 255, 0.02);
 }
 
 .team-row__details--open {
@@ -898,7 +908,10 @@ body.theme-light .json-preview {
 }
 
 .team-row__details-wrapper {
-  padding: 0.15rem 0 0.5rem;
+  padding: 0.35rem 0.5rem 0.65rem;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 0.5rem;
+  background: inherit;
 }
 
 .team-row__details table {

@@ -54,6 +54,16 @@ function pickTextColor(hexColor, { light = '#ffffff', dark = '#0b0d17' } = {}) {
   return luminance > 0.55 ? dark : light;
 }
 
+function hexToRGBA(hexColor = '#ffffff', alpha = 1) {
+  const hex = hexColor.trim().replace('#', '');
+  if (!/^[0-9a-f]{3}([0-9a-f]{3})?$/i.test(hex)) return `rgba(255, 255, 255, ${alpha})`;
+  const normalized = hex.length === 3 ? hex.split('').map((c) => c + c).join('') : hex.padEnd(6, '0');
+  const r = parseInt(normalized.slice(0, 2), 16);
+  const g = parseInt(normalized.slice(2, 4), 16);
+  const b = parseInt(normalized.slice(4, 6), 16);
+  return `rgba(${r}, ${g}, ${b}, ${alpha})`;
+}
+
 function resolvePosition(finisher, index) {
   if (Number.isFinite(finisher?.position) && finisher.position > 0) {
     return finisher.position;
@@ -386,11 +396,12 @@ function renderStandings({ driverStandings, teamStandings, drivers, races }) {
 
   teamStandings.forEach((entry, index) => {
     const rowId = `team-${entry.id}`;
+    const teamColor = entry.color || '#ffd166';
+    const pillTextColor = pickTextColor(teamColor);
+    const rowTint = hexToRGBA(teamColor, 0.12);
     const tr = document.createElement('tr');
-    tr.classList.add('team-row', 'expandable-row');
-    if (index % 2 === 1) {
-      tr.classList.add('standings-row-alt');
-    }
+    tr.classList.add('team-row', 'team-row--tinted', 'expandable-row');
+    tr.style.setProperty('--team-row-tint', rowTint);
     tr.setAttribute('data-team-id', entry.id);
     tr.setAttribute('aria-expanded', 'false');
     tr.setAttribute('tabindex', '0');
@@ -398,10 +409,7 @@ function renderStandings({ driverStandings, teamStandings, drivers, races }) {
       <td>${index + 1}</td>
       <td>
         <div class="team-row__header">
-          <div class="team-row__info">
-            <span class="team-chip" style="background:${entry.color}"></span>
-            <span>${entry.name}</span>
-          </div>
+          <span class="team-pill" style="background:${teamColor};color:${pillTextColor}">${entry.name}</span>
           <button class="team-row__toggle" aria-label="Toggle driver breakdown for ${entry.name}" aria-expanded="false" aria-controls="${rowId}-details">Details</button>
         </div>
       </td>
@@ -411,6 +419,8 @@ function renderStandings({ driverStandings, teamStandings, drivers, races }) {
 
     const detailsTr = document.createElement('tr');
     detailsTr.classList.add('team-row__details');
+    detailsTr.classList.add('team-row--tinted');
+    detailsTr.style.setProperty('--team-row-tint', rowTint);
     detailsTr.id = `${rowId}-details`;
     detailsTr.setAttribute('aria-hidden', 'true');
 
@@ -445,11 +455,6 @@ function renderStandings({ driverStandings, teamStandings, drivers, races }) {
         </div>
       </td>
     `;
-
-    if (index % 2 === 1) {
-      tr.classList.add('standings-row-alt');
-      detailsTr.classList.add('standings-row-alt');
-    }
 
     const toggleButton = tr.querySelector('.team-row__toggle');
     const toggleRow = () => {
