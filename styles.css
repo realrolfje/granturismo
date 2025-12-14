@@ -841,7 +841,9 @@ body.theme-light .json-preview {
 }
 
 .driver-row__details-wrapper {
-  padding: 0.15rem 0 0.5rem;
+  padding: 0.15rem 0.75rem 0.5rem;
+  border: 1px solid rgba(140, 139, 139, 0.55);
+  border-radius: 0.5rem;
 }
 
 .driver-row__details table {
