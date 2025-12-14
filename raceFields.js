@@ -507,7 +507,7 @@
         },
         {
           id: 'tyreCompounds',
-          label: 'Tyre Compounds',
+          label: 'usable Tyre & Types',
           type: 'multi-select',
           options: [option('Hard'), option('Medium'), option('Soft')],
           defaultValue: ['Hard', 'Medium', 'Soft'],
@@ -517,11 +517,99 @@
               .filter(Boolean),
           format: (value) => (Array.isArray(value) ? value.join(', ') : value)
         },
+        {
+          id: 'requiredTyreCompounds',
+          label: 'Required Tyre Type',
+          type: 'multi-select',
+          options: [option('Hard'), option('Medium'), option('Soft')],
+          defaultValue: [],
+          parse: (values = []) =>
+            (Array.isArray(values) ? values : [values])
+              .map((entry) => (typeof entry === 'string' ? entry.trim() : entry))
+              .filter(Boolean),
+          format: (value) => (Array.isArray(value) ? value.join(', ') : value)
+        },
+        {
+          id: 'nitrous',
+          label: 'Nitrous',
+          type: 'select',
+          options: [option('Prohibited'), option('Required'), option('Unrestricted')],
+          defaultValue: 'Unrestricted'
+        },
+        {
+          id: 'kartUsage',
+          label: 'Kart Usage',
+          type: 'select',
+          options: [option('On'), option('Off')],
+          defaultValue: 'Off'
+        },
+        {
+          id: 'engineSwap',
+          label: 'Engine Swap',
+          type: 'select',
+          options: [option('Unrestricted'), option('Prohibited')],
+          defaultValue: 'Unrestricted'
+        },
+        {
+          id: 'tuningParts',
+          label: 'Tuning Parts',
+          type: 'select',
+          options: [option('Unrestricted'), option('Extreme and Lower')],
+          defaultValue: 'Unrestricted'
+        },
+        {
+          id: 'yearLowerLimit',
+          label: 'Year (Lower Limit)',
+          type: 'number',
+          min: 1929,
+          max: 2036,
+          defaultValue: 1929,
+          valueLabels: {
+            1929: 'No Limit',
+            2036: 'No Limit'
+          },
+          parse: (value) => {
+            const parsed = Number.parseInt(value, 10);
+            if (!Number.isFinite(parsed)) return 0;
+            return Math.min(2036, Math.max(1929, parsed));
+          }
+        },
+        {
+          id: 'yearUpperLimit',
+          label: 'Year (Upper Limit)',
+          type: 'number',
+          min: 1929,
+          max: 2036,
+          defaultValue: 1929,
+          valueLabels: {
+            1929: 'No Limit',
+            2036: 'No Limit'
+          },
+          parse: (value) => {
+            const parsed = Number.parseInt(value, 10);
+            if (!Number.isFinite(parsed)) return 0;
+            return Math.min(2036, Math.max(1929, parsed));
+          }
+        },
+        {
+          id: 'driveTrain',
+          label: 'Drivetrain',
+          type: 'select',
+          options: [option('Unrestricted'), option('FR'), option('FF'), option('4WD'), option('MR'), option('RR'), option('---')],
+          defaultValue: 'Unrestricted'
+        },
+        {
+          id: 'aspiration',
+          label: 'Aspiration',
+          type: 'select',
+          options: [option('Unrestricted'), option('NA (Normal Aspirated)'), option('TC (Turbocharger'), option('SC (Supercharger)'), option('TC + SC'), option('EV (Electric Vehicle'), option('---')],
+          defaultValue: 'Unrestricted'
+        },
       ]
     },
     {
-      id: 'raceSettings',
-      label: 'Race Settings',
+      id: 'notes',
+      label: 'Other/Notes',
       fields: [
         {
           id: 'raceNotes',
