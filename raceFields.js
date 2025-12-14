@@ -276,7 +276,7 @@
           min: 1,
           max: 20,
           defaultValue: 3,
-          unit: 'Litre/Sec',
+          unit: 'Litre/sec',
           parse: (value) => {
             const parsed = Number.parseInt(value, 10);
             if (!Number.isFinite(parsed)) return 1;
@@ -343,6 +343,75 @@
         }
       ]
     },
+    {
+      id: 'qualifierSettings',
+      label: 'Qualifier Settings',
+      fields: [
+        {
+          id: 'timeLimitQualifier',
+          label: 'Time Limit',
+          type: 'select',
+          options: [option('1 Minute'), option('2 Minutes'), option('3 Minutes'), option('5 Minutes'), option('10 Minutes'), option('15 Minutes'), option('20 Minutes'), option('25 Minutes'), option('30 Minutes'), option('40 Minutes'), option('50 Minutes'), option('60 Minutes'), option('90 Minutes'),
+            option('2 Hours'), option('3 Hours'), option('4 Hours'), option('5 Hours'), option('6 Hours'), option('7 Hours'), option('8 Hours'), option('9 Hours'), option('10 Hours'), option('11 Hours'), option('12 Hours'), option('13 Hours'), option('14 Hours'), option('15 Hours'), option('16 Hours'), option('17 Hours'), option('18 Hours'), option('19 Hours'), option('20 Hours'), option('21 Hours'), option('22 Hours'), option('23 Hours'), option('24 Hours'),
+          ],
+          defaultValue: '15 Minutes'
+        },
+        {
+          id: 'qualifyContinuationTime',
+          label: 'Qualifying Continuation Time',
+          type: 'number',
+          min: 30,
+          max: 180,
+          defaultValue: 60,
+          unit: 'seconds',
+          parse: (value) => {
+            const parsed = Number.parseInt(value, 10);
+            if (!Number.isFinite(parsed)) return 0;
+            return Math.min(180, Math.max(30, parsed));
+          }
+        },
+        {
+          id: 'tyreWearRateQualifier',
+          label: 'Tyre Wear Rate (Qualifier)',
+          type: 'number',
+          min: -1,
+          max: 50,
+          defaultValue: -1,
+          valueLabels: {
+            "-1": "Same as During the Race",
+            0: 'Off'
+          },
+          unit: 'x',
+          parse: (value) => {
+            const parsed = Number.parseInt(value, 10);
+            if (!Number.isFinite(parsed)) return 1;
+            return Math.min(50, Math.max(-1, parsed));
+          }
+        },
+        {
+          id: 'fuelConsumptionRateQualifier',
+          label: 'Fuel Consumption Rate (Qualifier)',
+          type: 'number',
+          min: -1,
+          max: 50,
+          defaultValue: -1,
+          valueLabels: {
+            "-1": "Same as During the Race",
+            0: 'Off'
+          },
+          unit: 'x',
+          parse: (value) => {
+            const parsed = Number.parseInt(value, 10);
+            if (!Number.isFinite(parsed)) return 1;
+            return Math.min(50, Math.max(-1, parsed));
+          }
+        }
+
+
+        
+      ]},
+
+
     {
       id: 'raceSettings',
       label: 'Race Settings',

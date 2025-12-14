@@ -55,11 +55,11 @@
       "weather": "Overcast"
     },
     {
-      "id": "2025-12-25-sdfsdfsdf",
-      "title": "sdfsdfsdf",
-      "track": "Autopolis International Racing Course",
-      "variant": "Short Course",
-      "date": "2025-12-25",
+      "id": "2025-12-31-sdfsdfsdfdsf",
+      "title": "sdfsdfsdfdsf",
+      "track": "Autodrome Lago Maggiore",
+      "variant": "Center Reverse",
+      "date": "2025-12-31",
       "roomMode": "Practice/Race",
       "roomPrivacy": "Friends",
       "raceType": "Race for Fun",
@@ -68,10 +68,6 @@
       "laps": 15,
       "timeLimit": "--",
       "weatherSegments": [
-        "S01 Dry, Cloudless and Pleasant",
-        "S01 Dry, Cloudless and Pleasant",
-        "S01 Dry, Cloudless and Pleasant",
-        "S01 Dry, Cloudless and Pleasant",
         "S01 Dry, Cloudless and Pleasant"
       ],
       "equalConditions": "Off",
@@ -85,13 +81,17 @@
       "slipStream": "Real",
       "visibleDamage": "On",
       "mechanicalDamage": "Light",
-      "tyreWearRate": 0,
+      "tyreWearRate": 1,
       "fuelConsumptionRate": 1,
       "refuellingSpeed": 3,
       "initialFuel": 0,
       "gripReduction": "Low",
       "raceFinishDelay": 60,
       "nitrousMultiplier": 1,
+      "timeLimitQualifier": "15 Minutes",
+      "qualifyContinuationTime": 60,
+      "tyreWearRateQualifier": -1,
+      "fuelConsumptionRateQualifier": -1,
       "allowedTyres": [
         "Racing Soft",
         "Racing Medium"
