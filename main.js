@@ -636,6 +636,7 @@ function renderRaces({ racesMeta, raceResults, drivers, teams }) {
   const raceMap = mapById(racesMeta.races || []);
   const driverMap = mapById(drivers || []);
   const teamMap = mapById(teams || []);
+  const driverTeamMap = buildDriverTeamMap(teams);
   const definitionMap = new Map((window.raceFieldDefinitions || []).map((field) => [field.id, field]));
   const fieldGroups = window.raceFieldGroups || [];
 
@@ -682,7 +683,8 @@ function renderRaces({ racesMeta, raceResults, drivers, teams }) {
     (race.finishers || []).forEach((finisher, index) => {
       const driver = driverMap.get(finisher.driverId);
       const driverName = driver?.name || finisher.driverId;
-      const team = finisher.teamId ? teamMap.get(finisher.teamId) : null;
+      const derivedTeam = driverTeamMap.get(finisher.driverId);
+      const team = derivedTeam || (finisher.teamId ? teamMap.get(finisher.teamId) : null);
       const position = resolvePosition(finisher, index);
 
       const tr = document.createElement('tr');

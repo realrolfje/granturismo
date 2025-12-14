@@ -5,38 +5,31 @@
       "finishers": [
         {
           "driverId": "peter",
-          "car": "Porsche 911 RSR '17",
-          "teamId": "team-1"
+          "car": "Porsche 911 RSR '17"
         },
         {
           "driverId": "jack",
-          "car": "Ferrari 458 Italia GT3",
-          "teamId": "team-1"
+          "car": "Ferrari 458 Italia GT3"
         },
         {
           "driverId": "henk",
-          "car": "Skoda Octavia Touring Car",
-          "teamId": "team-2"
+          "car": "Skoda Octavia Touring Car"
         },
         {
           "driverId": "sarah",
-          "car": "Toyota GR Supra Racing Concept",
-          "teamId": "team-4"
+          "car": "Toyota GR Supra Racing Concept"
         },
         {
           "driverId": "mika",
-          "car": "BMW M6 GT3",
-          "teamId": "team-3"
+          "car": "BMW M6 GT3"
         },
         {
           "driverId": "elin",
-          "car": "Audi R8 LMS",
-          "teamId": "team-3"
+          "car": "Audi R8 LMS"
         },
         {
           "driverId": "diego",
-          "car": "Chevrolet Corvette C7 Gr.3",
-          "teamId": "team-5"
+          "car": "Chevrolet Corvette C7 Gr.3"
         }
       ]
     },
@@ -45,38 +38,31 @@
       "finishers": [
         {
           "driverId": "sarah",
-          "car": "Nissan GT-R NISMO GT3",
-          "teamId": "team-4"
+          "car": "Nissan GT-R NISMO GT3"
         },
         {
           "driverId": "peter",
-          "car": "Porsche 911 RSR '17",
-          "teamId": "team-1"
+          "car": "Porsche 911 RSR '17"
         },
         {
           "driverId": "henk",
-          "car": "Skoda Octavia Touring Car",
-          "teamId": "team-2"
+          "car": "Skoda Octavia Touring Car"
         },
         {
           "driverId": "ren",
-          "car": "Honda NSX Concept-GT",
-          "teamId": "team-4"
+          "car": "Honda NSX Concept-GT"
         },
         {
           "driverId": "lucia",
-          "car": "Ford GT LM Spec II",
-          "teamId": "team-5"
+          "car": "Ford GT LM Spec II"
         },
         {
           "driverId": "marcus",
-          "car": "Mercedes-AMG GT3",
-          "teamId": "team-6"
+          "car": "Mercedes-AMG GT3"
         },
         {
           "driverId": "alessia",
-          "car": "Lamborghini Huracán GT3",
-          "teamId": "team-6"
+          "car": "Lamborghini Huracán GT3"
         }
       ]
     }
