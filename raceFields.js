@@ -505,6 +505,18 @@
           options: [option('No Limit'), option('Comfort'), option('Sports'), option('Racing')],
           defaultValue: 'No Limit'
         },
+        {
+          id: 'tyreCompounds',
+          label: 'Tyre Compounds',
+          type: 'multi-select',
+          options: [option('Hard'), option('Medium'), option('Soft')],
+          defaultValue: ['Hard', 'Medium', 'Soft'],
+          parse: (values = []) =>
+            (Array.isArray(values) ? values : [values])
+              .map((entry) => (typeof entry === 'string' ? entry.trim() : entry))
+              .filter(Boolean),
+          format: (value) => (Array.isArray(value) ? value.join(', ') : value)
+        },
       ]
     },
     {

@@ -139,18 +139,36 @@ function createFieldControl(field) {
     return select;
   }
   if (type === 'multi-select') {
-    const select = document.createElement('select');
-    select.multiple = true;
-    select.size = Math.min(4, (field.options || []).length || 4);
+    const wrapper = document.createElement('div');
+    wrapper.className = 'multi-select';
     (field.options || []).forEach((option) => {
       const value = typeof option === 'string' ? option : option.value;
       const label = typeof option === 'string' ? option : option.label;
-      const opt = document.createElement('option');
-      opt.value = value;
-      opt.textContent = label;
-      select.appendChild(opt);
+      const optionId = `${field.id}-${value}`;
+
+      const optionWrapper = document.createElement('div');
+      optionWrapper.className = 'multi-select__option';
+
+      const input = document.createElement('input');
+      input.type = 'checkbox';
+      input.id = optionId;
+      input.name = field.id;
+      input.value = value;
+
+      const marker = document.createElement('span');
+      marker.className = 'multi-select__marker';
+
+      const labelText = document.createElement('label');
+      labelText.className = 'multi-select__label';
+      labelText.setAttribute('for', optionId);
+      labelText.textContent = label;
+
+      optionWrapper.appendChild(input);
+      optionWrapper.appendChild(marker);
+      optionWrapper.appendChild(labelText);
+      wrapper.appendChild(optionWrapper);
     });
-    return select;
+    return wrapper;
   }
   if (type === 'textarea') {
     return document.createElement('textarea');
@@ -395,7 +413,8 @@ function renderExtraFields() {
           return;
         }
       }
-      if (!control.checkValidity()) {
+      const canCheckValidity = typeof control.checkValidity === 'function';
+      if (canCheckValidity && !control.checkValidity()) {
         wrapper.classList.add('form-field--invalid');
       } else {
         wrapper.classList.remove('form-field--invalid');
