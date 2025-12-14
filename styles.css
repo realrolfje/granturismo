@@ -402,6 +402,10 @@ body.theme-light .theme-toggle {
   display: flex;
   flex-direction: column;
   gap: 0.35rem;
+  padding: 0.65rem 0.75rem;
+  border-radius: 0.5rem;
+  border: 1px solid var(--border);
+  background: rgba(0, 0, 0, 0.03);
 }
 
 .multi-select__option {
