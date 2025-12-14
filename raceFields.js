@@ -352,7 +352,7 @@
           label: 'Time Limit',
           type: 'select',
           options: [option('1 Minute'), option('2 Minutes'), option('3 Minutes'), option('5 Minutes'), option('10 Minutes'), option('15 Minutes'), option('20 Minutes'), option('25 Minutes'), option('30 Minutes'), option('40 Minutes'), option('50 Minutes'), option('60 Minutes'), option('90 Minutes'),
-            option('2 Hours'), option('3 Hours'), option('4 Hours'), option('5 Hours'), option('6 Hours'), option('7 Hours'), option('8 Hours'), option('9 Hours'), option('10 Hours'), option('11 Hours'), option('12 Hours'), option('13 Hours'), option('14 Hours'), option('15 Hours'), option('16 Hours'), option('17 Hours'), option('18 Hours'), option('19 Hours'), option('20 Hours'), option('21 Hours'), option('22 Hours'), option('23 Hours'), option('24 Hours'),
+          option('2 Hours'), option('3 Hours'), option('4 Hours'), option('5 Hours'), option('6 Hours'), option('7 Hours'), option('8 Hours'), option('9 Hours'), option('10 Hours'), option('11 Hours'), option('12 Hours'), option('13 Hours'), option('14 Hours'), option('15 Hours'), option('16 Hours'), option('17 Hours'), option('18 Hours'), option('19 Hours'), option('20 Hours'), option('21 Hours'), option('22 Hours'), option('23 Hours'), option('24 Hours'),
           ],
           defaultValue: '15 Minutes'
         },
@@ -405,36 +405,112 @@
             if (!Number.isFinite(parsed)) return 1;
             return Math.min(50, Math.max(-1, parsed));
           }
-        }
-
-
-        
-      ]},
-
-
+        },
+        {
+          id: 'initialFuelQualifier',
+          label: 'Initial Fuel (Qualifier)',
+          type: 'number',
+          min: -1,
+          max: 100,
+          defaultValue: 0,
+          valueLabels: {
+            "-1": "Same as During the Race",
+            0: 'Default'
+          },
+          unit: 'Litres',
+          parse: (value) => {
+            const parsed = Number.parseInt(value, 10);
+            if (!Number.isFinite(parsed)) return 0;
+            return Math.min(100, Math.max(1, parsed));
+          }
+        },
+        {
+          id: 'slipStreamQualifier',
+          label: 'Slipstream Strength (Qualifier)',
+          type: 'select',
+          options: [option('Strong'), option('Weak'), option('Real'), option('Off')],
+          defaultValue: 'Real'
+        },
+      ]
+    },
+    {
+      id: 'regulationSettings',
+      label: 'Regulation Settings',
+      fields: [
+        {
+          id: 'filteryCategory',
+          label: 'Filter by Category',
+          type: 'select',
+          options: [option('No Limit'), option('Gr.1'), option('Gr.2'), option('Gr.3'), option('Gr.4'), option('Gr.B')],
+          defaultValue: 'No Limit'
+        },
+        {
+          id: 'ppLimit',
+          label: 'PP Limit',
+          type: 'number',
+          min: 99,
+          max: 1001,
+          defaultValue: 99,
+          valueLabels: {
+            99: 'No Limit',
+            1001: 'No Limit'
+          },
+          unit: 'Litres',
+          parse: (value) => {
+            const parsed = Number.parseInt(value, 10);
+            if (!Number.isFinite(parsed)) return 0;
+            return Math.min(1001, Math.max(99, parsed));
+          }
+        },
+        {
+          id: 'maxPowerOutput',
+          label: 'Max Power Output',
+          type: 'number',
+          min: 97,
+          max: 1479,
+          defaultValue: 97,
+          valueLabels: {
+            97: 'No Limit',
+            1480: 'No Limit'
+          },
+          unit: 'Litres',
+          parse: (value) => {
+            const parsed = Number.parseInt(value, 10);
+            if (!Number.isFinite(parsed)) return 0;
+            return Math.min(1480, Math.max(97, parsed));
+          }
+        },
+        {
+          id: 'minimumWeight',
+          label: 'Minimum Weight',
+          type: 'number',
+          min: 499,
+          max: 2001,
+          defaultValue: 499,
+          valueLabels: {
+            499: 'No Limit',
+            2001: 'No Limit'
+          },
+          unit: 'Litres',
+          parse: (value) => {
+            const parsed = Number.parseInt(value, 10);
+            if (!Number.isFinite(parsed)) return 0;
+            return Math.min(2001, Math.max(499, parsed));
+          }
+        },
+        {
+          id: 'allowedTyres',
+          label: 'Allowed Tyres',
+          type: 'select',
+          options: [option('No Limit'), option('Comfort'), option('Sports'), option('Racing')],
+          defaultValue: 'No Limit'
+        },
+      ]
+    },
     {
       id: 'raceSettings',
       label: 'Race Settings',
       fields: [
-
-        {
-          id: 'allowedTyres',
-          label: 'Allowed Tyres',
-          type: 'text',
-          placeholder: 'Racing Soft, Racing Medium',
-          defaultValue: 'Racing Soft, Racing Medium',
-          parse: (value) =>
-            value
-              .split(',')
-              .map((entry) => entry.trim())
-              .filter(Boolean),
-          format: (value) => {
-            if (Array.isArray(value)) {
-              return value.join(', ');
-            }
-            return value || '';
-          }
-        },
         {
           id: 'raceNotes',
           label: 'Special Notes',
