@@ -791,7 +791,7 @@ body.theme-light .json-preview {
 }
 
 .standings-row-alt td {
-  background-color: rgb(245, 245, 245);
+  background-color: rgba(235, 235, 235, 0.2);
 }
 
 .standings-table tbody tr.expandable-row {
