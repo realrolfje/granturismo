@@ -138,6 +138,20 @@ function createFieldControl(field) {
     });
     return select;
   }
+  if (type === 'multi-select') {
+    const select = document.createElement('select');
+    select.multiple = true;
+    select.size = Math.min(4, (field.options || []).length || 4);
+    (field.options || []).forEach((option) => {
+      const value = typeof option === 'string' ? option : option.value;
+      const label = typeof option === 'string' ? option : option.label;
+      const opt = document.createElement('option');
+      opt.value = value;
+      opt.textContent = label;
+      select.appendChild(opt);
+    });
+    return select;
+  }
   if (type === 'textarea') {
     return document.createElement('textarea');
   }
@@ -353,7 +367,16 @@ function renderExtraFields() {
     control.id = field.id;
     control.name = field.id;
     if (field.placeholder) control.placeholder = field.placeholder;
-    if (field.defaultValue !== undefined) control.value = field.defaultValue;
+    if (field.defaultValue !== undefined) {
+      if (field.type === 'multi-select' && Array.isArray(field.defaultValue)) {
+        const defaults = new Set(field.defaultValue.map((val) => String(val)));
+        Array.from(control.options || []).forEach((option) => {
+          option.selected = defaults.has(option.value);
+        });
+      } else {
+        control.value = field.defaultValue;
+      }
+    }
     if (field.required) control.required = true;
     const updateValidityState = () => {
       if (field.type === 'number' || field.type === 'decimal') {
@@ -361,6 +384,13 @@ function renderExtraFields() {
         const belowMin = Number.isFinite(field.min) && numeric < field.min;
         const aboveMax = Number.isFinite(field.max) && numeric > field.max;
         if (!Number.isFinite(numeric) || belowMin || aboveMax) {
+          wrapper.classList.add('form-field--invalid');
+          return;
+        }
+      }
+      if (field.type === 'multi-select' && field.required) {
+        const selected = Array.from(control.selectedOptions || []);
+        if (!selected.length) {
           wrapper.classList.add('form-field--invalid');
           return;
         }
@@ -436,6 +466,16 @@ function buildRaceObject(form) {
     if (field.type === 'repeatable-select') {
       const values = formData.getAll(`${field.id}[]`).filter(Boolean);
       value = values.length ? values : field.defaultValue || [];
+    } else if (field.type === 'multi-select') {
+      const rawValues = formData.getAll(field.id).filter(Boolean);
+      if (typeof field.parse === 'function') {
+        value = field.parse(rawValues);
+      } else {
+        value = rawValues;
+      }
+      if ((!value || (Array.isArray(value) && value.length === 0)) && Array.isArray(field.defaultValue)) {
+        value = field.defaultValue.slice();
+      }
     } else {
       value = parseFieldValue(field, formData.get(field.id));
     }
