@@ -4,83 +4,32 @@
       "id": "team-1",
       "name": "Pit Lane Legends",
       "color": "#ff6b35",
-      "drivers": ["peter", "jack"]
-    },
-    {
-      "id": "team-2",
-      "name": "Octavia Factory",
-      "color": "#1e5f74",
-      "drivers": ["henk"]
-    },
-    {
-      "id": "team-3",
-      "name": "Nordic Apex",
-      "color": "#4a8fe7",
-      "drivers": ["mika", "elin"]
-    },
-    {
-      "id": "team-4",
-      "name": "Pacific Velocity",
-      "color": "#f7b801",
-      "drivers": ["sarah", "ren"]
-    },
-    {
-      "id": "team-5",
-      "name": "Andes United",
-      "color": "#43aa8b",
-      "drivers": ["diego", "lucia"]
-    },
-    {
-      "id": "team-6",
-      "name": "Berlin Torque",
-      "color": "#8338ec",
-      "drivers": ["marcus", "alessia"]
+      "drivers": [
+        "peter",
+        "jack"
+      ]
     }
   ],
   "drivers": [
     {
-      "id": "peter",
-      "name": "Peter Janssen"
+      "id": "lex",
+      "name": "Lex"
     },
     {
-      "id": "jack",
-      "name": "Jack Dixon"
+      "id": "michel",
+      "name": "Michel"
     },
     {
-      "id": "henk",
-      "name": "Henk van Rooij"
+      "id": "riccardo",
+      "name": "Riccardo"
     },
     {
-      "id": "sarah",
-      "name": "Sarah Yukio"
+      "id": "luuk",
+      "name": "Luuk"
     },
     {
-      "id": "mika",
-      "name": "Mika Nieminen"
-    },
-    {
-      "id": "elin",
-      "name": "Elin Forsberg"
-    },
-    {
-      "id": "ren",
-      "name": "Ren Takahashi"
-    },
-    {
-      "id": "diego",
-      "name": "Diego Alvarez"
-    },
-    {
-      "id": "lucia",
-      "name": "Lucia Herrera"
-    },
-    {
-      "id": "marcus",
-      "name": "Marcus Ritter"
-    },
-    {
-      "id": "alessia",
-      "name": "Alessia Romano"
+      "id": "rolf",
+      "name": "Rolf"
     }
   ]
 }

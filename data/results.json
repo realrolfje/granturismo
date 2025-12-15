@@ -1,68 +1,23 @@
 {
   "results": [
     {
-      "raceId": "race-1",
+      "raceId": "2025-12-04-test-race",
       "finishers": [
         {
-          "driverId": "peter",
+          "driverId": "lex",
           "car": "Porsche 911 RSR '17"
         },
         {
-          "driverId": "jack",
+          "driverId": "michel",
           "car": "Ferrari 458 Italia GT3"
         },
         {
-          "driverId": "henk",
+          "driverId": "riccardo",
           "car": "Skoda Octavia Touring Car"
         },
         {
-          "driverId": "sarah",
+          "driverId": "rolf",
           "car": "Toyota GR Supra Racing Concept"
-        },
-        {
-          "driverId": "mika",
-          "car": "BMW M6 GT3"
-        },
-        {
-          "driverId": "elin",
-          "car": "Audi R8 LMS"
-        },
-        {
-          "driverId": "diego",
-          "car": "Chevrolet Corvette C7 Gr.3"
-        }
-      ]
-    },
-    {
-      "raceId": "race-2",
-      "finishers": [
-        {
-          "driverId": "sarah",
-          "car": "Nissan GT-R NISMO GT3"
-        },
-        {
-          "driverId": "peter",
-          "car": "Porsche 911 RSR '17"
-        },
-        {
-          "driverId": "henk",
-          "car": "Skoda Octavia Touring Car"
-        },
-        {
-          "driverId": "ren",
-          "car": "Honda NSX Concept-GT"
-        },
-        {
-          "driverId": "lucia",
-          "car": "Ford GT LM Spec II"
-        },
-        {
-          "driverId": "marcus",
-          "car": "Mercedes-AMG GT3"
-        },
-        {
-          "driverId": "alessia",
-          "car": "Lamborghini Huracán GT3"
         }
       ]
     }
