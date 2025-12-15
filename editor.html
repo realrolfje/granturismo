@@ -80,7 +80,6 @@
           <div class="editor-output">
             <div class="editor-output__header">
               <h3>Race JSON</h3>
-              <button type="button" id="copy-json" class="pill-link copy-btn">Copy</button>
             </div>
             <pre id="race-json-preview" class="json-preview">{
   "id": "race-3",
@@ -95,7 +94,8 @@
   "timeOfDay": "Afternoon"
 }</pre>
             <p class="muted note">Paste the snippet into <code>data/races.json</code> inside the <code>"races"</code> array, keeping the JSON valid.</p>
-            <p id="copy-feedback" class="muted" hidden>JSON copied to clipboard.</p>
+            <p align="right"><button type="button" id="copy-json" class="pill-link copy-btn">Copy</button></p>
+            <p id="copy-feedback" class="muted" align="right" hidden>JSON copied to clipboard.</p>
           </div>
         </div>
       </section>
