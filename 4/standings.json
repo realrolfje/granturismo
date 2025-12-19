@@ -1,0 +1,12 @@
+{
+    "drivers": [
+      {"name": "Leroy",    "team": "", "car" : "Ferrari 458 Italia GT3 '13",  "points_per_race": [   4,    6,    8,   12,    8 ]},
+      {"name": "Lex",      "team": "", "car" : "Ferrari 458 Italia GT3 '13",  "points_per_race": [  12,   12,   12,    8,   12 ]},
+      {"name": "Luuk",     "team": "", "car" : "Ferrari 458 Italia GT3 '13",  "points_per_race": [   1,    2, null, null, null ]},
+      {"name": "Martin",   "team": "", "car" : "Ferrari 458 Italia GT3 '13",  "points_per_race": [   2,    8, null, null, null ]},
+      {"name": "Michel",   "team": "", "car" : "Ferrari 458 Italia GT3 '13",  "points_per_race": [  10,    4,    6,   10,    6 ]},
+      {"name": "Mike",     "team": "", "car" : "Ferrari 458 Italia GT3 '13",  "points_per_race": [null, null, null, null, null ]},
+      {"name": "Riccardo", "team": "", "car" : "Ferrari 458 Italia GT3 '13",  "points_per_race": [   6,    1, null,    4,   10 ]},
+      {"name": "Rolf",     "team": "", "car" : "Ferrari 458 Italia GT3 '13",  "points_per_race": [   8,   10,   10,    6,    4 ]}
+    ]
+  }

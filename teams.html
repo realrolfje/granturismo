@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Gran Turismo 7 | Teams & Drivers</title>
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <link rel="stylesheet" href="styles.css" />
+    <script src="theme.js" defer></script>
+    <script src="main.js" defer></script>
+  </head>
+  <body class="theme-dark">
+    <header class="hero" id="top">
+      <button id="theme-toggle" class="theme-toggle" type="button" aria-pressed="false">Light mode</button>
+      <div class="hero__content">
+        <p class="eyebrow">Gran Turismo 7</p>
+        <h1>Teams &amp; Drivers</h1>
+        <div class="hero__nav" role="navigation">
+          <a class="pill-link" href="index.html">Standings</a>
+          <a class="pill-link pill-link--active" href="teams.html">Teams &amp; Drivers</a>
+          <a class="pill-link" href="results.html">Race Results</a>
+          <a id="upcoming-pill" class="pill-link" href="races.html">Upcoming Races</a>
+          <a class="pill-link" href="rules.html">Scoring Rules</a>
+          <a class="pill-link" href="editor.html">Race Editor</a>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <section id="teams-section" class="panel" aria-labelledby="teams-heading">
+        <div id="teams-list" class="card-grid" role="list"></div>
+      </section>
+    </main>
+
+    <template id="team-card-template">
+      <article class="team-card" role="listitem">
+        <header>
+          <span class="team-card__tag"></span>
+        </header>
+        <ul class="team-card__drivers"></ul>
+      </article>
+    </template>
+  </body>
+</html>

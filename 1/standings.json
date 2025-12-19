@@ -1,0 +1,36 @@
+{
+    "drivers": [
+      {
+        "name": "Riccardo",  "team": "Team Blauw", "car" : "McLaren 650S GT3 '15",
+        "points_per_race": [ 6, 8, 8, 6]
+      },
+      {
+        "name": "Martin", "team": "Team Rood", "car" : "Nissan Skyline Super Silhouette '84",
+        "points_per_race": [ 1, null, 1, null]
+      },
+      {
+        "name": "Leroy", "team": "Team Groen", "car" : "Volkswagen Beetle Gr.3",
+        "points_per_race": [ 2, 12, 6, 8]
+      },
+      {
+        "name": "Luuk", "team": "Team Groen", "car" : "Volkswagen Beetle Gr.3",
+        "points_per_race": [ 4, 2, 2, 2]
+      },
+      {
+        "name": "Mike", "team": "Team Rood",
+        "points_per_race": [null, null, null, null]
+      },
+      {
+        "name": "Michel", "team": "Team Blauw", "car" : "McLaren 650S GT3 '15",
+        "points_per_race": [10, 4, 4, 4]
+      },
+      {
+        "name": "Lex", "team": "Team Oranje", "car" : "Lamborghini Huracán GT3 '15",
+        "points_per_race": [12, 6, 10, 12]
+      },
+      {
+        "name": "Rolf", "team": "Team Oranje", "car" : "Lamborghini Huracán GT3 '15",
+        "points_per_race": [ 8, 10, 12, 10]
+      }
+    ]
+  }

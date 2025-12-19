@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Gran Turismo 7 | Upcoming Races</title>
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <link rel="stylesheet" href="styles.css" />
+    <script src="theme.js" defer></script>
+    <script src="counts.js" defer></script>
+    <script src="raceFields.js" defer></script>
+    <script src="upcoming.js" defer></script>
+  </head>
+  <body class="theme-dark">
+    <header class="hero" id="top">
+      <button id="theme-toggle" class="theme-toggle" type="button" aria-pressed="false">Light mode</button>
+      <div class="hero__content">
+        <p class="eyebrow">Gran Turismo 7</p>
+        <h1>Upcoming Events</h1>
+        <div class="hero__nav" role="navigation">
+          <a class="pill-link" href="index.html">Standings</a>
+          <a class="pill-link" href="teams.html">Teams &amp; Drivers</a>
+          <a class="pill-link" href="results.html">Race Results</a>
+          <a id="upcoming-pill" class="pill-link pill-link--active" href="races.html">Upcoming Races</a>
+          <a class="pill-link" href="rules.html">Scoring Rules</a>
+          <a class="pill-link" href="editor.html">Race Editor</a>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <section class="panel panel--rules" aria-labelledby="upcoming-heading">
+        <div class="panel__header">
+          <h2 id="upcoming-heading">Upcoming Schedule</h2>
+          <p>Races listed here do not yet have published results. Check back after the event for final standings.</p>
+        </div>
+        <div id="upcoming-container" class="upcoming-grid"></div>
+      </section>
+    </main>
+  </body>
+</html>
