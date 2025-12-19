@@ -20,6 +20,12 @@ function populateTrackSelect(tracks) {
   const suggestionsList = document.getElementById('track-suggestions');
   const variantSelect = document.getElementById('variant-select');
   if (!trackInput || !trackValue || !suggestionsList || !variantSelect) return;
+  const notifyFormUpdate = () => {
+    const form = trackInput.form;
+    if (form) {
+      form.dispatchEvent(new Event('input', { bubbles: true }));
+    }
+  };
 
   const renderSuggestions = (items = []) => {
     suggestionsList.textContent = '';
@@ -48,9 +54,11 @@ function populateTrackSelect(tracks) {
     trackValue.value = name;
     renderSuggestions([]);
     updateVariants();
+    notifyFormUpdate();
   };
 
   const updateVariants = () => {
+    const previousVariant = variantSelect.value;
     const query = trackInput.value.trim().toLowerCase();
     const selected = tracks.find((t) => t.name.toLowerCase() === query);
 
@@ -71,12 +79,20 @@ function populateTrackSelect(tracks) {
     trackValue.value = selected.name;
     variantSelect.disabled = false;
     variantSelect.setAttribute('required', 'required');
-    selected.variants.forEach((variant) => {
+    let matchedExisting = false;
+    selected.variants.forEach((variant, index) => {
       const option = document.createElement('option');
       option.value = variant;
       option.textContent = variant;
+      if (!matchedExisting && variant === previousVariant) {
+        option.selected = true;
+        matchedExisting = true;
+      }
       variantSelect.appendChild(option);
     });
+    if (!matchedExisting && selected.variants.length) {
+      variantSelect.selectedIndex = 0;
+    }
   };
 
   const handleInput = () => {
