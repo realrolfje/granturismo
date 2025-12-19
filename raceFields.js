@@ -511,6 +511,7 @@
           type: 'multi-select',
           options: [option('Hard'), option('Medium'), option('Soft')],
           defaultValue: ['Hard', 'Medium', 'Soft'],
+          description: "The tyres available during the race. Optional.",
           parse: (values = []) =>
             (Array.isArray(values) ? values : [values])
               .map((entry) => (typeof entry === 'string' ? entry.trim() : entry))
@@ -523,6 +524,7 @@
           type: 'multi-select',
           options: [option('Hard'), option('Medium'), option('Soft')],
           defaultValue: [],
+          description: "The tyres REQUIRED to be used in the race. Yes all of them.",
           parse: (values = []) =>
             (Array.isArray(values) ? values : [values])
               .map((entry) => (typeof entry === 'string' ? entry.trim() : entry))

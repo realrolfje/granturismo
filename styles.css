@@ -396,6 +396,12 @@ body.theme-light .theme-toggle {
   z-index: 5;
 }
 
+.field-hint__description {
+  margin: 0 0 0.5rem;
+  font-size: 0.9rem;
+  color: var(--text);
+}
+
 .field-hint__popover ul {
   list-style: none;
   margin: 0;

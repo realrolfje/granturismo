@@ -352,9 +352,10 @@ function renderExtraFields() {
     labelRow.appendChild(label);
 
     const addValueHints = () => {
-      if (!field.valueLabels) return;
-      const entries = Object.entries(field.valueLabels);
-      if (!entries.length) return;
+      const entries = field.valueLabels ? Object.entries(field.valueLabels) : [];
+      const hasEntries = entries.length > 0;
+      const description = field.description;
+      if (!hasEntries && !description) return;
       const hintButton = document.createElement('button');
       hintButton.type = 'button';
       hintButton.className = 'field-hint';
@@ -366,13 +367,21 @@ function renderExtraFields() {
       popover.className = 'field-hint__popover';
       popover.hidden = true;
       popover.setAttribute('role', 'tooltip');
-      const list = document.createElement('ul');
-      entries.forEach(([value, description]) => {
-        const li = document.createElement('li');
-        li.innerHTML = `<strong>${value}</strong> – ${description}`;
-        list.appendChild(li);
-      });
-      popover.appendChild(list);
+      if (description) {
+        const desc = document.createElement('p');
+        desc.className = 'field-hint__description';
+        desc.textContent = description;
+        popover.appendChild(desc);
+      }
+      if (hasEntries) {
+        const list = document.createElement('ul');
+        entries.forEach(([value, descText]) => {
+          const li = document.createElement('li');
+          li.innerHTML = `<strong>${value}</strong> – ${descText}`;
+          list.appendChild(li);
+        });
+        popover.appendChild(list);
+      }
 
       const closePopover = () => {
         hintButton.setAttribute('aria-expanded', 'false');
