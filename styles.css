@@ -289,6 +289,12 @@ body.theme-light .theme-toggle {
   gap: 0.75rem;
 }
 
+.standings-grid > *,
+.editor-grid > *,
+.editor-form > * {
+  min-width: 0;
+}
+
 .editor-form .form-field--span-2 {
   grid-column: span 2;
 }
@@ -330,6 +336,7 @@ body.theme-light .theme-toggle {
 .form-field input,
 .form-field select,
 .form-field textarea {
+  width: 100%;
   padding: 0.65rem 0.75rem;
   border-radius: 0.5rem;
   border: 1px solid var(--border);
@@ -467,6 +474,7 @@ body.theme-light .theme-toggle {
 
 .repeatable-row select {
   flex: 1;
+  min-width: 0;
 }
 
 .repeatable-action-btn {
@@ -531,6 +539,8 @@ body.theme-light .form-field textarea {
 
 .combo {
   position: relative;
+  width: 100%;
+  min-width: 0;
 }
 
 .combo__list {
@@ -1011,6 +1021,8 @@ body.theme-light .json-preview {
 
 .table-wrapper {
   overflow-x: auto;
+  max-width: 100%;
+  -webkit-overflow-scrolling: touch;
 }
 
 table {
@@ -1023,6 +1035,7 @@ th,
 td {
   padding: 0.65rem;
   text-align: left;
+  overflow-wrap: anywhere;
 }
 
 th {
@@ -1059,23 +1072,65 @@ tbody tr:last-child td {
 @media (max-width: 720px) {
   body {
     gap: 0.75rem;
+    padding: 0 0 2rem;
   }
 
   main {
-    width: min(95vw, 640px);
+    width: 100%;
+    max-width: none;
     gap: 1.25rem;
+    padding: 0 1rem;
+  }
+
+  .hero__content {
+    padding: 1.75rem 1.25rem 2rem;
+  }
+
+  .hero__nav {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .hero__nav .pill-link {
+    width: 100%;
+    text-align: center;
   }
 
   .panel {
     padding: 1rem;
   }
 
-  .standings-grid {
+  .standings-grid,
+  .callouts,
+  .card-grid,
+  .points-grid,
+  .editor-grid,
+  .editor-form {
     grid-template-columns: 1fr;
+  }
+
+  .editor-form .form-field--span-2 {
+    grid-column: 1;
   }
 
   .race-card {
     padding: 1rem;
+  }
+
+  .race-card header,
+  .upcoming-card__summary {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .upcoming-card__meta {
+    align-items: flex-start;
+  }
+
+  .upcoming-card__details li,
+  .race-card__details li {
+    grid-template-columns: 1fr;
+    row-gap: 0.25rem;
   }
 }
 .eyebrow {
