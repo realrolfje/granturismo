@@ -197,16 +197,37 @@
           id: 'bopTuning',
           label: 'BoP/Tuning Prohibited',
           type: 'select',
+          description: 'When ON, select what tuning is allowed in Settings Options',
           options: [option('Off'), option('On (no tuning allowed)')],
           defaultValue: 'Off'
         },
         {
           id: 'tuningOptionsAllowed',
           label: 'Settings Options',
-          type: 'select',
-          options: [option('Pipes'), option('Turbo')],
-          defaultValue: 'All'
-        },
+          type: 'multi-select',
+          description: 'What can be changed when BoP is ON', 
+          options: [
+            option('Body Height Adjustment'), 
+            option('Anti-Roll Bar'), 
+            option('Damping Ratio'), 
+            option('Natural Frequency'), 
+            option('Negative Camber Angle'), 
+            option('Toe Angle'), 
+            option('Differential'), 
+            option('Torque-Vectoring Centre Differential'), 
+            option('Transmission (No Final Gear)'), 
+            option('Transmission (Final Gear)'), 
+            option('Downforce'), 
+            option('Anti-Lag'), 
+            option('Brake Balance')
+
+          ],
+          defaultValue: [],
+          parse: (values = []) =>
+            (Array.isArray(values) ? values : [values])
+              .map((entry) => (typeof entry === 'string' ? entry.trim() : entry))
+              .filter(Boolean),
+          format: (value) => (Array.isArray(value) ? value.join(', ') : value)        },
         {
           id: 'boost',
           label: 'Boost',
