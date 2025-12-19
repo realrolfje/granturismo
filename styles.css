@@ -7,9 +7,8 @@
   --muted: rgba(248, 249, 251, 0.7);
   --accent: #e63946;
   --border: rgba(255, 255, 255, 0.12);
-  --bg-glow: radial-gradient(circle at top, rgba(230, 57, 70, 0.35), transparent 40%);
   --row-alt: rgba(255, 255, 255, 0.08);
-  --combo-bg: rgba(2, 6, 23, 0.95);
+  --combo-bg: rgb(245, 245, 245);
   --combo-text: #f8f9fb;
   --combo-hover: rgba(255, 255, 255, 0.12);
 }
@@ -23,9 +22,8 @@ body.theme-dark {
   --muted: rgba(248, 249, 251, 0.7);
   --accent: #e63946;
   --border: rgba(255, 255, 255, 0.12);
-  --bg-glow: radial-gradient(circle at top, rgba(230, 57, 70, 0.35), transparent 40%);
   --row-alt: rgba(255, 255, 255, 0.08);
-  --combo-bg: rgba(23, 25, 35, 0.95);
+  --combo-bg: rgb(31, 32, 38);
   --combo-text: #f8f9fb;
   --combo-hover: rgba(255, 255, 255, 0.12);
 }
@@ -39,11 +37,10 @@ body.theme-light {
   --muted: rgba(16, 21, 33, 0.7);
   --accent: #e63946;
   --border: rgba(15, 23, 42, 0.1);
-  --bg-glow: radial-gradient(circle at top, rgba(230, 57, 70, 0.18), transparent 40%);
   --row-alt: rgba(15, 23, 42, 0.05);
-  --combo-bg: #f1f3f8;
+  --combo-bg: rgb(245, 245, 245);
   --combo-text: #0b0d17;
-  --combo-hover: rgba(15, 23, 42, 0.08);
+  --combo-hover: rgba(15, 23, 42, 0.15);
 }
 
 * {
