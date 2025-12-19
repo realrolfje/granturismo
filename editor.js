@@ -35,7 +35,7 @@ function populateTrackSelect(tracks) {
       return;
     }
 
-    items.slice(0, 8).forEach((name) => {
+    items.forEach((name) => {
       const li = document.createElement('li');
       li.textContent = name;
       li.tabIndex = 0;
@@ -97,15 +97,26 @@ function populateTrackSelect(tracks) {
 
   const handleInput = () => {
     const value = trackInput.value.trim().toLowerCase();
-    const matches = value
-      ? tracks.filter((track) => track.name.toLowerCase().includes(value)).map((track) => track.name)
-      : tracks.map((track) => track.name);
+    const matches = tracks
+      .filter((track) => track.name.toLowerCase().includes(value))
+      .map((track) => track.name);
     renderSuggestions(matches);
     updateVariants();
   };
 
+  const showAllSuggestions = () => {
+    renderSuggestions(tracks.map((track) => track.name));
+    trackInput.setSelectionRange(0, trackInput.value.length);
+  };
+
   trackInput.addEventListener('input', handleInput);
-  trackInput.addEventListener('focus', handleInput);
+  trackInput.addEventListener('focus', () => {
+    if (!trackInput.value.trim()) {
+      showAllSuggestions();
+    } else {
+      handleInput();
+    }
+  });
   trackInput.addEventListener('blur', () => {
     setTimeout(() => {
       suggestionsList.hidden = true;
