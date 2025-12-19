@@ -803,7 +803,7 @@ body.theme-light .json-preview {
   text-align: right;
 }
 
-.standings-row-alt td {
+.standings-row-alt > td {
   background-color: var(--row-alt);
 }
 
@@ -860,7 +860,7 @@ body.theme-light .json-preview {
   position: relative;
 }
 
-.team-row--tinted td {
+.team-row--tinted > td {
   background: var(--team-row-tint, transparent);
 }
 
