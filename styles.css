@@ -8,6 +8,7 @@
   --accent: #e63946;
   --border: rgba(255, 255, 255, 0.12);
   --bg-glow: radial-gradient(circle at top, rgba(230, 57, 70, 0.35), transparent 40%);
+  --row-alt: rgba(255, 255, 255, 0.08);
 }
 
 body.theme-dark {
@@ -20,6 +21,7 @@ body.theme-dark {
   --accent: #e63946;
   --border: rgba(255, 255, 255, 0.12);
   --bg-glow: radial-gradient(circle at top, rgba(230, 57, 70, 0.35), transparent 40%);
+  --row-alt: rgba(255, 255, 255, 0.08);
 }
 
 body.theme-light {
@@ -32,6 +34,7 @@ body.theme-light {
   --accent: #e63946;
   --border: rgba(15, 23, 42, 0.1);
   --bg-glow: radial-gradient(circle at top, rgba(230, 57, 70, 0.18), transparent 40%);
+  --row-alt: rgba(15, 23, 42, 0.05);
 }
 
 * {
@@ -801,7 +804,7 @@ body.theme-light .json-preview {
 }
 
 .standings-row-alt td {
-  background-color: rgba(235, 235, 235, 0.2);
+  background-color: var(--row-alt);
 }
 
 .standings-table tbody tr.expandable-row {
