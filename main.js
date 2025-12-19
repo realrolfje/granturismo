@@ -176,20 +176,27 @@ function computeDriverStandings({ raceResults = {}, pointsRules = {}, drivers = 
 
 function computeTeamStandings({ driverStandings = [], teams = [] }) {
   const driverTeamMap = buildDriverTeamMap(teams);
-  const teamStats = new Map();
+  const teamStats = new Map(
+    (teams || [])
+      .filter((team) => team?.id)
+      .map((team) => [
+        team.id,
+        {
+          id: team.id,
+          name: team.name || team.id,
+          color: team.color || '#ffd166',
+          points: 0,
+          wins: 0,
+          drivers: []
+        }
+      ])
+  );
 
   driverStandings.forEach((driver) => {
     const team = driverTeamMap.get(driver.driverId);
-    const teamKey = team?.id || 'independent';
-    const entry = teamStats.get(teamKey) || {
-      id: team?.id || 'independent',
-      name: team?.name || 'Independent Drivers',
-      color: team?.color || '#ffd166',
-      points: 0,
-      wins: 0,
-      drivers: []
-    };
-
+    if (!team?.id) return;
+    const entry = teamStats.get(team.id);
+    if (!entry) return;
     entry.points += driver.points;
     entry.wins += driver.wins;
     entry.drivers.push({
@@ -198,7 +205,6 @@ function computeTeamStandings({ driverStandings = [], teams = [] }) {
       wins: driver.wins,
       races: driver.races
     });
-    teamStats.set(teamKey, entry);
   });
 
   const standings = Array.from(teamStats.values());
@@ -245,12 +251,9 @@ function renderTeams({ teams, drivers }) {
   if (!container || !template) return;
   container.textContent = '';
 
-  const driverTeams = buildDriverTeamMap(teams);
   const driverMap = mapById(drivers || []);
-  const assignedDriverIds = new Set(driverTeams.keys());
-  const freeAgents = (drivers || []).filter((driver) => !assignedDriverIds.has(driver.id));
 
-  teams.forEach((team, index) => {
+  (teams || []).forEach((team) => {
     const instance = template.content.firstElementChild.cloneNode(true);
 
     const tag = instance.querySelector('.team-card__tag');
@@ -268,33 +271,20 @@ function renderTeams({ teams, drivers }) {
 
     container.appendChild(instance);
   });
-
-  if (freeAgents.length) {
-    const instance = template.content.firstElementChild.cloneNode(true);
-    const tag = instance.querySelector('.team-card__tag');
-    tag.textContent = 'Independent Drivers';
-    tag.style.background = '#cdd6f4';
-    tag.style.color = pickTextColor('#cdd6f4');
-
-    const list = instance.querySelector('.team-card__drivers');
-    freeAgents.forEach((driver) => {
-      const li = document.createElement('li');
-      li.textContent = driver.name;
-      list.appendChild(li);
-    });
-
-    container.appendChild(instance);
-  }
 }
 
-function renderStandings({ driverStandings, teamStandings, drivers, races }) {
+function renderStandings({ driverStandings = [], teamStandings = [], drivers = [], races }) {
   const driverBody = document.getElementById('driver-standings-body');
+  if (!driverBody) return;
   const teamBody = document.getElementById('team-standings-body');
-  if (!driverBody || !teamBody) return;
+  const teamCard = document.getElementById('team-standings-card');
+  const teamCallout = document.getElementById('team-leader-callout');
   const driverMap = mapById(drivers || []);
   const raceMap = mapById(races?.races || []);
   driverBody.textContent = '';
-  teamBody.textContent = '';
+  if (teamBody) {
+    teamBody.textContent = '';
+  }
 
   driverStandings.forEach((entry, index) => {
     const driver = driverMap.get(entry.driverId);
@@ -381,91 +371,101 @@ function renderStandings({ driverStandings, teamStandings, drivers, races }) {
     driverBody.appendChild(detailsTr);
   });
 
-  teamStandings.forEach((entry, index) => {
-    const rowId = `team-${entry.id}`;
-    const teamColor = entry.color || '#ffd166';
-    const pillTextColor = pickTextColor(teamColor);
-    const rowTint = hexToRGBA(teamColor, 0.12);
-    const tr = document.createElement('tr');
-    tr.classList.add('team-row', 'team-row--tinted', 'expandable-row');
-    tr.style.setProperty('--team-row-tint', rowTint);
-    tr.setAttribute('data-team-id', entry.id);
-    tr.setAttribute('aria-expanded', 'false');
-    tr.setAttribute('tabindex', '0');
-    tr.innerHTML = `
-      <td>${index + 1}</td>
-      <td>
-        <div class="team-row__header">
-          <span class="team-pill" style="background:${teamColor};color:${pillTextColor}">${entry.name}</span>
-        </div>
-      </td>
-      <td>${entry.points}</td>
-      <td>${entry.wins}</td>
-    `;
+  const hasTeamStandings = Array.isArray(teamStandings) && teamStandings.length > 0;
+  if (teamCard) {
+    teamCard.hidden = !hasTeamStandings;
+  }
+  if (teamCallout) {
+    teamCallout.hidden = !hasTeamStandings;
+  }
 
-    const detailsTr = document.createElement('tr');
-    detailsTr.classList.add('team-row__details');
-    detailsTr.classList.add('team-row--tinted');
-    detailsTr.style.setProperty('--team-row-tint', rowTint);
-    detailsTr.id = `${rowId}-details`;
-    detailsTr.setAttribute('aria-hidden', 'true');
+  if (hasTeamStandings && teamBody) {
+    teamStandings.forEach((entry, index) => {
+      const rowId = `team-${entry.id}`;
+      const teamColor = entry.color || '#ffd166';
+      const pillTextColor = pickTextColor(teamColor);
+      const rowTint = hexToRGBA(teamColor, 0.12);
+      const tr = document.createElement('tr');
+      tr.classList.add('team-row', 'team-row--tinted', 'expandable-row');
+      tr.style.setProperty('--team-row-tint', rowTint);
+      tr.setAttribute('data-team-id', entry.id);
+      tr.setAttribute('aria-expanded', 'false');
+      tr.setAttribute('tabindex', '0');
+      tr.innerHTML = `
+        <td>${index + 1}</td>
+        <td>
+          <div class="team-row__header">
+            <span class="team-pill" style="background:${teamColor};color:${pillTextColor}">${entry.name}</span>
+          </div>
+        </td>
+        <td>${entry.points}</td>
+        <td>${entry.wins}</td>
+      `;
 
-    const driverRows = (entry.drivers || [])
-      .sort((a, b) => b.points - a.points)
-      .map((driverEntry) => {
-        const driver = driverMap.get(driverEntry.driverId);
-        return `
-          <tr>
-            <td>${driver?.name || driverEntry.driverId}</td>
-            <td>${driverEntry.points} pts</td>
-            <td>${driverEntry.wins} wins</td>
-          </tr>
-        `;
+      const detailsTr = document.createElement('tr');
+      detailsTr.classList.add('team-row__details');
+      detailsTr.classList.add('team-row--tinted');
+      detailsTr.style.setProperty('--team-row-tint', rowTint);
+      detailsTr.id = `${rowId}-details`;
+      detailsTr.setAttribute('aria-hidden', 'true');
+
+      const driverRows = (entry.drivers || [])
+        .sort((a, b) => b.points - a.points)
+        .map((driverEntry) => {
+          const driver = driverMap.get(driverEntry.driverId);
+          return `
+            <tr>
+              <td>${driver?.name || driverEntry.driverId}</td>
+              <td>${driverEntry.points} pts</td>
+              <td>${driverEntry.wins} wins</td>
+            </tr>
+          `;
+        });
+
+      detailsTr.innerHTML = `
+        <td colspan="4">
+          <div class="team-row__details-wrapper">
+            <table>
+              <thead>
+                <tr>
+                  <th scope="col">Driver</th>
+                  <th scope="col">Points</th>
+                  <th scope="col">Wins</th>
+                </tr>
+              </thead>
+              <tbody>
+                ${driverRows.join('') || '<tr><td colspan="3">No drivers yet</td></tr>'}
+              </tbody>
+            </table>
+          </div>
+        </td>
+      `;
+
+      const toggleRow = () => {
+        const expanded = tr.getAttribute('aria-expanded') === 'true';
+        tr.setAttribute('aria-expanded', String(!expanded));
+        detailsTr.setAttribute('aria-hidden', String(expanded));
+        detailsTr.classList.toggle('team-row__details--open', !expanded);
+      };
+
+      tr.addEventListener('click', () => {
+        toggleRow();
       });
 
-    detailsTr.innerHTML = `
-      <td colspan="4">
-        <div class="team-row__details-wrapper">
-          <table>
-            <thead>
-              <tr>
-                <th scope="col">Driver</th>
-                <th scope="col">Points</th>
-                <th scope="col">Wins</th>
-              </tr>
-            </thead>
-            <tbody>
-              ${driverRows.join('') || '<tr><td colspan="3">No drivers yet</td></tr>'}
-            </tbody>
-          </table>
-        </div>
-      </td>
-    `;
+      tr.addEventListener('keydown', (event) => {
+        if (event.key === 'Enter' || event.key === ' ') {
+          event.preventDefault();
+          toggleRow();
+        }
+      });
 
-    const toggleRow = () => {
-      const expanded = tr.getAttribute('aria-expanded') === 'true';
-      tr.setAttribute('aria-expanded', String(!expanded));
-      detailsTr.setAttribute('aria-hidden', String(expanded));
-      detailsTr.classList.toggle('team-row__details--open', !expanded);
-    };
-
-    tr.addEventListener('click', (event) => {
-      toggleRow();
+      teamBody.appendChild(tr);
+      teamBody.appendChild(detailsTr);
     });
-
-    tr.addEventListener('keydown', (event) => {
-      if (event.key === 'Enter' || event.key === ' ') {
-        event.preventDefault();
-        toggleRow();
-      }
-    });
-
-    teamBody.appendChild(tr);
-    teamBody.appendChild(detailsTr);
-  });
+  }
 
   const driverLeader = driverStandings.find((entry) => entry.races > 0);
-  const teamLeader = teamStandings.find((entry) => entry.points > 0);
+  const teamLeader = hasTeamStandings ? teamStandings.find((entry) => entry.points > 0) : undefined;
 
   const driverLeaderName = document.getElementById('driver-leader-name');
   const driverLeaderPoints = document.getElementById('driver-leader-points');
@@ -484,12 +484,15 @@ function renderStandings({ driverStandings, teamStandings, drivers, races }) {
   }
 
   if (teamLeaderName && teamLeaderPoints) {
-    if (teamLeader) {
+    if (hasTeamStandings && teamLeader) {
       teamLeaderName.textContent = teamLeader.name;
       teamLeaderPoints.textContent = `${teamLeader.points} pts • ${teamLeader.wins} wins`;
-    } else {
+    } else if (hasTeamStandings) {
       teamLeaderName.textContent = 'TBD';
       teamLeaderPoints.textContent = 'Awaiting race results';
+    } else {
+      teamLeaderName.textContent = '';
+      teamLeaderPoints.textContent = '';
     }
   }
 }
