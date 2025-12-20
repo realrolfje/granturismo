@@ -198,7 +198,7 @@
           label: 'BoP/Tuning Prohibited',
           type: 'select',
           description: 'When ON, cars will have their weight and power adjusted so that performance is relatively equal. When ON, tuning settings can be limited to certain settings, see Settings Options.',
-          options: [option('Off'), option('On (no tuning allowed)')],
+          options: [option('Off'), option('On (Equal Weight and Power)')],
           defaultValue: 'Off'
         },
         {
