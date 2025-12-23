@@ -1061,6 +1061,10 @@ body.theme-light .json-preview {
   gap: 0.75rem;
 }
 
+body.theme-dark .proof-modal__dialog {
+  background: rgba(11, 13, 23, 0.95);
+}
+
 .proof-modal__close {
   align-self: flex-end;
   border: none;
