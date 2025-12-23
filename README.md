@@ -2,6 +2,9 @@
 
 A lightweight static site for tracking Gran Turismo 7 online race results. Races and results stay in JSON so you can edit finishes with any text editor and refresh the page to see the updated tables.
 
+Originally located at https://realrolfje.github.io/granturismo/
+But now also at https://static.rolfje.com/granturismo
+
 ## Project layout
 
 ```

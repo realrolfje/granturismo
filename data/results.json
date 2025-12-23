@@ -5,6 +5,10 @@
       "proof": "proofs/2025-12-04-test-race.png",
       "finishers": [
         {
+          "driverId": "leroy",
+          "car": "Porsche 911 RSR '17"
+        },
+        {
           "driverId": "lex",
           "car": "Porsche 911 RSR '17"
         },
@@ -19,6 +23,10 @@
         {
           "driverId": "rolf",
           "car": "Toyota GR Supra Racing Concept"
+        },
+        {
+          "driverId": "luuk",
+          "car": "Fiat Panda"
         }
       ]
     }

@@ -197,16 +197,51 @@
           id: 'bopTuning',
           label: 'BoP/Tuning Prohibited',
           type: 'select',
-          options: [option('Off'), option('On (no tuning allowed)')],
+          description: 'When ON, cars will have their weight and power adjusted so that performance is relatively equal. When ON, tuning settings can be limited to certain settings, see Settings Options.',
+          options: [option('Off'), option('On (Equal Weight and Power)')],
           defaultValue: 'Off'
         },
         {
           id: 'tuningOptionsAllowed',
           label: 'Settings Options',
-          type: 'select',
-          options: [option('Pipes'), option('Turbo')],
-          defaultValue: 'All'
-        },
+          type: 'multi-select',
+          description: 'What settings can be changed on the car when BoP is ON.', 
+          options: [
+            option('Body Height Adjustment'), 
+            option('Anti-Roll Bar'), 
+            option('Damping Ratio'), 
+            option('Natural Frequency'), 
+            option('Negative Camber Angle'), 
+            option('Toe Angle'), 
+            option('Differential'), 
+            option('Torque-Vectoring Centre Differential'), 
+            option('Transmission (No Final Gear)'), 
+            option('Transmission (Final Gear)'), 
+            option('Downforce'), 
+            option('Anti-Lag'), 
+            option('Brake Balance')
+
+          ],
+          defaultValue: [
+            'Body Height Adjustment', 
+            'Anti-Roll Bar', 
+            'Damping Ratio', 
+            'Natural Frequency', 
+            'Negative Camber Angle', 
+            'Toe Angle', 
+            'Differential', 
+            'Torque-Vectoring Centre Differential', 
+            'Transmission (No Final Gear)', 
+            'Transmission (Final Gear)', 
+            'Downforce', 
+            'Anti-Lag', 
+            'Brake Balance'
+          ],
+          parse: (values = []) =>
+            (Array.isArray(values) ? values : [values])
+              .map((entry) => (typeof entry === 'string' ? entry.trim() : entry))
+              .filter(Boolean),
+          format: (value) => (Array.isArray(value) ? value.join(', ') : value)        },
         {
           id: 'boost',
           label: 'Boost',

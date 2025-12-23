@@ -5,8 +5,8 @@
       "name": "Pit Lane Legends",
       "color": "#ff6b35",
       "drivers": [
-        "peter",
-        "jack"
+        "luuk",
+        "max"
       ]
     }
   ],
@@ -30,6 +30,15 @@
     {
       "id": "rolf",
       "name": "Rolf"
+    },
+    {
+      "id": "leroy",
+      "name": "Leroy"
+    },
+        {
+      "id": "max",
+      "name": "Max Verstappen"
     }
+
   ]
 }
