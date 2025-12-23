@@ -35,14 +35,17 @@
 
     <template id="race-card-template">
       <article class="race-card">
-        <header>
-          <div>
+        <header class="race-card__header">
+          <div class="race-card__header-main">
             <p class="eyebrow"></p>
             <h3>
               <button type="button" class="race-card__title-btn"></button>
             </h3>
           </div>
-          <p class="race-card__meta"></p>
+          <div class="race-card__header-actions">
+            <p class="race-card__meta"></p>
+            <button type="button" class="race-card__proof-btn" hidden>proof</button>
+          </div>
         </header>
         <div class="race-card__details" hidden></div>
         <div class="table-wrapper">
@@ -60,5 +63,11 @@
         </div>
       </article>
     </template>
+    <div id="proof-modal" class="proof-modal" hidden>
+      <div class="proof-modal__dialog">
+        <button type="button" class="proof-modal__close" aria-label="Close proof viewer">&times;</button>
+        <img class="proof-modal__image" alt="" />
+      </div>
+    </div>
   </body>
 </html>

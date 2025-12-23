@@ -946,12 +946,23 @@ body.theme-light .json-preview {
   gap: 1rem;
 }
 
-.race-card header {
+.race-card__header {
   display: flex;
   justify-content: space-between;
-  align-items: baseline;
+  align-items: flex-start;
   gap: 1rem;
   flex-wrap: wrap;
+}
+
+.race-card__header-main {
+  min-width: 0;
+}
+
+.race-card__header-actions {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.35rem;
 }
 
 .race-card h3 {
@@ -989,23 +1000,26 @@ body.theme-light .json-preview {
   color: var(--muted);
 }
 
-.race-card__proof {
-  margin: 0;
-  display: flex;
-  align-items: baseline;
-  gap: 0.5rem;
-  font-size: 0.9rem;
+.race-card__proof-btn {
+  border-radius: 999px;
+  border: 1px solid var(--muted);
   color: var(--muted);
-}
-
-.race-card__proof a {
-  color: var(--accent);
-  text-decoration: none;
+  background: transparent;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.35rem 0.85rem;
   font-weight: 600;
+  text-decoration: none;
+  transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+  font-size: 0.85rem;
 }
 
-.race-card__proof a:hover {
-  text-decoration: underline;
+.race-card__proof-btn:hover,
+.race-card__proof-btn:focus-visible {
+  background: var(--muted);
+  color: var(--card);
+  border-color: var(--muted);
 }
 
 .race-card__details {
@@ -1016,6 +1030,57 @@ body.theme-light .json-preview {
 
 .race-card--details-open .race-card__details {
   display: block;
+}
+
+.proof-modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 1.25rem;
+  z-index: 50;
+}
+
+.proof-modal:not([hidden]) {
+  display: flex;
+}
+
+.proof-modal__dialog {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 1rem;
+  max-width: min(90vw, 720px);
+  max-height: 90vh;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  padding: 1rem;
+  gap: 0.75rem;
+}
+
+.proof-modal__close {
+  align-self: flex-end;
+  border: none;
+  background: transparent;
+  color: inherit;
+  font-size: 1.5rem;
+  cursor: pointer;
+  padding: 0.25rem 0.5rem;
+}
+
+.proof-modal__image {
+  width: 100%;
+  height: auto;
+  border-radius: 0.75rem;
+  object-fit: contain;
+  max-height: calc(90vh - 4rem);
+}
+
+body.proof-modal-open {
+  overflow: hidden;
 }
 
 .race-card__details .upcoming-detail-group {
@@ -1151,7 +1216,7 @@ tbody tr:last-child td {
     padding: 1rem;
   }
 
-  .race-card header,
+  .race-card__header,
   .upcoming-card__summary {
     flex-direction: column;
     align-items: flex-start;

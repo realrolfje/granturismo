@@ -64,6 +64,43 @@ function hexToRGBA(hexColor = '#ffffff', alpha = 1) {
   return `rgba(${r}, ${g}, ${b}, ${alpha})`;
 }
 
+const proofModal = document.getElementById('proof-modal');
+const proofModalImage = proofModal?.querySelector('.proof-modal__image');
+const proofModalClose = proofModal?.querySelector('.proof-modal__close');
+
+function closeProofModal() {
+  if (!proofModal) return;
+  proofModal.hidden = true;
+  document.body.classList.remove('proof-modal-open');
+  if (proofModalImage) {
+    proofModalImage.removeAttribute('src');
+    proofModalImage.alt = '';
+  }
+}
+
+function openProofModal(url, title = 'Race proof') {
+  if (!proofModal || !proofModalImage) return;
+  proofModalImage.src = url;
+  proofModalImage.alt = `${title} proof screenshot`;
+  proofModal.hidden = false;
+  document.body.classList.add('proof-modal-open');
+  proofModalClose?.focus();
+}
+
+if (proofModal) {
+  proofModal.addEventListener('click', (event) => {
+    if (event.target === proofModal) {
+      closeProofModal();
+    }
+  });
+  proofModalClose?.addEventListener('click', closeProofModal);
+  document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape' && !proofModal.hidden) {
+      closeProofModal();
+    }
+  });
+}
+
 function resolvePosition(finisher, index) {
   if (Number.isFinite(finisher?.position) && finisher.position > 0) {
     return finisher.position;
@@ -683,22 +720,16 @@ function renderRaces({ racesMeta, raceResults, drivers, teams }) {
     }
 
     const proofUrl = typeof race.proof === 'string' ? race.proof.trim() : '';
-    if (proofUrl) {
-      const proof = document.createElement('p');
-      proof.className = 'race-card__proof';
-      const prefix = document.createElement('span');
-      prefix.textContent = 'Proof:';
-      const link = document.createElement('a');
-      link.href = proofUrl;
-      link.target = '_blank';
-      link.rel = 'noopener';
-      link.textContent = 'Proof';
-      proof.append(prefix, link);
-      const header = instance.querySelector('header');
-      if (header) {
-        header.insertAdjacentElement('afterend', proof);
+    const proofButton = instance.querySelector('.race-card__proof-btn');
+    if (proofButton) {
+      if (proofUrl) {
+        proofButton.hidden = false;
+        proofButton.disabled = false;
+        proofButton.setAttribute('aria-label', `View proof for ${raceTitle}`);
+        proofButton.addEventListener('click', () => openProofModal(proofUrl, raceTitle));
       } else {
-        instance.appendChild(proof);
+        proofButton.hidden = true;
+        proofButton.disabled = true;
       }
     }
 
