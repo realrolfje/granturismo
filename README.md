@@ -45,7 +45,15 @@ A lightweight static site for tracking Gran Turismo 7 online race results. Races
 }
 ```
 
-- `data/results.json` lists the finish order for each race. The array order equals the finishing position (1 for the first entry, 2 for the second, ...). Each finisher only needs a `driverId` and `car`; the app figures out the team from `data/teams.json`.
+- `data/results.json` lists the finish order for each race. The array order equals the finishing position (1 for the first entry, 2 for the second, ...). Each finisher only needs a `driverId` and `car`; the app figures out the team from `data/teams.json`. You can also add an optional `proof` string to link a results screenshot stored in `proofs/`:
+
+```json
+{
+  "raceId": "2025-12-04-test-race",
+  "proof": "proofs/2025-12-04-test-race.png",
+  "finishers": []
+}
+```
 - `data/teams.json` contains two sections:
   - `teams`: team metadata and the driver IDs on that roster.
   - `drivers`: driver profiles (id + display name). Drivers not assigned to a team remain visible as “Independent Drivers”.

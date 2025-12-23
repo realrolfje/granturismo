@@ -989,6 +989,25 @@ body.theme-light .json-preview {
   color: var(--muted);
 }
 
+.race-card__proof {
+  margin: 0;
+  display: flex;
+  align-items: baseline;
+  gap: 0.5rem;
+  font-size: 0.9rem;
+  color: var(--muted);
+}
+
+.race-card__proof a {
+  color: var(--accent);
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.race-card__proof a:hover {
+  text-decoration: underline;
+}
+
 .race-card__details {
   display: none;
   border-top: 1px solid var(--border);

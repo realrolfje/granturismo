@@ -682,6 +682,26 @@ function renderRaces({ racesMeta, raceResults, drivers, teams }) {
       titleButton.classList.add('race-card__title-btn--static');
     }
 
+    const proofUrl = typeof race.proof === 'string' ? race.proof.trim() : '';
+    if (proofUrl) {
+      const proof = document.createElement('p');
+      proof.className = 'race-card__proof';
+      const prefix = document.createElement('span');
+      prefix.textContent = 'Proof:';
+      const link = document.createElement('a');
+      link.href = proofUrl;
+      link.target = '_blank';
+      link.rel = 'noopener';
+      link.textContent = 'Proof';
+      proof.append(prefix, link);
+      const header = instance.querySelector('header');
+      if (header) {
+        header.insertAdjacentElement('afterend', proof);
+      } else {
+        instance.appendChild(proof);
+      }
+    }
+
     const tbody = instance.querySelector('tbody');
     (race.finishers || []).forEach((finisher, index) => {
       const driver = driverMap.get(finisher.driverId);

@@ -2,6 +2,7 @@
   "results": [
     {
       "raceId": "2025-12-04-test-race",
+      "proof": "proofs/2025-12-04-test-race.png",
       "finishers": [
         {
           "driverId": "lex",
