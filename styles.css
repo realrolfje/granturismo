@@ -67,11 +67,11 @@ main {
 }
 
 .hero {
-  --hero-image: url("data/rounds/round-1/tesson-thaliath-1MsGQCOeFRk-unsplash.jpg");
+  --hero-image: url("data/caique-morais-cNWF_1O2kzk-unsplash.jpg");
   background-color: #050608;
   background-image: var(--hero-image);
   background-size: cover;
-  background-position: center 70%;
+  background-position: center 75%;
   background-repeat: no-repeat;
   min-height: 150px;
   display: flex;
