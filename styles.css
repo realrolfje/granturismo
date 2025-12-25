@@ -172,8 +172,7 @@ body.theme-light .theme-toggle {
 }
 
 .hero__content {
-  position: relative;
-  padding: 2.25rem;
+  padding: 0.5rem;
   z-index: 1;
 }
 
@@ -1261,7 +1260,8 @@ tbody tr:last-child td {
   }
 
   .hero__content {
-    padding: 1.75rem 1.25rem 2rem;
+    padding: 1rem;
+    padding-top:3rem;
   }
 
   .hero__nav {
