@@ -7,7 +7,7 @@ async function loadEditorData() {
   let races = [];
   if (typeof RoundManager !== 'undefined') {
     const round = await RoundManager.whenReady();
-    races = round?.racesData?.races || [];
+    races = round && round.racesData && Array.isArray(round.racesData.races) ? round.racesData.races : [];
   } else {
     races = await fetchDefaultRoundRaces();
   }
@@ -538,8 +538,10 @@ function parseFieldValue(field, rawValue) {
 
 function buildRaceObject(form) {
   const formData = new FormData(form);
-  const title = formData.get('title')?.trim() || '';
-  const track = formData.get('track')?.trim() || '';
+  const titleValue = formData.get('title');
+  const trackValue = formData.get('track');
+  const title = titleValue ? titleValue.trim() : '';
+  const track = trackValue ? trackValue.trim() : '';
   const date = formData.get('date') || '';
 
   const race = {

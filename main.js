@@ -65,8 +65,8 @@ function hexToRGBA(hexColor = '#ffffff', alpha = 1) {
 }
 
 const proofModal = document.getElementById('proof-modal');
-const proofModalImage = proofModal?.querySelector('.proof-modal__image');
-const proofModalClose = proofModal?.querySelector('.proof-modal__close');
+const proofModalImage = proofModal ? proofModal.querySelector('.proof-modal__image') : null;
+const proofModalClose = proofModal ? proofModal.querySelector('.proof-modal__close') : null;
 
 function closeProofModal() {
   if (!proofModal) return;
@@ -84,7 +84,9 @@ function openProofModal(url, title = 'Race proof') {
   proofModalImage.alt = `${title} proof screenshot`;
   proofModal.hidden = false;
   document.body.classList.add('proof-modal-open');
-  proofModalClose?.focus();
+  if (proofModalClose) {
+    proofModalClose.focus();
+  }
 }
 
 if (proofModal) {
@@ -93,7 +95,9 @@ if (proofModal) {
       closeProofModal();
     }
   });
-  proofModalClose?.addEventListener('click', closeProofModal);
+  if (proofModalClose) {
+    proofModalClose.addEventListener('click', closeProofModal);
+  }
   document.addEventListener('keydown', (event) => {
     if (event.key === 'Escape' && !proofModal.hidden) {
       closeProofModal();
@@ -102,8 +106,9 @@ if (proofModal) {
 }
 
 function resolvePosition(finisher, index) {
-  if (Number.isFinite(finisher?.position) && finisher.position > 0) {
-    return finisher.position;
+  const candidatePosition = finisher ? finisher.position : undefined;
+  if (Number.isFinite(candidatePosition) && candidatePosition > 0) {
+    return candidatePosition;
   }
   return index + 1;
 }
@@ -182,7 +187,11 @@ function computeDriverStandings({ raceResults = {}, pointsRules = {}, drivers = 
     const breakdown = entry.breakdown || [];
     if (breakdown.length < 2) return;
     let dropIndex = 0;
-    let minPoints = Number.isFinite(breakdown[0]?.points) ? breakdown[0].points : 0;
+    const firstEntry = breakdown[0];
+    let minPoints =
+      firstEntry && Number.isFinite(firstEntry.points)
+        ? firstEntry.points
+        : 0;
     breakdown.forEach((raceEntry, idx) => {
       const pts = Number.isFinite(raceEntry.points) ? raceEntry.points : 0;
       if (pts < minPoints) {
@@ -215,7 +224,7 @@ function computeTeamStandings({ driverStandings = [], teams = [] }) {
   const driverTeamMap = buildDriverTeamMap(teams);
   const teamStats = new Map(
     (teams || [])
-      .filter((team) => team?.id)
+      .filter((team) => team && team.id)
       .map((team) => [
         team.id,
         {
@@ -231,7 +240,7 @@ function computeTeamStandings({ driverStandings = [], teams = [] }) {
 
   driverStandings.forEach((driver) => {
     const team = driverTeamMap.get(driver.driverId);
-    if (!team?.id) return;
+    if (!team || !team.id) return;
     const entry = teamStats.get(team.id);
     if (!entry) return;
     entry.points += driver.points;
@@ -258,7 +267,7 @@ function renderStats({ races, teamsData, raceResults }) {
   const driverCountEl = document.getElementById('driver-count');
   const upcomingLink = document.getElementById('upcoming-pill');
 
-  const uniqueRaceCount = races?.races?.length ?? 0;
+  const uniqueRaceCount = races && races.races ? races.races.length : 0;
   const uniqueDrivers = new Set((teamsData.drivers || []).map((d) => d.id));
   (raceResults.results || []).forEach((race) => {
     (race.finishers || []).forEach((finisher) => {
@@ -277,7 +286,8 @@ function renderStats({ races, teamsData, raceResults }) {
 
   if (upcomingLink) {
     const completed = new Set((raceResults.results || []).map((race) => race.raceId));
-    const upcomingCount = (races?.races || []).filter((race) => !completed.has(race.id)).length;
+    const raceList = races && races.races ? races.races : [];
+    const upcomingCount = raceList.filter((race) => !completed.has(race.id)).length;
     upcomingLink.textContent = upcomingCount ? `Upcoming Races (${upcomingCount})` : 'Upcoming Races';
   }
 }
@@ -317,7 +327,7 @@ function renderStandings({ driverStandings = [], teamStandings = [], drivers = [
   const teamCard = document.getElementById('team-standings-card');
   const teamCallout = document.getElementById('team-leader-callout');
   const driverMap = mapById(drivers || []);
-  const raceMap = mapById(races?.races || []);
+  const raceMap = mapById(races && races.races ? races.races : []);
   driverBody.textContent = '';
   if (teamBody) {
     teamBody.textContent = '';
@@ -335,7 +345,7 @@ function renderStandings({ driverStandings = [], teamStandings = [], drivers = [
       <td>${index + 1}</td>
       <td>
         <div class="driver-row__header">
-          <span class="driver-row__name">${driver?.name || entry.driverId}</span>
+      <span class="driver-row__name">${driver && driver.name ? driver.name : entry.driverId}</span>
         </div>
       </td>
       <td>${entry.points}</td>
@@ -348,7 +358,7 @@ function renderStandings({ driverStandings = [], teamStandings = [], drivers = [
     detailsTr.setAttribute('aria-hidden', 'true');
     const breakdownRows = (entry.breakdown || []).map((raceEntry) => {
       const raceMeta = raceMap.get(raceEntry.raceId);
-      const raceName = raceMeta?.title || raceEntry.raceId;
+      const raceName = raceMeta && raceMeta.title ? raceMeta.title : raceEntry.raceId;
       const positionText = raceEntry.position ? `P${raceEntry.position}` : 'NC';
       const rowClass = raceEntry.isDropped
         ? 'driver-row__details-row driver-row__details-row--dropped'
@@ -452,7 +462,7 @@ function renderStandings({ driverStandings = [], teamStandings = [], drivers = [
           const driver = driverMap.get(driverEntry.driverId);
           return `
             <tr>
-              <td>${driver?.name || driverEntry.driverId}</td>
+              <td>${driver && driver.name ? driver.name : driverEntry.driverId}</td>
               <td>${driverEntry.points} pts</td>
               <td>${driverEntry.wins} wins</td>
             </tr>
@@ -512,7 +522,7 @@ function renderStandings({ driverStandings = [], teamStandings = [], drivers = [
   if (driverLeaderName && driverLeaderPoints) {
     if (driverLeader) {
       const leaderDriver = driverMap.get(driverLeader.driverId);
-      driverLeaderName.textContent = leaderDriver?.name || driverLeader.driverId;
+      driverLeaderName.textContent = leaderDriver && leaderDriver.name ? leaderDriver.name : driverLeader.driverId;
       driverLeaderPoints.textContent = `${driverLeader.points} pts • ${driverLeader.wins} wins`;
     } else {
       driverLeaderName.textContent = 'TBD';
@@ -736,14 +746,14 @@ function renderRaces({ racesMeta, raceResults, drivers, teams }) {
     const tbody = instance.querySelector('tbody');
   (race.finishers || []).forEach((finisher, index) => {
       const driver = driverMap.get(finisher.driverId);
-      const driverName = driver?.name || finisher.driverId;
+      const driverName = driver && driver.name ? driver.name : finisher.driverId;
       const derivedTeam = driverTeamMap.get(finisher.driverId);
       const team = derivedTeam || (finisher.teamId ? teamMap.get(finisher.teamId) : null);
       const position = resolvePosition(finisher, index);
 
       const tr = document.createElement('tr');
 
-      const badgeColor = team?.color || '#ffd166';
+      const badgeColor = team && team.color ? team.color : '#ffd166';
       const badgeTextColor = pickTextColor(badgeColor);
 
       tr.innerHTML = `

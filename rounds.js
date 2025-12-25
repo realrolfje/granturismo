@@ -2,7 +2,7 @@ function getEarliestUpcomingDate(races = []) {
   const now = Date.now();
   let earliest = Infinity;
   (races || []).forEach((race) => {
-    if (!race?.date) return;
+    if (!race || !race.date) return;
     const timestamp = new Date(race.date).getTime();
     if (!Number.isFinite(timestamp)) return;
     if (timestamp >= now && timestamp < earliest) {
@@ -49,8 +49,12 @@ const RoundManager = (() => {
           throw new Error(`Failed to load ${racesUrl}`);
         }
         const racesData = await racesResponse.json();
-        const label = racesData?.round?.title || config.label || config.id;
-        const earliestUpcoming = getEarliestUpcomingDate(racesData?.races);
+        const roundTitle =
+          racesData && racesData.round && racesData.round.title;
+        const label = roundTitle || config.label || config.id;
+        const earliestUpcoming = getEarliestUpcomingDate(
+          racesData && racesData.races
+        );
         return {
           ...config,
           label,
@@ -89,7 +93,7 @@ const RoundManager = (() => {
 
   async function loadResultsForRound(roundId) {
     await whenReady();
-    const id = roundId || selectedRound?.id;
+    const id = roundId || (selectedRound ? selectedRound.id : null);
     if (!id) {
       throw new Error('No round selected');
     }

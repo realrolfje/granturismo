@@ -12,9 +12,14 @@ function applyTheme(theme) {
   body.classList.add(nextClass);
 
   const button = document.getElementById('theme-toggle');
+  const icon = button ? button.querySelector('.theme-toggle__icon') : null;
+  const actionLabel = theme === themes.DARK ? 'Switch to light mode' : 'Switch to dark mode';
   if (button) {
-    button.textContent = theme === themes.DARK ? 'Light mode' : 'Dark mode';
+    button.setAttribute('aria-label', actionLabel);
     button.setAttribute('aria-pressed', theme === themes.LIGHT ? 'true' : 'false');
+  }
+  if (icon) {
+    icon.textContent = theme === themes.DARK ? '☀️' : '🌙';
   }
 }
 

@@ -222,7 +222,8 @@ async function renderUpcomingForRound(round) {
   try {
     const resultsData = await RoundManager.loadResults(round.id);
     const completed = new Set((resultsData.results || []).map((race) => race.raceId));
-    renderUpcoming(round.racesData?.races, completed);
+    const roundRaces = round.racesData && Array.isArray(round.racesData.races) ? round.racesData.races : [];
+    renderUpcoming(roundRaces, completed);
   } catch (err) {
     console.error(err);
     const container = document.getElementById('upcoming-container');
@@ -244,7 +245,8 @@ async function initUpcomingPage() {
 
     const { racesData, resultsData } = await loadLegacyUpcomingData();
     const completed = new Set((resultsData.results || []).map((race) => race.raceId));
-    renderUpcoming(racesData.races, completed);
+    const legacyRaces = racesData && Array.isArray(racesData.races) ? racesData.races : [];
+    renderUpcoming(legacyRaces, completed);
   } catch (err) {
     console.error(err);
     const container = document.getElementById('upcoming-container');
