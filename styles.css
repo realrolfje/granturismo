@@ -119,9 +119,8 @@ body.theme-light .theme-toggle {
 .pill-link {
   text-transform: uppercase;
   font-size: 0.75rem;
-  letter-spacing: 0.14em;
   font-weight: 600;
-  padding: 0.55rem 1rem;
+  padding: 0.5rem 0.8rem;
   border-radius: 999px;
   border: 1px solid rgba(255, 255, 255, 0.4);
   color: var(--hero-text);
@@ -172,7 +171,7 @@ body.theme-light .theme-toggle {
 }
 
 .hero__content {
-  padding: 0.5rem;
+  padding: 1rem;
   z-index: 1;
 }
 
@@ -212,12 +211,11 @@ body.theme-light .theme-toggle {
   border: 1px solid rgba(255, 255, 255, 0.4);
   background: rgba(8, 11, 18, 0.65);
   color: #fff;
-  padding: 0.55rem 1rem;
+  padding: 0.5rem 0.8rem;
   font: inherit;
   font-size: 0.75rem;
   font-weight: 600;
   text-transform: uppercase;
-  letter-spacing: 0.14em;
   cursor: pointer;
   min-width: 170px;
   appearance: none;
