@@ -1,4 +1,4 @@
-async function updateHeroCounts() {
+async function updateHeroCounts(round) {
   const raceLink = document.getElementById('race-count');
   const driverLink = document.getElementById('driver-count');
   const upcomingLink = document.getElementById('upcoming-pill');
@@ -7,7 +7,7 @@ async function updateHeroCounts() {
   try {
     const [teamsRes, roundContext] = await Promise.all([
       fetch('data/teams.json'),
-      loadRoundContext()
+      loadRoundContext(round)
     ]);
 
     if (!teamsRes.ok) {
@@ -50,20 +50,42 @@ async function updateHeroCounts() {
   }
 }
 
-async function loadRoundContext() {
+async function loadRoundContext(round) {
   if (typeof RoundManager !== 'undefined') {
-    const round = await RoundManager.whenReady();
-    const resultsData = await RoundManager.loadResults(round.id);
+    const contextRound = round || (await resolveRoundContext());
+    const resultsData = await RoundManager.loadResults(contextRound.id);
     return {
-      racesData: round.racesData,
+      round: contextRound,
+      racesData: contextRound.racesData,
       resultsData
     };
   }
   return fetchDefaultRoundFiles();
 }
 
+async function resolveRoundContext(round) {
+  if (round) return round;
+  await RoundManager.whenReady();
+  const currentRound = RoundManager.getCurrentRound();
+  if (!currentRound) {
+    throw new Error('No round selected');
+  }
+  return currentRound;
+}
+
 document.addEventListener('DOMContentLoaded', () => {
-  updateHeroCounts();
+  updateHeroCounts().catch((err) => console.error('Unable to update hero counts', err));
+  if (typeof RoundManager !== 'undefined') {
+    RoundManager.whenReady()
+      .then(() => {
+        RoundManager.onRoundChange((round) => {
+          updateHeroCounts(round).catch((err) => console.error('Unable to update hero counts', err));
+        });
+      })
+      .catch((err) => {
+        console.error('Unable to sync counts with round changes', err);
+      });
+  }
 });
 
 async function fetchDefaultRoundFiles() {
