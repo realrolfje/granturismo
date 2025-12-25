@@ -7,11 +7,17 @@
     <link rel="icon" type="image/x-icon" href="favicon.ico">
     <link rel="stylesheet" href="styles.css" />
     <script src="theme.js" defer></script>
+    <script src="rounds.js" defer></script>
     <script src="main.js" defer></script>
   </head>
   <body class="theme-dark">
     <header class="hero" id="top">
-      <button id="theme-toggle" class="theme-toggle" type="button" aria-pressed="false">Light mode</button>
+      <div class="hero__top-actions">
+        <div class="hero__round-selector">
+          <select id="round-select" aria-label="Select a round"></select>
+        </div>
+        <button id="theme-toggle" class="theme-toggle" type="button" aria-pressed="false">Light mode</button>
+      </div>
       <div class="hero__content">
         <p class="eyebrow">Gran Turismo 7</p>
         <h1>Teams &amp; Drivers</h1>

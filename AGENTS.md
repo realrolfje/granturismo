@@ -45,6 +45,7 @@ For pull requests:
 
 ## Data Editing Tips
 
-- `data/results.json` uses array order as finishing position (1st entry = 1st place).
-- Driver IDs must match across `data/teams.json` and `data/results.json`.
-- Store result screenshots in `proofs/` and reference them via `proof.url` in `data/results.json`.
+- `data/rounds.json` enumerates each round directory and marks the active round (`active: true`) that the site shows by default.
+- Each round folder (`data/rounds/<round-id>/`) holds its own `results.json`; keep the finishers in array order (1st entry = 1st place).
+- Driver IDs must match across `data/teams.json` and the chosen round’s `results.json`.
+- Store proof screenshots under `data/rounds/<round-id>/proofs/` and reference them via the `proof` key inside that round’s `results.json`.

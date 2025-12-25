@@ -1,21 +1,21 @@
-async function loadData() {
-  const endpoints = [
-    fetch('data/teams.json'),
-    fetch('data/races.json'),
-    fetch('data/results.json'),
-    fetch('data/points.json')
-  ];
+let sharedDataPromise;
 
-  const responses = await Promise.all(endpoints);
+function loadSharedData() {
+  if (sharedDataPromise) return sharedDataPromise;
+  sharedDataPromise = (async () => {
+    const endpoints = [fetch('data/teams.json'), fetch('data/points.json')];
+    const responses = await Promise.all(endpoints);
 
-  responses.forEach((res) => {
-    if (!res.ok) {
-      throw new Error(`Failed to load ${res.url}`);
-    }
-  });
+    responses.forEach((res) => {
+      if (!res.ok) {
+        throw new Error(`Failed to load ${res.url}`);
+      }
+    });
 
-  const [teams, races, results, points] = await Promise.all(responses.map((res) => res.json()));
-  return { teams, races, results, points };
+    const [teams, points] = await Promise.all(responses.map((res) => res.json()));
+    return { teams, points };
+  })();
+  return sharedDataPromise;
 }
 
 function mapById(items = []) {
@@ -734,7 +734,7 @@ function renderRaces({ racesMeta, raceResults, drivers, teams }) {
     }
 
     const tbody = instance.querySelector('tbody');
-    (race.finishers || []).forEach((finisher, index) => {
+  (race.finishers || []).forEach((finisher, index) => {
       const driver = driverMap.get(finisher.driverId);
       const driverName = driver?.name || finisher.driverId;
       const derivedTeam = driverTeamMap.get(finisher.driverId);
@@ -766,6 +766,36 @@ function renderRaces({ racesMeta, raceResults, drivers, teams }) {
   });
 }
 
+async function renderRound(round) {
+  if (!round) return;
+  const sharedData = await loadSharedData();
+  const raceResults = await RoundManager.loadResults(round.id);
+  renderStats({ races: round.racesData, teamsData: sharedData.teams, raceResults });
+  const driverStandings = computeDriverStandings({
+    raceResults,
+    pointsRules: sharedData.points,
+    drivers: sharedData.teams.drivers
+  });
+  const teamStandings = computeTeamStandings({
+    driverStandings,
+    teams: sharedData.teams.teams
+  });
+  renderPointsRule(sharedData.points);
+  renderStandings({
+    driverStandings,
+    teamStandings,
+    drivers: sharedData.teams.drivers,
+    races: round.racesData
+  });
+  renderTeams({ teams: sharedData.teams.teams, drivers: sharedData.teams.drivers });
+  renderRaces({
+    racesMeta: round.racesData,
+    raceResults,
+    drivers: sharedData.teams.drivers,
+    teams: sharedData.teams.teams
+  });
+}
+
 function showError(message) {
   const container = document.getElementById('races-container');
   if (container) {
@@ -775,34 +805,16 @@ function showError(message) {
 
 async function init() {
   try {
-    const data = await loadData();
-    renderStats({ races: data.races, teamsData: data.teams, raceResults: data.results });
-    const driverStandings = computeDriverStandings({
-      raceResults: data.results,
-      pointsRules: data.points,
-      drivers: data.teams.drivers
-    });
-    const teamStandings = computeTeamStandings({
-      driverStandings,
-      teams: data.teams.teams
-    });
-    renderPointsRule(data.points);
-    renderStandings({
-      driverStandings,
-      teamStandings,
-      drivers: data.teams.drivers,
-      races: data.races
-    });
-    renderTeams({ teams: data.teams.teams, drivers: data.teams.drivers });
-    renderRaces({
-      racesMeta: data.races,
-      raceResults: data.results,
-      drivers: data.teams.drivers,
-      teams: data.teams.teams
+    await RoundManager.whenReady();
+    RoundManager.onRoundChange((round) => {
+      renderRound(round).catch((err) => {
+        console.error(err);
+        showError('Unable to load the race data for this round. Please verify the JSON files.');
+      });
     });
   } catch (err) {
     console.error(err);
-    showError('Unable to load the race data. Please verify the JSON files.');
+    showError('Unable to load the round configuration. Please verify the round data.');
   }
 }
 

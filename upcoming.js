@@ -1,15 +1,26 @@
-async function loadUpcomingData() {
-  const [racesRes, resultsRes] = await Promise.all([
-    fetch('data/races.json'),
-    fetch('data/results.json')
-  ]);
+async function loadLegacyUpcomingData() {
+  return fetchDefaultRoundFiles();
+}
 
+async function fetchDefaultRoundFiles() {
+  const roundsRes = await fetch('data/rounds.json');
+  if (!roundsRes.ok) {
+    throw new Error(`Failed to load ${roundsRes.url}`);
+  }
+  const rounds = await roundsRes.json();
+  const active = (Array.isArray(rounds) ? rounds[0] : null) || {};
+  if (!active.directory) {
+    throw new Error('No round configuration found');
+  }
+  const [racesRes, resultsRes] = await Promise.all([
+    fetch(`data/rounds/${active.directory}/races.json`),
+    fetch(`data/rounds/${active.directory}/results.json`)
+  ]);
   [racesRes, resultsRes].forEach((res) => {
     if (!res.ok) {
       throw new Error(`Failed to load ${res.url}`);
     }
   });
-
   const [racesData, resultsData] = await Promise.all([racesRes.json(), resultsRes.json()]);
   return { racesData, resultsData };
 }
@@ -206,9 +217,32 @@ function renderUpcoming(races = [], completedSet = new Set()) {
   });
 }
 
+async function renderUpcomingForRound(round) {
+  if (!round) return;
+  try {
+    const resultsData = await RoundManager.loadResults(round.id);
+    const completed = new Set((resultsData.results || []).map((race) => race.raceId));
+    renderUpcoming(round.racesData?.races, completed);
+  } catch (err) {
+    console.error(err);
+    const container = document.getElementById('upcoming-container');
+    if (container) {
+      container.innerHTML = '<p class="error">Unable to load race schedule. Please try again later.</p>';
+    }
+  }
+}
+
 async function initUpcomingPage() {
   try {
-    const { racesData, resultsData } = await loadUpcomingData();
+    if (typeof RoundManager !== 'undefined') {
+      await RoundManager.whenReady();
+      RoundManager.onRoundChange((round) => {
+        renderUpcomingForRound(round);
+      });
+      return;
+    }
+
+    const { racesData, resultsData } = await loadLegacyUpcomingData();
     const completed = new Set((resultsData.results || []).map((race) => race.raceId));
     renderUpcoming(racesData.races, completed);
   } catch (err) {

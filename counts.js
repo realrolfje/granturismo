@@ -5,23 +5,18 @@ async function updateHeroCounts() {
   if (!raceLink && !driverLink && !upcomingLink) return;
 
   try {
-    const [racesRes, teamsRes, resultsRes] = await Promise.all([
-      fetch('data/races.json'),
+    const [teamsRes, roundContext] = await Promise.all([
       fetch('data/teams.json'),
-      fetch('data/results.json')
+      loadRoundContext()
     ]);
 
-    [racesRes, teamsRes, resultsRes].forEach((res) => {
-      if (!res.ok) {
-        throw new Error(`Failed to load ${res.url}`);
-      }
-    });
+    if (!teamsRes.ok) {
+      throw new Error(`Failed to load ${teamsRes.url}`);
+    }
 
-    const [racesData, teamsData, resultsData] = await Promise.all([
-      racesRes.json(),
-      teamsRes.json(),
-      resultsRes.json()
-    ]);
+    const teamsData = await teamsRes.json();
+    const racesData = roundContext.racesData;
+    const resultsData = roundContext.resultsData;
 
     if (raceLink) {
       const raceCount = racesData?.races?.length ?? 0;
@@ -51,6 +46,41 @@ async function updateHeroCounts() {
   }
 }
 
+async function loadRoundContext() {
+  if (typeof RoundManager !== 'undefined') {
+    const round = await RoundManager.whenReady();
+    const resultsData = await RoundManager.loadResults(round.id);
+    return {
+      racesData: round.racesData,
+      resultsData
+    };
+  }
+  return fetchDefaultRoundFiles();
+}
+
 document.addEventListener('DOMContentLoaded', () => {
   updateHeroCounts();
 });
+
+async function fetchDefaultRoundFiles() {
+  const roundsRes = await fetch('data/rounds.json');
+  if (!roundsRes.ok) {
+    throw new Error(`Failed to load ${roundsRes.url}`);
+  }
+  const rounds = await roundsRes.json();
+  const active = (Array.isArray(rounds) ? rounds[0] : null) || {};
+  if (!active.directory) {
+    throw new Error('No round configuration found');
+  }
+  const [racesRes, resultsRes] = await Promise.all([
+    fetch(`data/rounds/${active.directory}/races.json`),
+    fetch(`data/rounds/${active.directory}/results.json`)
+  ]);
+  [racesRes, resultsRes].forEach((res) => {
+    if (!res.ok) {
+      throw new Error(`Failed to load ${res.url}`);
+    }
+  });
+  const [racesData, resultsData] = await Promise.all([racesRes.json(), resultsRes.json()]);
+  return { racesData, resultsData };
+}

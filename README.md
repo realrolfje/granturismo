@@ -22,19 +22,30 @@ But now also at https://static.rolfje.com/granturismo
 ├── upcoming.js       # Builds the upcoming-race list
 ├── editor.js         # Handles the race editor form + JSON preview
 └── data/
-    ├── races.json    # Metadata about each race (name, track, date, laps)
-    ├── results.json  # Finish order for every race
-    ├── teams.json    # Team line-ups plus driver info
     ├── points.json   # Points awarded per finishing position
-    └── tracks.json   # Canonical GT7 track names used by the editor
+    ├── teams.json    # Team line-ups plus driver info
+    ├── tracks.json   # Canonical GT7 track names used by the editor
+    ├── rounds.json   # List of round directories and the active round
+    └── rounds/
+        └── round-1/
+            ├── races.json   # Metadata for the round + `races` array
+            ├── results.json # Finish order for that round
+            └── proofs/      # Screenshots referenced by entries in `results.json`
 ```
 
 ## Editing the data
 
-- `data/races.json` keeps metadata:
+- `data/rounds.json` lists the round directories (id + directory name) and the currently active round (use the `active` flag or let the UI default to the round with the next upcoming event).
+- Each directory under `data/rounds/` (e.g., `data/rounds/round-1`) keeps the round data: a `races.json` file with a top-level `round` object and the `"races"` array, plus a `results.json` file and a `proofs/` subfolder for screenshots.
 
 ```json
 {
+  "round": {
+    "id": "round-1",
+    "title": "Round 1: Test Season",
+    "description": "Warm-up round containing two test races.",
+    "startDate": "2025-12-04"
+  },
   "races": [
     {
       "id": "race-1",
@@ -48,12 +59,11 @@ But now also at https://static.rolfje.com/granturismo
 }
 ```
 
-- `data/results.json` lists the finish order for each race. The array order equals the finishing position (1 for the first entry, 2 for the second, ...). Each finisher only needs a `driverId` and `car`; the app figures out the team from `data/teams.json`. You can also add an optional `proof` string to link a results screenshot stored in `proofs/`:
-
+- Each round's `results.json` follows the same format as before, but the optional `proof` paths now point at `data/rounds/<round-id>/proofs/<filename>.png`.
 ```json
 {
   "raceId": "2025-12-04-test-race",
-  "proof": "proofs/2025-12-04-test-race.png",
+  "proof": "data/rounds/round-1/proofs/2025-12-04-test-race.png",
   "finishers": []
 }
 ```
@@ -82,7 +92,7 @@ Use `editor.html` when adding a new race:
 
 1. Choose an official track (sourced from `data/tracks.json`) plus the usual metadata.
 2. Copy the generated JSON snippet.
-3. Paste it into `data/races.json` inside the `\"races\"` array.
+3. Paste it into the active round file (for example `data/rounds/round-1/races.json`) inside the `\"races\"` array so the new race belongs to that round.
 
 The editor warns you if the race ID already exists in the JSON, helping prevent duplicates.
 
@@ -94,7 +104,7 @@ The `Scoring Rules` page summarizes the point structure (12-10-8-6-4-2-1 plus a 
 2. Best finishing position across the season
 3. Alphabetical order of the driver name (to keep standings deterministic)
 
-This mirrors the logic baked into `main.js`, so whatever you read on that page matches the live data. The `Upcoming Races` page lists any events present in `data/races.json` without a corresponding record in `data/results.json`, sorted by date so teams know what’s next.
+This mirrors the logic baked into `main.js`, so whatever you read on that page matches the live data. The `Upcoming Races` page lists any events present in the active round’s `races.json` without a corresponding record in the same round’s `results.json`, sorted by date so teams know what’s next.
 
 ## Running the site locally
 
@@ -109,5 +119,5 @@ Then browse to [http://localhost:4173](http://localhost:4173) and you’ll see t
 
 ## Next steps
 
-- Extend `data/results.json` with more races or add fields (e.g., fastest lap, penalty notes).
+- Extend a round's `data/rounds/<round-id>/results.json` with more races or add fields (e.g., fastest lap, penalty notes).
 - Add client-side filters (by team, driver, or race) or charts for season standings if needed.

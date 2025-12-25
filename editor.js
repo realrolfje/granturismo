@@ -1,17 +1,35 @@
 async function loadEditorData() {
-  const [tracksRes, racesRes] = await Promise.all([
-    fetch('data/tracks.json'),
-    fetch('data/races.json')
-  ]);
+  const tracksRes = await fetch('data/tracks.json');
+  if (!tracksRes.ok) {
+    throw new Error(`Failed to load ${tracksRes.url}`);
+  }
+  const tracksData = await tracksRes.json();
+  let races = [];
+  if (typeof RoundManager !== 'undefined') {
+    const round = await RoundManager.whenReady();
+    races = round?.racesData?.races || [];
+  } else {
+    races = await fetchDefaultRoundRaces();
+  }
+  return { tracks: tracksData.tracks || [], races };
+}
 
-  [tracksRes, racesRes].forEach((res) => {
-    if (!res.ok) {
-      throw new Error(`Failed to load ${res.url}`);
-    }
-  });
-
-  const [tracksData, racesData] = await Promise.all([tracksRes.json(), racesRes.json()]);
-  return { tracks: tracksData.tracks || [], races: racesData.races || [] };
+async function fetchDefaultRoundRaces() {
+  const roundsRes = await fetch('data/rounds.json');
+  if (!roundsRes.ok) {
+    throw new Error(`Failed to load ${roundsRes.url}`);
+  }
+  const rounds = await roundsRes.json();
+  const active = (Array.isArray(rounds) ? rounds[0] : null) || {};
+  if (!active.directory) {
+    throw new Error('No round configuration found');
+  }
+  const racesRes = await fetch(`data/rounds/${active.directory}/races.json`);
+  if (!racesRes.ok) {
+    throw new Error(`Failed to load ${racesRes.url}`);
+  }
+  const racesData = await racesRes.json();
+  return racesData.races || [];
 }
 
 function populateTrackSelect(tracks) {

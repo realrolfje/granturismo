@@ -6,13 +6,19 @@
     <title>Gran Turismo 7 | Race Editor</title>
     <link rel="stylesheet" href="styles.css" />
     <script src="theme.js" defer></script>
+    <script src="rounds.js" defer></script>
     <script src="counts.js" defer></script>
     <script src="raceFields.js" defer></script>
     <script src="editor.js" defer></script>
   </head>
   <body class="theme-dark">
     <header class="hero" id="top">
-      <button id="theme-toggle" class="theme-toggle" type="button" aria-pressed="false">Light mode</button>
+      <div class="hero__top-actions">
+        <div class="hero__round-selector">
+          <select id="round-select" aria-label="Select a round"></select>
+        </div>
+        <button id="theme-toggle" class="theme-toggle" type="button" aria-pressed="false">Light mode</button>
+      </div>
       <div class="hero__content">
         <p class="eyebrow">Gran Turismo 7</p>
         <h1>Race Editor</h1>
@@ -32,7 +38,7 @@
         <div class="panel__header">
           <h2 id="editor-heading">Generate race JSON</h2>
           <p>Build a race JSON by choosing an official GT7 track, date, and metadata. 
-            Paste the output into <code>data/races.json</code> to add the event to the site. 
+            Paste the output into your active round file (for example <code>data/rounds/round-1/races.json</code>) to add the event to that round. 
             All tracks come from the official GT7 track list. Fields marked * are required.</p>
         </div>
         <div class="editor-grid">
@@ -91,7 +97,7 @@
   ],
   "timeOfDay": "Afternoon"
 }</pre>
-            <p class="muted note">Paste the snippet into <code>data/races.json</code> inside the <code>"races"</code> array, keeping the JSON valid.</p>
+          <p class="muted note">Paste the snippet into the active round file (e.g., <code>data/rounds/round-1/races.json</code>) inside the <code>"races"</code> array, keeping the JSON valid.</p>
             <p align="right"><button type="button" id="copy-json" class="pill-link copy-btn">Copy</button></p>
             <p id="copy-feedback" class="muted" align="right" hidden>JSON copied to clipboard.</p>
           </div>
