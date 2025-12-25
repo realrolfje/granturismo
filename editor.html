@@ -16,15 +16,11 @@
       <div class="hero__content">
         <p class="eyebrow">Gran Turismo 7</p>
         <h1>Race Editor</h1>
-        <p class="lede">
-          Build a race JSON snippet by choosing an official GT7 track, date, and metadata. Paste the output into
-          <code>data/races.json</code> to add the event to the site.
-        </p>
         <div class="hero__nav" role="navigation">
           <a class="pill-link" href="index.html">Standings</a>
-          <a class="pill-link" href="teams.html">Teams &amp; Drivers</a>
           <a class="pill-link" href="results.html">Race Results</a>
           <a id="upcoming-pill" class="pill-link" href="races.html">Upcoming Races</a>
+          <a class="pill-link" href="teams.html">Teams &amp; Drivers</a>
           <a class="pill-link" href="rules.html">Scoring Rules</a>
           <a class="pill-link pill-link--active" href="editor.html">Race Editor</a>
         </div>
@@ -35,7 +31,9 @@
       <section class="panel panel--rules" aria-labelledby="editor-heading">
         <div class="panel__header">
           <h2 id="editor-heading">Generate race JSON</h2>
-          <p>All tracks come from the official GT7 track list. Fields marked * are required.</p>
+          <p>Build a race JSON by choosing an official GT7 track, date, and metadata. 
+            Paste the output into <code>data/races.json</code> to add the event to the site. 
+            All tracks come from the official GT7 track list. Fields marked * are required.</p>
         </div>
         <div class="editor-grid">
           <form id="race-form" class="editor-form" autocomplete="off">
