@@ -666,6 +666,28 @@ body.theme-light .json-preview {
   margin: 0;
 }
 
+.upcoming-card__title-btn {
+  background: none;
+  border: none;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+  padding: 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.upcoming-card__title-btn::after {
+  content: '›';
+  font-size: 1.1rem;
+  transition: transform 0.2s ease;
+}
+
+.upcoming-card[aria-expanded='true'] .upcoming-card__title-btn::after {
+  transform: rotate(90deg);
+}
+
 .upcoming-card[aria-expanded='true'] .upcoming-card__details {
   display: block;
 }

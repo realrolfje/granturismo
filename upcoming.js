@@ -108,8 +108,12 @@ function renderUpcoming(races = [], completedSet = new Set()) {
 
     const summary = document.createElement('div');
     summary.className = 'upcoming-card__summary';
+    const titleButton = document.createElement('button');
+    titleButton.type = 'button';
+    titleButton.className = 'upcoming-card__title-btn';
+    titleButton.textContent = race.title || race.id;
     const title = document.createElement('h3');
-    title.textContent = race.title || race.id;
+    title.appendChild(titleButton);
 
     const meta = document.createElement('div');
     meta.className = 'upcoming-card__meta';
