@@ -12,8 +12,40 @@ function getEarliestUpcomingDate(races = []) {
   return earliest;
 }
 
-function pickDefaultRound(rounds = []) {
+const SELECTED_ROUND_STORAGE_KEY = 'gt7-selected-round';
+
+function readStoredRoundId() {
+  try {
+    if (typeof window === 'undefined' || typeof window.localStorage === 'undefined') {
+      return null;
+    }
+    return window.localStorage.getItem(SELECTED_ROUND_STORAGE_KEY);
+  } catch (err) {
+    console.warn('Unable to read stored round', err);
+    return null;
+  }
+}
+
+function persistSelectedRoundId(roundId) {
+  if (!roundId) return;
+  try {
+    if (typeof window === 'undefined' || typeof window.localStorage === 'undefined') {
+      return;
+    }
+    window.localStorage.setItem(SELECTED_ROUND_STORAGE_KEY, roundId);
+  } catch (err) {
+    console.warn('Unable to persist selected round', err);
+  }
+}
+
+function pickDefaultRound(rounds = [], preferredId) {
   if (!rounds.length) return null;
+  if (preferredId) {
+    const preferred = rounds.find((round) => round.id === preferredId);
+    if (preferred) {
+      return preferred;
+    }
+  }
   const activeRound = rounds.find((round) => round.active);
   if (activeRound) return activeRound;
   return rounds.reduce((current, next) => {
@@ -55,20 +87,16 @@ const RoundManager = (() => {
         const earliestUpcoming = getEarliestUpcomingDate(
           racesData && racesData.races
         );
-        const heroImageUrl = config.heroImage
-          ? `data/rounds/${config.directory}/${config.heroImage}`
-          : null;
         return {
           ...config,
           label,
           racesData,
           earliestUpcoming,
-          heroImageUrl
         };
       })
     );
     rounds.push(...enriched);
-    selectedRound = pickDefaultRound(rounds);
+    selectedRound = pickDefaultRound(rounds, readStoredRoundId());
     notifyListeners();
     return selectedRound;
   }
@@ -91,6 +119,7 @@ const RoundManager = (() => {
       return round;
     }
     selectedRound = round;
+    persistSelectedRoundId(round.id);
     notifyListeners();
     return round;
   }
@@ -182,23 +211,3 @@ function initRoundSelector() {
 }
 
 document.addEventListener('DOMContentLoaded', initRoundSelector);
-
-function syncHeroImage(round) {
-  const hero = document.querySelector('.hero');
-  if (!hero) return;
-  if (round && round.heroImageUrl) {
-    hero.style.setProperty('--hero-image', `url("${round.heroImageUrl}")`);
-    return;
-  }
-  hero.style.removeProperty('--hero-image');
-}
-
-document.addEventListener('DOMContentLoaded', () => {
-  RoundManager.whenReady()
-    .then(() => {
-      RoundManager.onRoundChange(syncHeroImage);
-    })
-    .catch((err) => {
-      console.error('Failed to synchronize the hero background', err);
-    });
-});
