@@ -67,7 +67,12 @@ main {
 }
 
 .hero {
-  background: url("data/rounds/round-1/tesson-thaliath-1MsGQCOeFRk-unsplash.jpg") center/cover;
+  --hero-image: url("data/rounds/round-1/tesson-thaliath-1MsGQCOeFRk-unsplash.jpg");
+  background-color: #050608;
+  background-image: var(--hero-image);
+  background-size: cover;
+  background-position: center 70%;
+  background-repeat: no-repeat;
   min-height: 150px;
   display: flex;
   align-items: flex-end;

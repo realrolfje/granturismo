@@ -55,11 +55,15 @@ const RoundManager = (() => {
         const earliestUpcoming = getEarliestUpcomingDate(
           racesData && racesData.races
         );
+        const heroImageUrl = config.heroImage
+          ? `data/rounds/${config.directory}/${config.heroImage}`
+          : null;
         return {
           ...config,
           label,
           racesData,
-          earliestUpcoming
+          earliestUpcoming,
+          heroImageUrl
         };
       })
     );
@@ -178,3 +182,23 @@ function initRoundSelector() {
 }
 
 document.addEventListener('DOMContentLoaded', initRoundSelector);
+
+function syncHeroImage(round) {
+  const hero = document.querySelector('.hero');
+  if (!hero) return;
+  if (round && round.heroImageUrl) {
+    hero.style.setProperty('--hero-image', `url("${round.heroImageUrl}")`);
+    return;
+  }
+  hero.style.removeProperty('--hero-image');
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  RoundManager.whenReady()
+    .then(() => {
+      RoundManager.onRoundChange(syncHeroImage);
+    })
+    .catch((err) => {
+      console.error('Failed to synchronize the hero background', err);
+    });
+});
