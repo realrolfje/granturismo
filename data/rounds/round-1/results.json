@@ -1,34 +1,3 @@
 {
-  "results": [
-    {
-      "raceId": "2025-12-04-test-race",
-      "proof": "data/rounds/round-1/proofs/2025-12-04-test-race.png",
-      "finishers": [
-        {
-          "driverId": "leroy",
-          "car": "Porsche 911 RSR '17"
-        },
-        {
-          "driverId": "lex",
-          "car": "Porsche 911 RSR '17"
-        },
-        {
-          "driverId": "michel",
-          "car": "Ferrari 458 Italia GT3"
-        },
-        {
-          "driverId": "riccardo",
-          "car": "Skoda Octavia Touring Car"
-        },
-        {
-          "driverId": "rolf",
-          "car": "Toyota GR Supra Racing Concept"
-        },
-        {
-          "driverId": "luuk",
-          "car": "Fiat Panda"
-        }
-      ]
-    }
-  ]
+  "results": []
 }

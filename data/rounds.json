@@ -1,8 +1,13 @@
 [
   {
+    "id": "testround",
+    "directory": "testround",
+    "active": true
+  },
+  {
     "id": "round-1",
     "directory": "round-1",
-    "active": true,
+    "active": false,
     "heroImage": "tesson-thaliath-1MsGQCOeFRk-unsplash.jpg"
   }
 ]

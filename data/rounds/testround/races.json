@@ -1,8 +1,8 @@
 {
   "round": {
     "id": "round-1",
-    "title": "Toyota Supra Cup",
-    "description": "Who will be the master of the Supra?",
+    "title": "Round 1: Test Season",
+    "description": "Warm-up round containing two test races.",
     "startDate": "2025-12-04"
   },
   "races": [
