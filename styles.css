@@ -182,7 +182,7 @@ body.theme-light .theme-toggle {
 
 .hero .eyebrow {
   text-transform: uppercase;
-  letter-spacing: 0.3em;
+  /* letter-spacing: 0.1em; */
   font-size: 0.8rem;
   margin: 0 0 0.5rem;
   color: var(--hero-muted);
@@ -1099,6 +1099,14 @@ body.theme-light .json-preview {
   border-color: var(--muted);
 }
 
+.race-card__proof-btn--disabled,
+.race-card__proof-btn:disabled {
+  opacity: 0.35;
+  border-color: var(--border);
+  color: var(--muted);
+  cursor: not-allowed;
+}
+
 .race-card__details {
   display: none;
   border-top: 1px solid var(--border);
@@ -1316,7 +1324,7 @@ tbody tr:last-child td {
 }
 .eyebrow {
   text-transform: uppercase;
-  letter-spacing: 0.3em;
+  letter-spacing: 0.1em;
   font-size: 0.8rem;
   margin: 0 0 0.5rem;
   color: var(--muted);

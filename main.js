@@ -727,14 +727,16 @@ function renderRaces({ racesMeta, raceResults, drivers, teams }) {
     const proofUrl = typeof race.proof === 'string' ? race.proof.trim() : '';
     const proofButton = instance.querySelector('.race-card__proof-btn');
     if (proofButton) {
+      proofButton.hidden = false;
+      proofButton.disabled = !proofUrl;
+      proofButton.classList.toggle('race-card__proof-btn--disabled', !proofUrl);
       if (proofUrl) {
-        proofButton.hidden = false;
-        proofButton.disabled = false;
         proofButton.setAttribute('aria-label', `View proof for ${raceTitle}`);
+        proofButton.removeAttribute('aria-disabled');
         proofButton.addEventListener('click', () => openProofModal(proofUrl, raceTitle));
       } else {
-        proofButton.hidden = true;
-        proofButton.disabled = true;
+        proofButton.setAttribute('aria-disabled', 'true');
+        proofButton.removeAttribute('aria-label');
       }
     }
 

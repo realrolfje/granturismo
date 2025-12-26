@@ -38,6 +38,7 @@
           "car": "Ferrari 458 Italia GT3 '13",
           "position": 7
         }
+
       ]
     },
     {
@@ -164,6 +165,33 @@
           "position": 5
         }
       ]
+    },
+    {
+      "raceId": "2025-10-08-race-6",
+      "proof": "data/rounds/legacy-4/proofs/PHOTO-2025-10-08-19-52-29.jpg",
+      "finishers": [
+        {
+          "driverId": "lex",
+          "car": "Ferrari 458 Italia GT3 '13",
+          "position": 1
+        },
+        {
+          "driverId": "leroy",
+          "car": "Ferrari 458 Italia GT3 '13",
+          "position": 3
+        },
+        {
+          "driverId": "rolf",
+          "car": "Ferrari 458 Italia GT3 '13",
+          "position": 5
+        },
+        {
+          "driverId": "michel",
+          "car": "Ferrari 458 Italia GT3 '13",
+          "position": 4
+        }
+      ]
+
     }
   ]
 }
