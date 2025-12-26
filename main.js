@@ -3,17 +3,12 @@ let sharedDataPromise;
 function loadSharedData() {
   if (sharedDataPromise) return sharedDataPromise;
   sharedDataPromise = (async () => {
-    const endpoints = [fetch('data/teams.json'), fetch('data/points.json')];
-    const responses = await Promise.all(endpoints);
-
-    responses.forEach((res) => {
-      if (!res.ok) {
-        throw new Error(`Failed to load ${res.url}`);
-      }
-    });
-
-    const [teams, points] = await Promise.all(responses.map((res) => res.json()));
-    return { teams, points };
+    const pointsResponse = await fetch('data/points.json');
+    if (!pointsResponse.ok) {
+      throw new Error(`Failed to load ${pointsResponse.url}`);
+    }
+    const points = await pointsResponse.json();
+    return { points };
   })();
   return sharedDataPromise;
 }
@@ -780,29 +775,30 @@ async function renderRound(round) {
   if (!round) return;
   const sharedData = await loadSharedData();
   const raceResults = await RoundManager.loadResults(round.id);
-  renderStats({ races: round.racesData, teamsData: sharedData.teams, raceResults });
+  const teamsData = round.teamsData || { drivers: [], teams: [] };
+  renderStats({ races: round.racesData, teamsData, raceResults });
   const driverStandings = computeDriverStandings({
     raceResults,
     pointsRules: sharedData.points,
-    drivers: sharedData.teams.drivers
+    drivers: teamsData.drivers
   });
   const teamStandings = computeTeamStandings({
     driverStandings,
-    teams: sharedData.teams.teams
+    teams: teamsData.teams
   });
   renderPointsRule(sharedData.points);
   renderStandings({
     driverStandings,
     teamStandings,
-    drivers: sharedData.teams.drivers,
+    drivers: teamsData.drivers,
     races: round.racesData
   });
-  renderTeams({ teams: sharedData.teams.teams, drivers: sharedData.teams.drivers });
+  renderTeams({ teams: teamsData.teams, drivers: teamsData.drivers });
   renderRaces({
     racesMeta: round.racesData,
     raceResults,
-    drivers: sharedData.teams.drivers,
-    teams: sharedData.teams.teams
+    drivers: teamsData.drivers,
+    teams: teamsData.teams
   });
 }
 

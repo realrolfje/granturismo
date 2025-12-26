@@ -5,16 +5,11 @@ async function updateHeroCounts(round) {
   if (!raceLink && !driverLink && !upcomingLink) return;
 
   try {
-    const [teamsRes, roundContext] = await Promise.all([
-      fetch('data/teams.json'),
-      loadRoundContext(round)
-    ]);
-
-    if (!teamsRes.ok) {
-      throw new Error(`Failed to load ${teamsRes.url}`);
-    }
-
-    const teamsData = await teamsRes.json();
+    const roundContext = await loadRoundContext(round);
+    const teamsData =
+      (roundContext.round && roundContext.round.teamsData) ||
+      roundContext.teamsData ||
+      { drivers: [] };
     const racesData = roundContext.racesData;
     const resultsData = roundContext.resultsData;
 
@@ -57,7 +52,8 @@ async function loadRoundContext(round) {
     return {
       round: contextRound,
       racesData: contextRound.racesData,
-      resultsData
+      resultsData,
+      teamsData: contextRound.teamsData
     };
   }
   return fetchDefaultRoundFiles();
@@ -108,5 +104,10 @@ async function fetchDefaultRoundFiles() {
     }
   });
   const [racesData, resultsData] = await Promise.all([racesRes.json(), resultsRes.json()]);
-  return { racesData, resultsData };
+  const teamsRes = await fetch('data/teams.json');
+  if (!teamsRes.ok) {
+    throw new Error(`Failed to load ${teamsRes.url}`);
+  }
+  const teamsData = await teamsRes.json();
+  return { racesData, resultsData, teamsData };
 }

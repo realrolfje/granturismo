@@ -58,6 +58,15 @@ function pickDefaultRound(rounds = [], preferredId) {
   }, rounds[0]);
 }
 
+async function loadRoundTeams(directory) {
+  const roundTeamsUrl = `data/rounds/${directory}/teams.json`;
+  const response = await fetch(roundTeamsUrl);
+  if (!response.ok) {
+    throw new Error(`Failed to load ${response.url}`);
+  }
+  return response.json();
+}
+
 const RoundManager = (() => {
   const rounds = [];
   const listeners = [];
@@ -80,6 +89,7 @@ const RoundManager = (() => {
         if (!racesResponse.ok) {
           throw new Error(`Failed to load ${racesUrl}`);
         }
+        const teamsData = await loadRoundTeams(config.directory);
         const racesData = await racesResponse.json();
         const roundTitle =
           racesData && racesData.round && racesData.round.title;
@@ -96,6 +106,7 @@ const RoundManager = (() => {
           racesData,
           earliestUpcoming,
           heroImageUrl,
+          teamsData,
         };
       })
     );
