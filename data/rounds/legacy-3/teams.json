@@ -1,0 +1,74 @@
+{
+  "drivers": [
+    {
+      "id": "leroy",
+      "name": "Leroy"
+    },
+    {
+      "id": "lex",
+      "name": "Lex"
+    },
+    {
+      "id": "luuk",
+      "name": "Luuk"
+    },
+    {
+      "id": "martin",
+      "name": "Martin"
+    },
+    {
+      "id": "michel",
+      "name": "Michel"
+    },
+    {
+      "id": "mike",
+      "name": "Mike"
+    },
+    {
+      "id": "riccardo",
+      "name": "Riccardo"
+    },
+    {
+      "id": "rolf",
+      "name": "Rolf"
+    }
+  ],
+  "teams": [
+    {
+      "id": "de-controllers",
+      "name": "De controllers",
+      "color": "#0072ff",
+      "drivers": [
+        "leroy",
+        "michel"
+      ]
+    },
+    {
+      "id": "de-twee-l-s",
+      "name": "De twee L's",
+      "color": "#f97316",
+      "drivers": [
+        "lex",
+        "luuk"
+      ]
+    },
+    {
+      "id": "de-zoete-inval",
+      "name": "De zoete inval",
+      "color": "#d63384",
+      "drivers": [
+        "martin",
+        "mike"
+      ]
+    },
+    {
+      "id": "team-tikkie",
+      "name": "Team Tikkie",
+      "color": "#00b4d8",
+      "drivers": [
+        "riccardo",
+        "rolf"
+      ]
+    }
+  ]
+}

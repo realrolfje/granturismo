@@ -9,5 +9,25 @@
     "id": "testround",
     "directory": "testround",
     "active": false
+  },
+  {
+    "id": "legacy-4",
+    "directory": "legacy-4",
+    "active": false
+  },
+  {
+    "id": "legacy-3",
+    "directory": "legacy-3",
+    "active": false
+  },
+  {
+    "id": "legacy-2",
+    "directory": "legacy-2",
+    "active": false
+  },
+  {
+    "id": "legacy-1",
+    "directory": "legacy-1",
+    "active": false
   }
 ]

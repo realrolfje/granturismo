@@ -12,6 +12,18 @@ function getEarliestUpcomingDate(races = []) {
   return earliest;
 }
 
+function getRoundStartTimestamp(roundEntry) {
+  if (!roundEntry || !roundEntry.racesData || !roundEntry.racesData.round) {
+    return 0;
+  }
+  const dateValue = roundEntry.racesData.round.startDate;
+  if (!dateValue) {
+    return 0;
+  }
+  const timestamp = new Date(dateValue).getTime();
+  return Number.isFinite(timestamp) ? timestamp : 0;
+}
+
 const SELECTED_ROUND_STORAGE_KEY = 'gt7-selected-round';
 
 function readStoredRoundId() {
@@ -110,7 +122,16 @@ const RoundManager = (() => {
         };
       })
     );
-    rounds.push(...enriched);
+    const sorted = enriched.slice().sort((a, b) => {
+      const aTime = getRoundStartTimestamp(a);
+      const bTime = getRoundStartTimestamp(b);
+      if (bTime === aTime) {
+        return 0;
+      }
+      return bTime - aTime;
+    });
+    rounds.length = 0;
+    rounds.push(...sorted);
     selectedRound = pickDefaultRound(rounds, readStoredRoundId());
     notifyListeners();
     return selectedRound;

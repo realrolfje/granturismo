@@ -1,0 +1,169 @@
+{
+  "results": [
+    {
+      "raceId": "2025-08-27-race-1",
+      "finishers": [
+        {
+          "driverId": "lex",
+          "car": "Ferrari 458 Italia GT3 '13",
+          "position": 1
+        },
+        {
+          "driverId": "michel",
+          "car": "Ferrari 458 Italia GT3 '13",
+          "position": 2
+        },
+        {
+          "driverId": "rolf",
+          "car": "Ferrari 458 Italia GT3 '13",
+          "position": 3
+        },
+        {
+          "driverId": "riccardo",
+          "car": "Ferrari 458 Italia GT3 '13",
+          "position": 4
+        },
+        {
+          "driverId": "leroy",
+          "car": "Ferrari 458 Italia GT3 '13",
+          "position": 5
+        },
+        {
+          "driverId": "martin",
+          "car": "Ferrari 458 Italia GT3 '13",
+          "position": 6
+        },
+        {
+          "driverId": "luuk",
+          "car": "Ferrari 458 Italia GT3 '13",
+          "position": 7
+        }
+      ]
+    },
+    {
+      "raceId": "2025-09-10-race-2",
+      "finishers": [
+        {
+          "driverId": "lex",
+          "car": "Ferrari 458 Italia GT3 '13",
+          "position": 1
+        },
+        {
+          "driverId": "rolf",
+          "car": "Ferrari 458 Italia GT3 '13",
+          "position": 2
+        },
+        {
+          "driverId": "martin",
+          "car": "Ferrari 458 Italia GT3 '13",
+          "position": 3
+        },
+        {
+          "driverId": "leroy",
+          "car": "Ferrari 458 Italia GT3 '13",
+          "position": 4
+        },
+        {
+          "driverId": "michel",
+          "car": "Ferrari 458 Italia GT3 '13",
+          "position": 5
+        },
+        {
+          "driverId": "luuk",
+          "car": "Ferrari 458 Italia GT3 '13",
+          "position": 6
+        },
+        {
+          "driverId": "riccardo",
+          "car": "Ferrari 458 Italia GT3 '13",
+          "position": 7
+        }
+      ]
+    },
+    {
+      "raceId": "2025-09-17-race-3",
+      "finishers": [
+        {
+          "driverId": "lex",
+          "car": "Ferrari 458 Italia GT3 '13",
+          "position": 1
+        },
+        {
+          "driverId": "rolf",
+          "car": "Ferrari 458 Italia GT3 '13",
+          "position": 2
+        },
+        {
+          "driverId": "leroy",
+          "car": "Ferrari 458 Italia GT3 '13",
+          "position": 3
+        },
+        {
+          "driverId": "michel",
+          "car": "Ferrari 458 Italia GT3 '13",
+          "position": 4
+        }
+      ]
+    },
+    {
+      "raceId": "2025-09-24-race-4",
+      "finishers": [
+        {
+          "driverId": "leroy",
+          "car": "Ferrari 458 Italia GT3 '13",
+          "position": 1
+        },
+        {
+          "driverId": "michel",
+          "car": "Ferrari 458 Italia GT3 '13",
+          "position": 2
+        },
+        {
+          "driverId": "lex",
+          "car": "Ferrari 458 Italia GT3 '13",
+          "position": 3
+        },
+        {
+          "driverId": "rolf",
+          "car": "Ferrari 458 Italia GT3 '13",
+          "position": 4
+        },
+        {
+          "driverId": "riccardo",
+          "car": "Ferrari 458 Italia GT3 '13",
+          "position": 5
+        }
+      ]
+    },
+    {
+      "raceId": "2025-10-01-race-5",
+      "finishers": [
+        {
+          "driverId": "lex",
+          "car": "Ferrari 458 Italia GT3 '13",
+          "position": 1
+        },
+        {
+          "driverId": "riccardo",
+          "car": "Ferrari 458 Italia GT3 '13",
+          "position": 2
+        },
+        {
+          "driverId": "leroy",
+          "car": "Ferrari 458 Italia GT3 '13",
+          "position": 3
+        },
+        {
+          "driverId": "michel",
+          "car": "Ferrari 458 Italia GT3 '13",
+          "position": 4
+        },
+        {
+          "driverId": "rolf",
+          "car": "Ferrari 458 Italia GT3 '13",
+          "position": 5
+        }
+      ]
+    }
+  ]
+}

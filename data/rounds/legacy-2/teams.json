@@ -1,0 +1,74 @@
+{
+  "drivers": [
+    {
+      "id": "riccardo",
+      "name": "Riccardo"
+    },
+    {
+      "id": "martin",
+      "name": "Martin"
+    },
+    {
+      "id": "leroy",
+      "name": "Leroy"
+    },
+    {
+      "id": "luuk",
+      "name": "Luuk"
+    },
+    {
+      "id": "mike",
+      "name": "Mike"
+    },
+    {
+      "id": "michel",
+      "name": "Michel"
+    },
+    {
+      "id": "lex",
+      "name": "Lex"
+    },
+    {
+      "id": "rolf",
+      "name": "Rolf"
+    }
+  ],
+  "teams": [
+    {
+      "id": "team-blauw",
+      "name": "Team Blauw",
+      "color": "#1c4cff",
+      "drivers": [
+        "riccardo",
+        "michel"
+      ]
+    },
+    {
+      "id": "team-rood",
+      "name": "Team Rood",
+      "color": "#ff3030",
+      "drivers": [
+        "martin",
+        "mike"
+      ]
+    },
+    {
+      "id": "team-groen",
+      "name": "Team Groen",
+      "color": "#1bab45",
+      "drivers": [
+        "leroy",
+        "luuk"
+      ]
+    },
+    {
+      "id": "team-oranje",
+      "name": "Team Oranje",
+      "color": "#ff9f1a",
+      "drivers": [
+        "lex",
+        "rolf"
+      ]
+    }
+  ]
+}

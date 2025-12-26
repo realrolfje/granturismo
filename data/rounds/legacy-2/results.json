@@ -1,0 +1,159 @@
+{
+  "results": [
+    {
+      "raceId": "2024-12-11-race-1",
+      "finishers": [
+        {
+          "driverId": "lex",
+          "car": "Porsche 911 Turbo S (992) '20",
+          "position": 1
+        },
+        {
+          "driverId": "rolf",
+          "car": "Porsche 911 Turbo S (992) '20",
+          "position": 2
+        },
+        {
+          "driverId": "leroy",
+          "car": "Porsche 911 Turbo S (992) '20",
+          "position": 3
+        },
+        {
+          "driverId": "michel",
+          "car": "Porsche 911 Turbo S (992) '20",
+          "position": 4
+        },
+        {
+          "driverId": "riccardo",
+          "car": "Porsche 911 Turbo S (992) '20",
+          "position": 5
+        },
+        {
+          "driverId": "luuk",
+          "car": "Porsche 911 Turbo S (992) '20",
+          "position": 6
+        },
+        {
+          "driverId": "martin",
+          "car": "Porsche 911 Turbo S (992) '20",
+          "position": 7
+        },
+        {
+          "driverId": "mike",
+          "car": "Porsche 911 Turbo S (992) '20",
+          "position": 8
+        }
+      ]
+    },
+    {
+      "raceId": "2024-12-18-race-2",
+      "finishers": [
+        {
+          "driverId": "lex",
+          "car": "Porsche 911 Turbo S (992) '20",
+          "position": 1
+        },
+        {
+          "driverId": "michel",
+          "car": "Porsche 911 Turbo S (992) '20",
+          "position": 2
+        },
+        {
+          "driverId": "riccardo",
+          "car": "Porsche 911 Turbo S (992) '20",
+          "position": 3
+        },
+        {
+          "driverId": "rolf",
+          "car": "Porsche 911 Turbo S (992) '20",
+          "position": 4
+        },
+        {
+          "driverId": "luuk",
+          "car": "Porsche 911 Turbo S (992) '20",
+          "position": 5
+        },
+        {
+          "driverId": "leroy",
+          "car": "Porsche 911 Turbo S (992) '20",
+          "position": 6
+        },
+        {
+          "driverId": "mike",
+          "car": "Porsche 911 Turbo S (992) '20",
+          "position": 7
+        }
+      ]
+    },
+    {
+      "raceId": "2024-12-25-race-3",
+      "finishers": [
+        {
+          "driverId": "michel",
+          "car": "Porsche 911 Turbo S (992) '20",
+          "position": 1
+        },
+        {
+          "driverId": "lex",
+          "car": "Porsche 911 Turbo S (992) '20",
+          "position": 2
+        },
+        {
+          "driverId": "riccardo",
+          "car": "Porsche 911 Turbo S (992) '20",
+          "position": 3
+        },
+        {
+          "driverId": "rolf",
+          "car": "Porsche 911 Turbo S (992) '20",
+          "position": 4
+        },
+        {
+          "driverId": "luuk",
+          "car": "Porsche 911 Turbo S (992) '20",
+          "position": 5
+        },
+        {
+          "driverId": "leroy",
+          "car": "Porsche 911 Turbo S (992) '20",
+          "position": 6
+        }
+      ]
+    },
+    {
+      "raceId": "2024-01-01-race-4",
+      "finishers": [
+        {
+          "driverId": "rolf",
+          "car": "Porsche 911 Turbo S (992) '20",
+          "position": 1
+        },
+        {
+          "driverId": "michel",
+          "car": "Porsche 911 Turbo S (992) '20",
+          "position": 2
+        },
+        {
+          "driverId": "leroy",
+          "car": "Porsche 911 Turbo S (992) '20",
+          "position": 3
+        },
+        {
+          "driverId": "riccardo",
+          "car": "Porsche 911 Turbo S (992) '20",
+          "position": 4
+        },
+        {
+          "driverId": "lex",
+          "car": "Porsche 911 Turbo S (992) '20",
+          "position": 5
+        },
+        {
+          "driverId": "luuk",
+          "car": "Porsche 911 Turbo S (992) '20",
+          "position": 6
+        }
+      ]
+    }
+  ]
+}

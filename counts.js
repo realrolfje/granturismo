@@ -53,14 +53,17 @@ async function loadRoundContext(round) {
       round: contextRound,
       racesData: contextRound.racesData,
       resultsData,
-      teamsData: contextRound.teamsData
+      teamsData: contextRound.teamsData || { drivers: [], teams: [] }
     };
   }
-  return fetchDefaultRoundFiles();
+  return fetchFallbackRoundContext();
 }
 
 async function resolveRoundContext(round) {
   if (round) return round;
+  if (typeof RoundManager === 'undefined') {
+    throw new Error('RoundManager is not available');
+  }
   await RoundManager.whenReady();
   const currentRound = RoundManager.getCurrentRound();
   if (!currentRound) {
@@ -84,30 +87,42 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 });
 
-async function fetchDefaultRoundFiles() {
+async function fetchFallbackRoundContext() {
   const roundsRes = await fetch('data/rounds.json');
   if (!roundsRes.ok) {
     throw new Error(`Failed to load ${roundsRes.url}`);
   }
   const rounds = await roundsRes.json();
-  const active = (Array.isArray(rounds) ? rounds[0] : null) || {};
-  if (!active.directory) {
+  const activeConfig = (Array.isArray(rounds) ? rounds[0] : null) || {};
+  if (!activeConfig.directory) {
     throw new Error('No round configuration found');
   }
-  const [racesRes, resultsRes] = await Promise.all([
-    fetch(`data/rounds/${active.directory}/races.json`),
-    fetch(`data/rounds/${active.directory}/results.json`)
+  const [racesRes, resultsRes, teamsRes] = await Promise.all([
+    fetch(`data/rounds/${activeConfig.directory}/races.json`),
+    fetch(`data/rounds/${activeConfig.directory}/results.json`),
+    fetch(`data/rounds/${activeConfig.directory}/teams.json`)
   ]);
-  [racesRes, resultsRes].forEach((res) => {
+  [racesRes, resultsRes, teamsRes].forEach((res) => {
     if (!res.ok) {
       throw new Error(`Failed to load ${res.url}`);
     }
   });
-  const [racesData, resultsData] = await Promise.all([racesRes.json(), resultsRes.json()]);
-  const teamsRes = await fetch('data/teams.json');
-  if (!teamsRes.ok) {
-    throw new Error(`Failed to load ${teamsRes.url}`);
-  }
-  const teamsData = await teamsRes.json();
-  return { racesData, resultsData, teamsData };
+  const [racesData, resultsData, teamsData] = await Promise.all([
+    racesRes.json(),
+    resultsRes.json(),
+    teamsRes.json()
+  ]);
+  const round = {
+    id: (racesData && racesData.round && racesData.round.id) || activeConfig.id,
+    label: (racesData && racesData.round && racesData.round.title) || activeConfig.label || activeConfig.id,
+    directory: activeConfig.directory,
+    racesData,
+    teamsData
+  };
+  return {
+    round,
+    racesData,
+    resultsData,
+    teamsData: teamsData || { drivers: [], teams: [] }
+  };
 }

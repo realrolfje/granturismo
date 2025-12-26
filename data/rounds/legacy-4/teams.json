@@ -1,0 +1,53 @@
+{
+  "drivers": [
+    {
+      "id": "leroy",
+      "name": "Leroy"
+    },
+    {
+      "id": "lex",
+      "name": "Lex"
+    },
+    {
+      "id": "luuk",
+      "name": "Luuk"
+    },
+    {
+      "id": "martin",
+      "name": "Martin"
+    },
+    {
+      "id": "michel",
+      "name": "Michel"
+    },
+    {
+      "id": "mike",
+      "name": "Mike"
+    },
+    {
+      "id": "riccardo",
+      "name": "Riccardo"
+    },
+    {
+      "id": "rolf",
+      "name": "Rolf"
+    }
+  ],
+  "teams": [
+    {
+      "id": "privateers",
+      "name": "Privateers",
+      "color": "#a0a0a0",
+      "drivers": [
+        "leroy",
+        "lex",
+        "luuk",
+        "martin",
+        "michel",
+        "mike",
+        "riccardo",
+        "rolf"
+      ]
+    }
+  ]
+}
