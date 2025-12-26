@@ -294,21 +294,8 @@ function renderTeams({ teams, drivers }) {
   container.textContent = '';
 
   const driverMap = mapById(drivers || []);
-
   const teamEntries = Array.isArray(teams) ? teams : [];
-  if (!teamEntries.length && drivers && drivers.length) {
-    const standalone = template.content.firstElementChild.cloneNode(true);
-    const tag = standalone.querySelector('.team-card__tag');
-    tag.textContent = 'Drivers';
-    const list = standalone.querySelector('.team-card__drivers');
-    drivers.forEach((driver) => {
-      const li = document.createElement('li');
-      li.textContent = driver && driver.name ? driver.name : driver.id;
-      list.appendChild(li);
-    });
-    container.appendChild(standalone);
-    return;
-  }
+  const assignedDrivers = new Set();
 
   teamEntries.forEach((team) => {
     const instance = template.content.firstElementChild.cloneNode(true);
@@ -324,10 +311,41 @@ function renderTeams({ teams, drivers }) {
       const li = document.createElement('li');
       li.textContent = driver ? driver.name : driverId;
       list.appendChild(li);
+      if (driverId) {
+        assignedDrivers.add(driverId);
+      }
     });
 
     container.appendChild(instance);
   });
+
+  const allDrivers = Array.isArray(drivers) ? drivers : [];
+  const independents = allDrivers.filter((driver) => driver && driver.id && !assignedDrivers.has(driver.id));
+  if (independents.length) {
+    const standalone = template.content.firstElementChild.cloneNode(true);
+    const tag = standalone.querySelector('.team-card__tag');
+    tag.textContent = 'Independent Drivers';
+    tag.style.background = '#444';
+    tag.style.color = '#fff';
+    const list = standalone.querySelector('.team-card__drivers');
+    independents.forEach((driver) => {
+      const li = document.createElement('li');
+      li.textContent = driver.name || driver.id;
+      list.appendChild(li);
+    });
+    container.appendChild(standalone);
+  } else if (!teamEntries.length && allDrivers.length) {
+    const standalone = template.content.firstElementChild.cloneNode(true);
+    const tag = standalone.querySelector('.team-card__tag');
+    tag.textContent = 'Drivers';
+    const list = standalone.querySelector('.team-card__drivers');
+    allDrivers.forEach((driver) => {
+      const li = document.createElement('li');
+      li.textContent = driver && driver.name ? driver.name : driver.id;
+      list.appendChild(li);
+    });
+    container.appendChild(standalone);
+  }
 }
 
 function renderStandings({ driverStandings = [], teamStandings = [], drivers = [], races }) {
