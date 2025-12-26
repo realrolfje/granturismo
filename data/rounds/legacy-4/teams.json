@@ -33,21 +33,5 @@
       "name": "Rolf"
     }
   ],
-  "teams": [
-    {
-      "id": "privateers",
-      "name": "Privateers",
-      "color": "#a0a0a0",
-      "drivers": [
-        "leroy",
-        "lex",
-        "luuk",
-        "martin",
-        "michel",
-        "mike",
-        "riccardo",
-        "rolf"
-      ]
-    }
-  ]
+  "teams": []
 }

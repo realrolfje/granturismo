@@ -295,7 +295,22 @@ function renderTeams({ teams, drivers }) {
 
   const driverMap = mapById(drivers || []);
 
-  (teams || []).forEach((team) => {
+  const teamEntries = Array.isArray(teams) ? teams : [];
+  if (!teamEntries.length && drivers && drivers.length) {
+    const standalone = template.content.firstElementChild.cloneNode(true);
+    const tag = standalone.querySelector('.team-card__tag');
+    tag.textContent = 'Drivers';
+    const list = standalone.querySelector('.team-card__drivers');
+    drivers.forEach((driver) => {
+      const li = document.createElement('li');
+      li.textContent = driver && driver.name ? driver.name : driver.id;
+      list.appendChild(li);
+    });
+    container.appendChild(standalone);
+    return;
+  }
+
+  teamEntries.forEach((team) => {
     const instance = template.content.firstElementChild.cloneNode(true);
 
     const tag = instance.querySelector('.team-card__tag');
