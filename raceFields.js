@@ -447,10 +447,10 @@
           type: 'number',
           min: -1,
           max: 100,
-          defaultValue: 0,
+          defaultValue: -1,
           valueLabels: {
             "-1": "Same as During the Race",
-            0: 'Default'
+            "0": 'Default'
           },
           unit: 'Litres',
           parse: (value) => {
