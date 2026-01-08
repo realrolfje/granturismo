@@ -1,9 +1,19 @@
+function cacheBustedUrl(url) {
+  const stamp = Math.floor(Date.now() / 60000);
+  const separator = url.includes('?') ? '&' : '?';
+  return `${url}${separator}t=${stamp}`;
+}
+
+function cacheBustedFetch(url, options) {
+  return fetch(cacheBustedUrl(url), options);
+}
+
 async function loadLegacyUpcomingData() {
   return fetchDefaultRoundFiles();
 }
 
 async function fetchDefaultRoundFiles() {
-  const roundsRes = await fetch('data/rounds.json');
+  const roundsRes = await cacheBustedFetch('data/rounds.json');
   if (!roundsRes.ok) {
     throw new Error(`Failed to load ${roundsRes.url}`);
   }
@@ -13,8 +23,8 @@ async function fetchDefaultRoundFiles() {
     throw new Error('No round configuration found');
   }
   const [racesRes, resultsRes] = await Promise.all([
-    fetch(`data/rounds/${active.directory}/races.json`),
-    fetch(`data/rounds/${active.directory}/results.json`)
+    cacheBustedFetch(`data/rounds/${active.directory}/races.json`),
+    cacheBustedFetch(`data/rounds/${active.directory}/results.json`)
   ]);
   [racesRes, resultsRes].forEach((res) => {
     if (!res.ok) {

@@ -1,9 +1,19 @@
 let sharedDataPromise;
 
+function cacheBustedUrl(url) {
+  const stamp = Math.floor(Date.now() / 60000);
+  const separator = url.includes('?') ? '&' : '?';
+  return `${url}${separator}t=${stamp}`;
+}
+
+function cacheBustedFetch(url, options) {
+  return fetch(cacheBustedUrl(url), options);
+}
+
 function loadSharedData() {
   if (sharedDataPromise) return sharedDataPromise;
   sharedDataPromise = (async () => {
-    const pointsResponse = await fetch('data/points.json');
+    const pointsResponse = await cacheBustedFetch('data/points.json');
     if (!pointsResponse.ok) {
       throw new Error(`Failed to load ${pointsResponse.url}`);
     }

@@ -1,5 +1,15 @@
+function cacheBustedUrl(url) {
+  const stamp = Math.floor(Date.now() / 60000);
+  const separator = url.includes('?') ? '&' : '?';
+  return `${url}${separator}t=${stamp}`;
+}
+
+function cacheBustedFetch(url, options) {
+  return fetch(cacheBustedUrl(url), options);
+}
+
 async function loadEditorData() {
-  const tracksRes = await fetch('data/tracks.json');
+  const tracksRes = await cacheBustedFetch('data/tracks.json');
   if (!tracksRes.ok) {
     throw new Error(`Failed to load ${tracksRes.url}`);
   }
@@ -15,7 +25,7 @@ async function loadEditorData() {
 }
 
 async function fetchDefaultRoundRaces() {
-  const roundsRes = await fetch('data/rounds.json');
+  const roundsRes = await cacheBustedFetch('data/rounds.json');
   if (!roundsRes.ok) {
     throw new Error(`Failed to load ${roundsRes.url}`);
   }
@@ -24,7 +34,7 @@ async function fetchDefaultRoundRaces() {
   if (!active.directory) {
     throw new Error('No round configuration found');
   }
-  const racesRes = await fetch(`data/rounds/${active.directory}/races.json`);
+  const racesRes = await cacheBustedFetch(`data/rounds/${active.directory}/races.json`);
   if (!racesRes.ok) {
     throw new Error(`Failed to load ${racesRes.url}`);
   }

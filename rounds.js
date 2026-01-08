@@ -24,6 +24,16 @@ function getRoundStartTimestamp(roundEntry) {
   return Number.isFinite(timestamp) ? timestamp : 0;
 }
 
+function cacheBustedUrl(url) {
+  const stamp = Math.floor(Date.now() / 60000);
+  const separator = url.includes('?') ? '&' : '?';
+  return `${url}${separator}t=${stamp}`;
+}
+
+function cacheBustedFetch(url, options) {
+  return fetch(cacheBustedUrl(url), options);
+}
+
 const SELECTED_ROUND_STORAGE_KEY = 'gt7-selected-round';
 
 function readStoredRoundId() {
@@ -72,7 +82,7 @@ function pickDefaultRound(rounds = [], preferredId) {
 
 async function loadRoundTeams(directory) {
   const roundTeamsUrl = `data/rounds/${directory}/teams.json`;
-  const response = await fetch(roundTeamsUrl);
+  const response = await cacheBustedFetch(roundTeamsUrl);
   if (!response.ok) {
     throw new Error(`Failed to load ${response.url}`);
   }
@@ -86,7 +96,7 @@ const RoundManager = (() => {
   let selectedRound = null;
 
   async function loadRoundsConfig() {
-    const configResponse = await fetch('data/rounds.json');
+    const configResponse = await cacheBustedFetch('data/rounds.json');
     if (!configResponse.ok) {
       throw new Error(`Failed to load ${configResponse.url}`);
     }
@@ -97,7 +107,7 @@ const RoundManager = (() => {
     const enriched = await Promise.all(
       configs.map(async (config) => {
         const racesUrl = `data/rounds/${config.directory}/races.json`;
-        const racesResponse = await fetch(racesUrl);
+        const racesResponse = await cacheBustedFetch(racesUrl);
         if (!racesResponse.ok) {
           throw new Error(`Failed to load ${racesUrl}`);
         }
@@ -174,7 +184,7 @@ const RoundManager = (() => {
       throw new Error(`Round not found: ${id}`);
     }
     const url = `data/rounds/${round.directory}/results.json`;
-    const response = await fetch(url);
+    const response = await cacheBustedFetch(url);
     if (!response.ok) {
       throw new Error(`Failed to load ${url}`);
     }

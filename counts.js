@@ -1,3 +1,13 @@
+function cacheBustedUrl(url) {
+  const stamp = Math.floor(Date.now() / 60000);
+  const separator = url.includes('?') ? '&' : '?';
+  return `${url}${separator}t=${stamp}`;
+}
+
+function cacheBustedFetch(url, options) {
+  return fetch(cacheBustedUrl(url), options);
+}
+
 async function updateHeroCounts(round) {
   const raceLink = document.getElementById('race-count');
   const driverLink = document.getElementById('driver-count');
@@ -88,7 +98,7 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 async function fetchFallbackRoundContext() {
-  const roundsRes = await fetch('data/rounds.json');
+  const roundsRes = await cacheBustedFetch('data/rounds.json');
   if (!roundsRes.ok) {
     throw new Error(`Failed to load ${roundsRes.url}`);
   }
@@ -98,9 +108,9 @@ async function fetchFallbackRoundContext() {
     throw new Error('No round configuration found');
   }
   const [racesRes, resultsRes, teamsRes] = await Promise.all([
-    fetch(`data/rounds/${activeConfig.directory}/races.json`),
-    fetch(`data/rounds/${activeConfig.directory}/results.json`),
-    fetch(`data/rounds/${activeConfig.directory}/teams.json`)
+    cacheBustedFetch(`data/rounds/${activeConfig.directory}/races.json`),
+    cacheBustedFetch(`data/rounds/${activeConfig.directory}/results.json`),
+    cacheBustedFetch(`data/rounds/${activeConfig.directory}/teams.json`)
   ]);
   [racesRes, resultsRes, teamsRes].forEach((res) => {
     if (!res.ok) {
