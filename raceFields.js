@@ -456,7 +456,7 @@
           parse: (value) => {
             const parsed = Number.parseInt(value, 10);
             if (!Number.isFinite(parsed)) return 0;
-            return Math.min(100, Math.max(1, parsed));
+            return Math.min(100, Math.max(-1, parsed));
           }
         },
         {
