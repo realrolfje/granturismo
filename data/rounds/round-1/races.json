@@ -7,8 +7,8 @@
   },
   "races": [
     {
-      "id": "2026-01-14-supra-cup-round-1",
-      "title": "Supra Cup Round 1",
+      "id": "2026-01-14-supra-cup-race-1",
+      "title": "Supra Cup Race 1",
       "track": "Eiger Nordwand",
       "variant": "Full Course",
       "date": "2026-01-14",
@@ -58,7 +58,7 @@
       "qualifyContinuationTime": 30,
       "tyreWearRateQualifier": -1,
       "fuelConsumptionRateQualifier": -1,
-      "initialFuelQualifier": 1,
+      "initialFuelQualifier": -1,
       "slipStreamQualifier": "Real",
       "filteryCategory": "No Limit",
       "ppLimit": 99,
@@ -94,11 +94,11 @@
       "tractionControl": "Prohibited",
       "abs": "Prohibited",
       "autoDrive": "Prohibited",
-      "raceNotes": "Toyota Supra GT500 '97 Gr.3\n492HP, No tuning"
+      "raceNotes": "Toyota GR Supra Race Car '19\n394HP, No tuning"
     },
     {
-      "id": "2026-01-21-supra-cup-round-1",
-      "title": "Supra Cup Round 1",
+      "id": "2026-01-21-supra-cup-race-2",
+      "title": "Supra Cup Race 2",
       "track": "Sardegna",
       "variant": "Road Track - B Reverse",
       "date": "2026-01-21",
@@ -148,7 +148,7 @@
       "qualifyContinuationTime": 30,
       "tyreWearRateQualifier": -1,
       "fuelConsumptionRateQualifier": -1,
-      "initialFuelQualifier": 1,
+      "initialFuelQualifier": -1,
       "slipStreamQualifier": "Real",
       "filteryCategory": "No Limit",
       "ppLimit": 99,
@@ -184,11 +184,11 @@
       "tractionControl": "Prohibited",
       "abs": "Prohibited",
       "autoDrive": "Prohibited",
-      "raceNotes": "Toyota Supra GT500 '97 Gr.3\n492HP, No tuning"
+      "raceNotes": "Toyota GR Supra Race Car '19\n394HP, No tuning"
     },
     {
-      "id": "2026-01-28-supra-cup-round-1",
-      "title": "Supra Cup Round 1",
+      "id": "2026-01-28-supra-cup-race-3",
+      "title": "Supra Cup Race 3",
       "track": "Red Bull Ring",
       "variant": "Full Course",
       "date": "2026-01-28",
@@ -238,7 +238,7 @@
       "qualifyContinuationTime": 30,
       "tyreWearRateQualifier": -1,
       "fuelConsumptionRateQualifier": -1,
-      "initialFuelQualifier": 1,
+      "initialFuelQualifier": -1,
       "slipStreamQualifier": "Real",
       "filteryCategory": "No Limit",
       "ppLimit": 99,
@@ -274,7 +274,7 @@
       "tractionControl": "Prohibited",
       "abs": "Prohibited",
       "autoDrive": "Prohibited",
-      "raceNotes": "Toyota Supra GT500 '97 Gr.3\n492HP, No tuning"
+      "raceNotes": "Toyota GR Supra Race Car '19\n394HP, No tuning"
     }
   ]
 }
