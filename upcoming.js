@@ -54,7 +54,6 @@ function getValueLabel(field = {}, value) {
   const labels = field.valueLabels;
   const labelKeys = field.valueLabelKeys;
   if (value === undefined || value === null) return undefined;
-  if (Array.isArray(value)) return undefined;
   const i18n = window.I18n;
   if (i18n && field.id) {
     const rawKey = `raceFields.values.${field.id}.${value}`;
@@ -98,7 +97,17 @@ function getValueLabel(field = {}, value) {
 
 function formatFieldValue(field, value) {
   if (value === undefined || value === null) return undefined;
-  if (Array.isArray(value) && !value.length) return undefined;
+  if (Array.isArray(value)) {
+    if (!value.length) return undefined;
+    const mappedValues = value
+      .map((item) => {
+        if (item === undefined || item === null || item === '') return undefined;
+        const mapped = getValueLabel(field, item);
+        return mapped !== undefined ? mapped : item;
+      })
+      .filter((item) => item !== undefined);
+    return mappedValues.length ? mappedValues.join(', ') : undefined;
+  }
   const mapped = getValueLabel(field, value);
   if (mapped !== undefined) return mapped;
   if (typeof field.format === 'function') {
