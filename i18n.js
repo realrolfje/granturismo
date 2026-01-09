@@ -139,22 +139,27 @@ function getLanguageName(locale) {
   return t(`language.${locale}`) || locale;
 }
 
+function getTargetLocale() {
+  return currentLocale === 'en' ? 'nl' : 'en';
+}
+
 function updateLanguageSwitcher() {
   const toggle = document.getElementById(LANGUAGE_TOGGLE_ID);
   if (!toggle) return;
+  const targetLocale = getTargetLocale();
   const flag = toggle.querySelector('.hero__language-flag');
   const label = toggle.querySelector('.hero__language-label');
+  const languageName = getLanguageName(targetLocale);
   if (flag) {
-    flag.textContent = LANGUAGE_FLAGS[currentLocale] || '🌐';
+    flag.textContent = LANGUAGE_FLAGS[targetLocale] || '🌐';
   }
-  const languageName = getLanguageName(currentLocale);
   if (label) {
     label.textContent = languageName;
   }
-  const controlsLabel = t('controls.languageSelect');
-  toggle.setAttribute('aria-label', `${controlsLabel} · ${languageName}`);
+  const switchLabel = t('controls.switchToLanguage', { language: languageName });
+  toggle.setAttribute('aria-label', switchLabel);
   toggle.setAttribute('title', languageName);
-  toggle.setAttribute('data-language', currentLocale);
+  toggle.setAttribute('data-language', targetLocale);
 }
 
 function initLanguageSwitcher() {

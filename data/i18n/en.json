@@ -9,7 +9,8 @@
   },
   "controls": {
     "roundSelect": "Select a round",
-    "languageSelect": "Select language"
+    "languageSelect": "Select language",
+    "switchToLanguage": "Switch to {language}"
   },
   "language": {
     "en": "English",
