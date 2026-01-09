@@ -21,7 +21,16 @@
           <select id="round-select" aria-label="Select a round" data-i18n-attr="aria-label" data-i18n-attr-key="controls.roundSelect"></select>
         </div>
         <div class="hero__language-selector">
-          <select id="language-select" aria-label="Select language" data-i18n-attr="aria-label" data-i18n-attr-key="controls.languageSelect"></select>
+          <button
+            id="language-toggle"
+            type="button"
+            class="hero__language-toggle"
+            data-i18n-attr="aria-label"
+            data-i18n-attr-key="controls.languageSelect"
+          >
+            <span class="hero__language-flag" aria-hidden="true">🌐</span>
+            <span class="hero__language-label sr-only" aria-live="polite"></span>
+          </button>
         </div>
         <button id="theme-toggle" class="theme-toggle" type="button" aria-pressed="false">
           <span class="theme-toggle__icon" aria-hidden="true">☀️</span>

@@ -100,8 +100,8 @@ main {
   letter-spacing: 0.04em;
   text-transform: uppercase;
   font-size: 0.75rem;
-  width: 2.75rem;
-  height: 2.75rem;
+  width: 2.5rem;
+  height: 2.5rem;
   padding: 0;
   border-radius: 999px;
   cursor: pointer;
@@ -239,32 +239,60 @@ body.theme-light .hero__round-selector select {
   box-shadow: inset 0 0 0 1px rgba(15, 23, 42, 0.2);
 }
 
-.hero__language-selector select {
+.hero__language-toggle {
   border-radius: 999px;
   border: 1px solid rgba(255, 255, 255, 0.4);
   background: rgba(8, 11, 18, 0.65);
   color: #fff;
-  padding: 0.5rem 0.7rem;
-  font: inherit;
-  font-size: 0.75rem;
-  font-weight: 600;
-  text-transform: uppercase;
+  padding: 0.35rem;
+  width: 2.5rem;
+  height: 2.5rem;
+  min-width: 2.5rem;
+  min-height: 2.5rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   cursor: pointer;
-  min-width: 110px;
-  appearance: none;
+  font: inherit;
   box-shadow: inset 0 0 0 1px var(--border);
+  transition: box-shadow 0.2s ease, transform 0.2s ease;
 }
 
-.hero__language-selector select:focus {
+.hero__language-toggle:focus {
   outline: 2px solid var(--accent);
   outline-offset: 2px;
 }
 
-body.theme-light .hero__language-selector select {
+.hero__language-toggle:active {
+  transform: translateY(1px);
+}
+
+.hero__language-flag {
+  font-size: 1.3rem;
+  line-height: 1;
+}
+
+.hero__language-toggle:hover {
+  box-shadow: inset 0 0 0 1px var(--border), 0 0 0 4px rgba(255, 255, 255, 0.1);
+}
+
+body.theme-light .hero__language-toggle {
   border-color: rgba(15, 23, 42, 0.2);
   background: rgba(238, 240, 245, 0.85);
   color: #0b0d17;
   box-shadow: inset 0 0 0 1px rgba(15, 23, 42, 0.2);
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
 }
 
 .panel {

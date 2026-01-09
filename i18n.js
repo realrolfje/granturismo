@@ -1,6 +1,11 @@
 const SUPPORTED_LOCALES = ['en', 'nl'];
 const DEFAULT_LOCALE = 'en';
 const LOCALE_STORAGE_KEY = 'gt7-language';
+const LANGUAGE_TOGGLE_ID = 'language-toggle';
+const LANGUAGE_FLAGS = {
+  en: '🇺🇸',
+  nl: '🇳🇱'
+};
 
 let currentLocale = DEFAULT_LOCALE;
 let translations = {};
@@ -130,31 +135,46 @@ function applyTranslations() {
   });
 }
 
-function initLanguageSelector() {
-  const select = document.getElementById('language-select');
-  if (!select) return;
-  const options = [
-    { value: 'en', labelKey: 'language.en' },
-    { value: 'nl', labelKey: 'language.nl' }
-  ];
-  select.textContent = '';
-  options.forEach((entry) => {
-    const option = document.createElement('option');
-    option.value = entry.value;
-    option.textContent = t(entry.labelKey);
-    select.appendChild(option);
-  });
-  select.value = currentLocale;
-  select.addEventListener('change', () => {
-    setLocale(select.value);
-  });
+function getLanguageName(locale) {
+  return t(`language.${locale}`) || locale;
+}
+
+function updateLanguageSwitcher() {
+  const toggle = document.getElementById(LANGUAGE_TOGGLE_ID);
+  if (!toggle) return;
+  const flag = toggle.querySelector('.hero__language-flag');
+  const label = toggle.querySelector('.hero__language-label');
+  if (flag) {
+    flag.textContent = LANGUAGE_FLAGS[currentLocale] || '🌐';
+  }
+  const languageName = getLanguageName(currentLocale);
+  if (label) {
+    label.textContent = languageName;
+  }
+  const controlsLabel = t('controls.languageSelect');
+  toggle.setAttribute('aria-label', `${controlsLabel} · ${languageName}`);
+  toggle.setAttribute('title', languageName);
+  toggle.setAttribute('data-language', currentLocale);
+}
+
+function initLanguageSwitcher() {
+  const toggle = document.getElementById(LANGUAGE_TOGGLE_ID);
+  if (!toggle) return;
+  if (!toggle.dataset.languageListener) {
+    toggle.addEventListener('click', () => {
+      const nextLocale = currentLocale === 'en' ? 'nl' : 'en';
+      setLocale(nextLocale);
+    });
+    toggle.dataset.languageListener = '1';
+  }
+  updateLanguageSwitcher();
 }
 
 async function setLocale(locale, { persist = true } = {}) {
   const normalized = SUPPORTED_LOCALES.includes(locale) ? locale : normalizeLocale(locale);
   if (normalized === currentLocale && Object.keys(translations).length) {
     applyTranslations();
-    initLanguageSelector();
+    initLanguageSwitcher();
     return;
   }
   currentLocale = normalized;
@@ -168,7 +188,7 @@ async function setLocale(locale, { persist = true } = {}) {
   if (persist) setStoredLocale(currentLocale);
   const apply = () => {
     applyTranslations();
-    initLanguageSelector();
+    initLanguageSwitcher();
     document.dispatchEvent(new CustomEvent('i18n:change', { detail: { locale: currentLocale } }));
   };
   if (document.readyState === 'loading') {
