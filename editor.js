@@ -8,6 +8,10 @@ function cacheBustedFetch(url, options) {
   return fetch(cacheBustedUrl(url), options);
 }
 
+function getI18n() {
+  return window.I18n;
+}
+
 async function loadEditorData() {
   const tracksRes = await cacheBustedFetch('data/tracks.json');
   if (!tracksRes.ok) {
@@ -48,6 +52,7 @@ function populateTrackSelect(tracks) {
   const suggestionsList = document.getElementById('track-suggestions');
   const variantSelect = document.getElementById('variant-select');
   if (!trackInput || !trackValue || !suggestionsList || !variantSelect) return;
+  const i18n = getI18n();
   const notifyFormUpdate = () => {
     const form = trackInput.form;
     if (form) {
@@ -97,7 +102,7 @@ function populateTrackSelect(tracks) {
       variantSelect.removeAttribute('required');
       const placeholder = document.createElement('option');
       placeholder.value = '';
-      placeholder.textContent = 'Select a track first';
+      placeholder.textContent = i18n ? i18n.t('editor.selectTrackFirst') : 'Select a track first';
       placeholder.disabled = true;
       placeholder.selected = true;
       variantSelect.appendChild(placeholder);
@@ -185,7 +190,8 @@ function createFieldControl(field) {
     const select = document.createElement('select');
     (field.options || []).forEach((option) => {
       const value = typeof option === 'string' ? option : option.value;
-      const label = typeof option === 'string' ? option : option.label;
+      const baseLabel = typeof option === 'string' ? option : option.label;
+      const label = getOptionLabel(field, option, baseLabel);
       const opt = document.createElement('option');
       opt.value = value;
       opt.textContent = label;
@@ -198,7 +204,8 @@ function createFieldControl(field) {
     wrapper.className = 'multi-select';
     (field.options || []).forEach((option) => {
       const value = typeof option === 'string' ? option : option.value;
-      const label = typeof option === 'string' ? option : option.label;
+      const baseLabel = typeof option === 'string' ? option : option.label;
+      const label = getOptionLabel(field, option, baseLabel);
       const optionId = `${field.id}-${value}`;
 
       const optionWrapper = document.createElement('div');
@@ -247,6 +254,31 @@ function createFieldControl(field) {
     }
   }
   return input;
+}
+
+function getFieldLabel(field = {}) {
+  const i18n = getI18n();
+  const key = field.labelKey || (field.id ? `raceFields.fields.${field.id}` : null);
+  if (i18n && key && i18n.get(key)) return i18n.t(key);
+  return field.label;
+}
+
+function getGroupLabel(group = {}) {
+  const i18n = getI18n();
+  const key = group.labelKey || (group.id ? `raceFields.groups.${group.id}` : null);
+  if (i18n && key && i18n.get(key)) return i18n.t(key);
+  return group.label;
+}
+
+function getOptionLabel(field, option, fallbackLabel) {
+  const i18n = getI18n();
+  if (!i18n) return fallbackLabel;
+  const value = typeof option === 'string' ? option : option.value;
+  const key = option.labelKey || (field.id ? `raceFields.options.${field.id}.${slugify(value)}` : null);
+  if (key && i18n.get(key)) {
+    return i18n.t(key);
+  }
+  return fallbackLabel;
 }
 
 function renderExtraFields() {
@@ -307,7 +339,7 @@ function renderExtraFields() {
         select.required = true;
         (field.options || []).forEach((option) => {
           const optionValue = typeof option === 'string' ? option : option.value;
-          const optionLabel = typeof option === 'string' ? option : option.label;
+          const optionLabel = getOptionLabel(field, option, typeof option === 'string' ? option : option.label);
           const opt = document.createElement('option');
           opt.value = optionValue;
           opt.textContent = optionLabel;
@@ -333,7 +365,10 @@ function renderExtraFields() {
         if (isLast) {
           actionButton.classList.add('repeatable-add-btn');
           actionButton.textContent = '+';
-          actionButton.title = field.addButtonLabel || 'Add entry';
+          const addKey = field.addButtonLabelKey || (field.id ? `raceFields.actions.${field.id}.add` : null);
+          actionButton.title = getI18n() && addKey && getI18n().get(addKey)
+            ? getI18n().t(addKey)
+            : field.addButtonLabel || 'Add entry';
           actionButton.disabled = !canAddMore;
           actionButton.addEventListener('click', () => {
             if (!canAddMore) return;
@@ -376,7 +411,7 @@ function renderExtraFields() {
     if (field.type !== 'repeatable-select') {
       label.setAttribute('for', field.id);
     }
-    label.textContent = field.label;
+    label.textContent = getFieldLabel(field);
     labelRow.appendChild(label);
 
     const addValueHints = () => {
@@ -387,7 +422,10 @@ function renderExtraFields() {
       const hintButton = document.createElement('button');
       hintButton.type = 'button';
       hintButton.className = 'field-hint';
-      hintButton.setAttribute('aria-label', `Show hints for ${field.label}`);
+      hintButton.setAttribute(
+        'aria-label',
+        getI18n() ? getI18n().t('editor.showHints', { label: getFieldLabel(field) }) : `Show hints for ${field.label}`
+      );
       hintButton.setAttribute('aria-expanded', 'false');
       hintButton.textContent = '?';
 
@@ -398,14 +436,27 @@ function renderExtraFields() {
       if (description) {
         const desc = document.createElement('p');
         desc.className = 'field-hint__description';
-        desc.textContent = description;
+        const descKey = field.descriptionKey || (field.id ? `raceFields.descriptions.${field.id}` : null);
+        desc.textContent = getI18n() && descKey && getI18n().get(descKey)
+          ? getI18n().t(descKey)
+          : description;
         popover.appendChild(desc);
       }
       if (hasEntries) {
         const list = document.createElement('ul');
         entries.forEach(([value, descText]) => {
           const li = document.createElement('li');
-          li.innerHTML = `<strong>${value}</strong> – ${descText}`;
+          let displayText = descText;
+          if (getI18n() && field.id) {
+            const rawKey = `raceFields.values.${field.id}.${value}`;
+            const slugKey = `raceFields.values.${field.id}.${slugify(value)}`;
+            if (getI18n().get(rawKey)) {
+              displayText = getI18n().t(rawKey);
+            } else if (getI18n().get(slugKey)) {
+              displayText = getI18n().t(slugKey);
+            }
+          }
+          li.innerHTML = `<strong>${value}</strong> – ${displayText}`;
           list.appendChild(li);
         });
         popover.appendChild(list);
@@ -454,7 +505,14 @@ function renderExtraFields() {
     if (field.type !== 'multi-select') {
       control.name = field.id;
     }
-    if (field.placeholder) control.placeholder = field.placeholder;
+    if (field.placeholder) {
+      const placeholderKey = field.id ? `raceFields.placeholders.${field.id}` : null;
+      if (getI18n() && placeholderKey && getI18n().get(placeholderKey)) {
+        control.placeholder = getI18n().t(placeholderKey);
+      } else {
+        control.placeholder = field.placeholder;
+      }
+    }
     if (field.defaultValue !== undefined) {
       if (field.type === 'multi-select' && Array.isArray(field.defaultValue)) {
         const defaults = new Set(field.defaultValue.map((val) => String(val)));
@@ -513,10 +571,10 @@ function renderExtraFields() {
 
   if (groups.length) {
     groups.forEach((group) => {
-      if (group.label) {
+      if (group.label || group.labelKey) {
         const heading = document.createElement('div');
         heading.className = 'form-group-heading';
-        heading.textContent = group.label;
+        heading.textContent = getGroupLabel(group);
         container.appendChild(heading);
       }
       (group.fields || []).forEach((field) => renderField(field));
@@ -632,13 +690,14 @@ function setupCopyButton() {
   const preview = document.getElementById('race-json-preview');
   const feedback = document.getElementById('copy-feedback');
   if (!button || !preview) return;
+  const i18n = getI18n();
 
   button.addEventListener('click', async () => {
     try {
       await navigator.clipboard.writeText(preview.textContent);
       if (feedback) {
         feedback.hidden = false;
-        feedback.textContent = 'JSON copied to clipboard.';
+        feedback.textContent = i18n ? i18n.t('editor.copied') : 'JSON copied to clipboard.';
         setTimeout(() => {
           feedback.hidden = true;
         }, 2000);
@@ -647,7 +706,9 @@ function setupCopyButton() {
       console.error('Clipboard copy failed', err);
       if (feedback) {
         feedback.hidden = false;
-        feedback.textContent = 'Unable to copy. Please select and copy manually.';
+        feedback.textContent = i18n
+          ? i18n.t('editor.copyError')
+          : 'Unable to copy. Please select and copy manually.';
       }
     }
   });
@@ -672,9 +733,18 @@ async function initEditor() {
     console.error(err);
     const preview = document.getElementById('race-json-preview');
     if (preview) {
-      preview.textContent = 'Unable to load track list. Please reload the page.';
+      preview.textContent = getI18n()
+        ? getI18n().t('editor.loadError')
+        : 'Unable to load track list. Please reload the page.';
     }
   }
 }
 
-document.addEventListener('DOMContentLoaded', initEditor);
+document.addEventListener('DOMContentLoaded', () => {
+  const i18n = getI18n();
+  const ready = i18n ? i18n.whenReady() : Promise.resolve();
+  ready.then(initEditor).catch((err) => console.error('Unable to initialize translations', err));
+  document.addEventListener('i18n:change', () => {
+    initEditor().catch((err) => console.error(err));
+  });
+});

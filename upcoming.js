@@ -36,6 +36,8 @@ async function fetchDefaultRoundFiles() {
 }
 
 function formatDate(dateStr) {
+  const i18n = window.I18n;
+  if (i18n) return i18n.formatDate(dateStr);
   if (!dateStr) return 'Date TBC';
   const date = new Date(dateStr);
   if (Number.isNaN(date.getTime())) return dateStr;
@@ -43,14 +45,32 @@ function formatDate(dateStr) {
 }
 
 function buildTrackLabel(race) {
-  if (!race.track) return 'Track TBC';
+  const i18n = window.I18n;
+  if (!race.track) return i18n ? i18n.t('tracks.tbc') : 'Track TBC';
   return race.variant ? `${race.track} • ${race.variant}` : race.track;
 }
 
 function getValueLabel(field = {}, value) {
   const labels = field.valueLabels;
-  if (!labels || value === undefined || value === null) return undefined;
+  const labelKeys = field.valueLabelKeys;
+  if (value === undefined || value === null) return undefined;
   if (Array.isArray(value)) return undefined;
+  const i18n = window.I18n;
+  if (i18n && field.id) {
+    const rawKey = `raceFields.values.${field.id}.${value}`;
+    if (i18n.get(rawKey)) {
+      return i18n.t(rawKey);
+    }
+    const slugKey = `raceFields.values.${field.id}.${slugify(value)}`;
+    if (i18n.get(slugKey)) {
+      return i18n.t(slugKey);
+    }
+    const optionKey = `raceFields.options.${field.id}.${slugify(value)}`;
+    if (i18n.get(optionKey)) {
+      return i18n.t(optionKey);
+    }
+  }
+  if (!labels) return undefined;
   const keys = [];
   const asString = String(value);
   keys.push(asString);
@@ -66,6 +86,10 @@ function getValueLabel(field = {}, value) {
     if (seen.has(key)) continue;
     seen.add(key);
     if (Object.prototype.hasOwnProperty.call(labels, key)) {
+      const labelKey = labelKeys && Object.prototype.hasOwnProperty.call(labelKeys, key) ? labelKeys[key] : null;
+      if (labelKey && i18n) {
+        return i18n.t(labelKey);
+      }
       return labels[key];
     }
   }
@@ -93,10 +117,34 @@ function formatFieldValue(field, value) {
   return value;
 }
 
+function slugify(value = '') {
+  return value
+    .toString()
+    .trim()
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-+|-+$/g, '');
+}
+
+function getFieldLabel(field = {}) {
+  const i18n = window.I18n;
+  const key = field.labelKey || (field.id ? `raceFields.fields.${field.id}` : null);
+  if (i18n && key && i18n.get(key)) return i18n.t(key);
+  return field.displayLabel || field.label;
+}
+
+function getGroupLabel(group = {}) {
+  const i18n = window.I18n;
+  const key = group.labelKey || (group.id ? `raceFields.groups.${group.id}` : null);
+  if (i18n && key && i18n.get(key)) return i18n.t(key);
+  return group.label;
+}
+
 function renderUpcoming(races = [], completedSet = new Set()) {
   const container = document.getElementById('upcoming-container');
   const pill = document.getElementById('upcoming-pill');
   if (!container) return;
+  const i18n = window.I18n;
   container.textContent = '';
 
   const upcoming = (races || []).filter((race) => !completedSet.has(race.id));
@@ -106,14 +154,21 @@ function renderUpcoming(races = [], completedSet = new Set()) {
     return timeA - timeB;
   });
 
-  const pillText = upcoming.length ? `Upcoming Races (${upcoming.length})` : 'Upcoming Races';
+  const pillText = i18n
+    ? upcoming.length
+      ? i18n.t('nav.upcomingCount', { count: upcoming.length })
+      : i18n.t('nav.upcoming')
+    : upcoming.length
+      ? `Upcoming Races (${upcoming.length})`
+      : 'Upcoming Races';
   if (pill) {
     pill.setAttribute('data-count', upcoming.length);
     pill.textContent = pillText;
   }
 
   if (!upcoming.length) {
-    container.innerHTML = '<p class="muted">All scheduled races already have results. Stay tuned for new events.</p>';
+    const emptyText = i18n ? i18n.t('upcoming.empty') : 'All scheduled races already have results. Stay tuned for new events.';
+    container.innerHTML = `<p class="muted">${emptyText}</p>`;
     return;
   }
 
@@ -153,17 +208,24 @@ function renderUpcoming(races = [], completedSet = new Set()) {
     const details = document.createElement('div');
     details.className = 'upcoming-card__details';
 
+    const basicLabel = i18n ? i18n.t('upcoming.eventBasics') : 'Event Basics';
+    const trackLabel = i18n ? i18n.t('upcoming.trackDetails') : 'Track Details';
+    const titleLabel = i18n ? i18n.t('upcoming.title') : 'Title';
+    const dateLabel = i18n ? i18n.t('upcoming.date') : 'Date';
+    const trackFieldLabel = i18n ? i18n.t('upcoming.track') : 'Track';
+    const tbc = i18n ? i18n.t('general.tbc') : 'TBC';
+
     const detailGroups = [
       {
-        label: 'Event Basics',
+        label: basicLabel,
         rows: [
-          { label: 'Title', value: race.title || race.id || 'TBC' },
-          { label: 'Date', value: formatDate(race.date) }
+          { label: titleLabel, value: race.title || race.id || tbc },
+          { label: dateLabel, value: formatDate(race.date) }
         ]
       },
       {
-        label: 'Track Details',
-        rows: [{ label: 'Track', value: buildTrackLabel(race) }]
+        label: trackLabel,
+        rows: [{ label: trackFieldLabel, value: buildTrackLabel(race) }]
       }
     ];
 
@@ -176,12 +238,12 @@ function renderUpcoming(races = [], completedSet = new Set()) {
           const formatted = formatFieldValue(definition, value);
           if (formatted === undefined || formatted === '') return;
           rows.push({
-            label: definition.displayLabel || definition.label,
-            value: formatted === undefined || formatted === '' ? 'TBC' : formatted
+            label: getFieldLabel(definition),
+            value: formatted === undefined || formatted === '' ? tbc : formatted
           });
         });
         if (!rows.length) return null;
-        return { label: group.label, rows };
+        return { label: getGroupLabel(group), rows };
       })
       .filter(Boolean);
 
@@ -238,7 +300,11 @@ async function renderUpcomingForRound(round) {
     console.error(err);
     const container = document.getElementById('upcoming-container');
     if (container) {
-      container.innerHTML = '<p class="error">Unable to load race schedule. Please try again later.</p>';
+      const i18n = window.I18n;
+      const message = i18n
+        ? i18n.t('errors.schedule')
+        : 'Unable to load race schedule. Please try again later.';
+      container.innerHTML = `<p class="error">${message}</p>`;
     }
   }
 }
@@ -261,9 +327,31 @@ async function initUpcomingPage() {
     console.error(err);
     const container = document.getElementById('upcoming-container');
     if (container) {
-      container.innerHTML = '<p class="error">Unable to load race schedule. Please try again later.</p>';
+      const i18n = window.I18n;
+      const message = i18n
+        ? i18n.t('errors.schedule')
+        : 'Unable to load race schedule. Please try again later.';
+      container.innerHTML = `<p class="error">${message}</p>`;
     }
   }
 }
 
-document.addEventListener('DOMContentLoaded', initUpcomingPage);
+document.addEventListener('DOMContentLoaded', () => {
+  const i18n = window.I18n;
+  const ready = i18n ? i18n.whenReady() : Promise.resolve();
+  ready.then(initUpcomingPage).catch((err) => console.error('Unable to initialize translations', err));
+  document.addEventListener('i18n:change', () => {
+    const round = typeof RoundManager !== 'undefined' ? RoundManager.getCurrentRound() : null;
+    if (round) {
+      renderUpcomingForRound(round);
+      return;
+    }
+    loadLegacyUpcomingData()
+      .then(({ racesData, resultsData }) => {
+        const completed = new Set((resultsData.results || []).map((race) => race.raceId));
+        const legacyRaces = racesData && Array.isArray(racesData.races) ? racesData.races : [];
+        renderUpcoming(legacyRaces, completed);
+      })
+      .catch((err) => console.error(err));
+  });
+});

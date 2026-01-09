@@ -4,8 +4,9 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta http-equiv="cache-control" content="max-age=60" />
-    <title>Gran Turismo 7 | Race Editor</title>
+    <title data-i18n="pageTitles.editor">Gran Turismo 7 | Race Editor</title>
     <link rel="stylesheet" href="styles.css" />
+    <script src="i18n.js" defer></script>
     <script src="theme.js" defer></script>
     <script src="rounds.js" defer></script>
     <script src="counts.js" defer></script>
@@ -16,7 +17,10 @@
     <header class="hero" id="top">
       <div class="hero__top-actions">
         <div class="hero__round-selector">
-          <select id="round-select" aria-label="Select a round"></select>
+          <select id="round-select" aria-label="Select a round" data-i18n-attr="aria-label" data-i18n-attr-key="controls.roundSelect"></select>
+        </div>
+        <div class="hero__language-selector">
+          <select id="language-select" aria-label="Select language" data-i18n-attr="aria-label" data-i18n-attr-key="controls.languageSelect"></select>
         </div>
         <button id="theme-toggle" class="theme-toggle" type="button" aria-pressed="false">
           <span class="theme-toggle__icon" aria-hidden="true">☀️</span>
@@ -24,14 +28,14 @@
       </div>
       <div class="hero__content">
         <p class="eyebrow">Gran Turismo 7</p>
-        <h1>Race Editor</h1>
+        <h1 data-i18n="editor.heroTitle">Race Editor</h1>
         <div class="hero__nav" role="navigation">
-          <a class="pill-link" href="index.html">Standings</a>
-          <a class="pill-link" href="results.html">Race Results</a>
-          <a id="upcoming-pill" class="pill-link" href="races.html">Upcoming Races</a>
-          <a class="pill-link" href="teams.html">Teams &amp; Drivers</a>
-          <a class="pill-link" href="rules.html">Scoring Rules</a>
-          <a class="pill-link pill-link--active" href="editor.html">Race Editor</a>
+          <a class="pill-link" href="index.html" data-i18n="nav.standings">Standings</a>
+          <a class="pill-link" href="results.html" data-i18n="nav.results">Race Results</a>
+          <a id="upcoming-pill" class="pill-link" href="races.html" data-i18n="nav.upcoming">Upcoming Races</a>
+          <a class="pill-link" href="teams.html" data-i18n="nav.teams">Teams &amp; Drivers</a>
+          <a class="pill-link" href="rules.html" data-i18n="nav.rules">Scoring Rules</a>
+          <a class="pill-link pill-link--active" href="editor.html" data-i18n="nav.editor">Race Editor</a>
         </div>
       </div>
     </header>
@@ -39,25 +43,26 @@
     <main>
       <section class="panel panel--rules" aria-labelledby="editor-heading">
         <div class="panel__header">
-          <h2 id="editor-heading">Generate race JSON</h2>
-          <p>Build a race JSON by choosing an official GT7 track, date, and metadata. 
+          <h2 id="editor-heading" data-i18n="editor.title">Generate race JSON</h2>
+          <p data-i18n="editor.subtitle" data-i18n-html>
+            Build a race JSON by choosing an official GT7 track, date, and metadata. 
             Paste the output into your active round file (for example <code>data/rounds/round-1/races.json</code>) to add the event to that round. 
             All tracks come from the official GT7 track list. Fields marked * are required.</p>
         </div>
         <div class="editor-grid">
           <form id="race-form" class="editor-form" autocomplete="off">
-            <div class="form-group-heading">Event Basics</div>
+            <div class="form-group-heading" data-i18n="editor.eventBasics">Event Basics</div>
             <div class="form-field">
-              <label for="race-title">Race title *</label>
-              <input id="race-title" name="title" required placeholder="World Series Round" />
+              <label for="race-title" data-i18n="editor.raceTitle">Race title *</label>
+              <input id="race-title" name="title" required placeholder="World Series Round" data-i18n-placeholder="editor.raceTitlePlaceholder" />
             </div>
             <div class="form-field">
-              <label for="race-date">Date *</label>
+              <label for="race-date" data-i18n="editor.raceDate">Date *</label>
               <input id="race-date" name="date" type="date" required />
             </div>
-            <div class="form-group-heading">Track &amp; Format</div>
+            <div class="form-group-heading" data-i18n="editor.trackFormat">Track &amp; Format</div>
             <div class="form-field">
-              <label for="track-input">Track *</label>
+              <label for="track-input" data-i18n="editor.track">Track *</label>
               <div class="combo">
                 <input
                   id="track-input"
@@ -72,13 +77,14 @@
                   aria-autocomplete="list"
                   aria-controls="track-suggestions"
                   aria-expanded="false"
+                  data-i18n-placeholder="editor.trackPlaceholder"
                 />
                 <input type="hidden" id="track-value" name="track" />
                 <ul id="track-suggestions" class="combo__list" hidden></ul>
               </div>
             </div>
             <div class="form-field">
-              <label for="variant-select">Variant *</label>
+              <label for="variant-select" data-i18n="editor.variant">Variant *</label>
               <select id="variant-select" name="variant" required disabled></select>
             </div>
             <div id="extra-fields"></div>
@@ -86,7 +92,7 @@
 
           <div class="editor-output">
             <div class="editor-output__header">
-              <h3>Race JSON</h3>
+              <h3 data-i18n="editor.outputTitle">Race JSON</h3>
             </div>
             <pre id="race-json-preview" class="json-preview">{
   "id": "race-3",
@@ -100,9 +106,9 @@
   ],
   "timeOfDay": "Afternoon"
 }</pre>
-          <p class="muted note">Paste the snippet into the active round file (e.g., <code>data/rounds/round-1/races.json</code>) inside the <code>"races"</code> array, keeping the JSON valid.</p>
-            <p align="right"><button type="button" id="copy-json" class="pill-link copy-btn">Copy</button></p>
-            <p id="copy-feedback" class="muted" align="right" hidden>JSON copied to clipboard.</p>
+          <p class="muted note" data-i18n="editor.outputNote" data-i18n-html>Paste the snippet into the active round file (e.g., <code>data/rounds/round-1/races.json</code>) inside the <code>"races"</code> array, keeping the JSON valid.</p>
+            <p align="right"><button type="button" id="copy-json" class="pill-link copy-btn" data-i18n="editor.copy">Copy</button></p>
+            <p id="copy-feedback" class="muted" align="right" hidden data-i18n="editor.copied">JSON copied to clipboard.</p>
           </div>
         </div>
       </section>

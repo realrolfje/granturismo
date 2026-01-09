@@ -4,9 +4,10 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta http-equiv="cache-control" content="max-age=60" />
-    <title>Gran Turismo 7 | Scoring Rules</title>
+    <title data-i18n="pageTitles.rules">Gran Turismo 7 | Scoring Rules</title>
     <link rel="icon" type="image/x-icon" href="favicon.ico">
     <link rel="stylesheet" href="styles.css" />
+    <script src="i18n.js" defer></script>
     <script src="theme.js" defer></script>
     <script src="rounds.js" defer></script>
     <script src="counts.js" defer></script>
@@ -15,7 +16,10 @@
     <header class="hero" id="top">
       <div class="hero__top-actions">
         <div class="hero__round-selector">
-          <select id="round-select" aria-label="Select a round"></select>
+          <select id="round-select" aria-label="Select a round" data-i18n-attr="aria-label" data-i18n-attr-key="controls.roundSelect"></select>
+        </div>
+        <div class="hero__language-selector">
+          <select id="language-select" aria-label="Select language" data-i18n-attr="aria-label" data-i18n-attr-key="controls.languageSelect"></select>
         </div>
         <button id="theme-toggle" class="theme-toggle" type="button" aria-pressed="false">
           <span class="theme-toggle__icon" aria-hidden="true">☀️</span>
@@ -23,14 +27,14 @@
       </div>
       <div class="hero__content">
         <p class="eyebrow">Gran Turismo 7</p>
-        <h1>Rules & Scoring</h1>
+        <h1 data-i18n="rules.heroTitle">Rules & Scoring</h1>
         <div class="hero__nav" role="navigation">
-          <a class="pill-link" href="index.html">Standings</a>
-          <a class="pill-link" href="results.html">Race Results</a>
-          <a id="upcoming-pill" class="pill-link" href="races.html">Upcoming Races</a>
-          <a class="pill-link" href="teams.html">Teams &amp; Drivers</a>
-          <a class="pill-link pill-link--active" href="rules.html">Scoring Rules</a>
-          <a class="pill-link" href="editor.html">Race Editor</a>
+          <a class="pill-link" href="index.html" data-i18n="nav.standings">Standings</a>
+          <a class="pill-link" href="results.html" data-i18n="nav.results">Race Results</a>
+          <a id="upcoming-pill" class="pill-link" href="races.html" data-i18n="nav.upcoming">Upcoming Races</a>
+          <a class="pill-link" href="teams.html" data-i18n="nav.teams">Teams &amp; Drivers</a>
+          <a class="pill-link pill-link--active" href="rules.html" data-i18n="nav.rules">Scoring Rules</a>
+          <a class="pill-link" href="editor.html" data-i18n="nav.editor">Race Editor</a>
         </div>
       </div>
     </header>
@@ -38,32 +42,32 @@
     <main>
       <section class="panel panel--rules">
         <div class="panel__header">
-          <h2>Points Breakdown</h2>
-          <p>Each driver completing a race earns points according to final position as described below.</p>
+          <h2 data-i18n="rules.pointsTitle">Points Breakdown</h2>
+          <p data-i18n="rules.pointsIntro">Each driver completing a race earns points according to final position as described below.</p>
         </div>
         <div class="points-grid">
           <div>
-            <h3>Projected grid</h3>
+            <h3 data-i18n="rules.projectedGrid">Projected grid</h3>
             <ol class="points-list">
-              <li><span>1st</span><strong>12 pts</strong></li>
-              <li><span>2nd</span><strong>10 pts</strong></li>
-              <li><span>3rd</span><strong>8 pts</strong></li>
-              <li><span>4th</span><strong>6 pts</strong></li>
-              <li><span>5th</span><strong>4 pts</strong></li>
-              <li><span>6th</span><strong>2 pts</strong></li>
-              <li><span>7th</span><strong>1 pt</strong></li>
+              <li><span data-i18n="rules.positions.first">1st</span><strong data-i18n="rules.points.p12">12 pts</strong></li>
+              <li><span data-i18n="rules.positions.second">2nd</span><strong data-i18n="rules.points.p10">10 pts</strong></li>
+              <li><span data-i18n="rules.positions.third">3rd</span><strong data-i18n="rules.points.p8">8 pts</strong></li>
+              <li><span data-i18n="rules.positions.fourth">4th</span><strong data-i18n="rules.points.p6">6 pts</strong></li>
+              <li><span data-i18n="rules.positions.fifth">5th</span><strong data-i18n="rules.points.p4">4 pts</strong></li>
+              <li><span data-i18n="rules.positions.sixth">6th</span><strong data-i18n="rules.points.p2">2 pts</strong></li>
+              <li><span data-i18n="rules.positions.seventh">7th</span><strong data-i18n="rules.points.p1">1 pt</strong></li>
             </ol>
           </div>
           <div class="rule-card">
-            <h3>Participation bonus</h3>
-            <p>
+            <h3 data-i18n="rules.participationTitle">Participation bonus</h3>
+            <p data-i18n="rules.participationBody" data-i18n-html>
               Any driver finishing outside the top 7 still earns <strong>1 point</strong> for completing the race.
               DNS/DNF results yield no points.
             </p>
           </div>
           <div class="rule-card">
-            <h3>Drop round</h3>
-            <p>
+            <h3 data-i18n="rules.dropTitle">Drop round</h3>
+            <p data-i18n="rules.dropBody">
               To account for absences, any driver who has started at least two races discards their single
               lowest-scoring result. If you only have one start it always counts. The dropped race still appears in
               the standings breakdown with a red strikethrough so everyone can audit totals.
@@ -74,31 +78,31 @@
 
       <section class="panel panel--rules">
         <div class="panel__header">
-          <h2>Tie-breaking Procedure</h2>
-          <p>If two or more drivers tie on points, we apply the following criteria until the tie is broken.</p>
+          <h2 data-i18n="rules.tieTitle">Tie-breaking Procedure</h2>
+          <p data-i18n="rules.tieIntro">If two or more drivers tie on points, we apply the following criteria until the tie is broken.</p>
         </div>
         <ol class="rule-list">
           <li>
-            <strong>Total Wins</strong>
-            <p>The driver with the greater number of race victories ranks ahead.</p>
+            <strong data-i18n="rules.tieWinsTitle">Total Wins</strong>
+            <p data-i18n="rules.tieWinsBody">The driver with the greater number of race victories ranks ahead.</p>
           </li>
           <li>
-            <strong>Best Finish</strong>
-            <p>If wins are equal, we compare the single best finishing position across the season (1st beats 2nd, etc.).</p>
+            <strong data-i18n="rules.tieBestTitle">Best Finish</strong>
+            <p data-i18n="rules.tieBestBody">If wins are equal, we compare the single best finishing position across the season (1st beats 2nd, etc.).</p>
           </li>
           <li>
-            <strong>First to Achieve Best Finish</strong>
-            <p>If wins and best results still match, the driver who recorded that top finish earlier in the season ranks ahead.</p>
+            <strong data-i18n="rules.tieFirstTitle">First to Achieve Best Finish</strong>
+            <p data-i18n="rules.tieFirstBody">If wins and best results still match, the driver who recorded that top finish earlier in the season ranks ahead.</p>
           </li>
           <li>
-            <strong>Alphabetical Order</strong>
-            <p>
+            <strong data-i18n="rules.tieAlphaTitle">Alphabetical Order</strong>
+            <p data-i18n="rules.tieAlphaBody">
               When every metric—including timing of the best finish—remains identical, we fall back to the driver name (alphabetical) to keep the
               table deterministic.
             </p>
           </li>
         </ol>
-        <p class="muted">
+        <p class="muted" data-i18n="rules.tieNote">
           These rules mirror how the site currently sorts standings, so what you see on the scoreboard always reflects this logic.
         </p>
       </section>

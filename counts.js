@@ -15,6 +15,7 @@ async function updateHeroCounts(round) {
   if (!raceLink && !driverLink && !upcomingLink) return;
 
   try {
+    const i18n = window.I18n;
     const roundContext = await loadRoundContext(round);
     const teamsData =
       (roundContext.round && roundContext.round.teamsData) ||
@@ -26,7 +27,7 @@ async function updateHeroCounts(round) {
     const racesList = racesData && Array.isArray(racesData.races) ? racesData.races : [];
     if (raceLink) {
       const raceCount = racesList.length;
-      raceLink.textContent = `${raceCount} ${raceCount === 1 ? 'race' : 'races'}`;
+      raceLink.textContent = i18n ? i18n.tPlural('counts.races', raceCount) : `${raceCount} ${raceCount === 1 ? 'race' : 'races'}`;
     }
 
     if (driverLink || upcomingLink) {
@@ -42,12 +43,19 @@ async function updateHeroCounts(round) {
         });
       });
       if (driverLink) {
-        driverLink.textContent = `${uniqueDrivers.size} ${uniqueDrivers.size === 1 ? 'driver' : 'drivers'}`;
+        const count = uniqueDrivers.size;
+        driverLink.textContent = i18n ? i18n.tPlural('counts.drivers', count) : `${count} ${count === 1 ? 'driver' : 'drivers'}`;
       }
       if (upcomingLink) {
         const completed = new Set(resultsList.map((race) => race.raceId));
         const upcomingCount = racesList.filter((race) => !completed.has(race.id)).length;
-        upcomingLink.textContent = upcomingCount ? `Upcoming Races (${upcomingCount})` : 'Upcoming Races';
+        if (i18n) {
+          upcomingLink.textContent = upcomingCount
+            ? i18n.t('nav.upcomingCount', { count: upcomingCount })
+            : i18n.t('nav.upcoming');
+        } else {
+          upcomingLink.textContent = upcomingCount ? `Upcoming Races (${upcomingCount})` : 'Upcoming Races';
+        }
       }
     }
   } catch (err) {
@@ -83,18 +91,28 @@ async function resolveRoundContext(round) {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-  updateHeroCounts().catch((err) => console.error('Unable to update hero counts', err));
-  if (typeof RoundManager !== 'undefined') {
-    RoundManager.whenReady()
-      .then(() => {
-        RoundManager.onRoundChange((round) => {
-          updateHeroCounts(round).catch((err) => console.error('Unable to update hero counts', err));
-        });
-      })
-      .catch((err) => {
-        console.error('Unable to sync counts with round changes', err);
-      });
-  }
+  const i18n = window.I18n;
+  const ready = i18n ? i18n.whenReady() : Promise.resolve();
+  ready
+    .then(() => {
+      updateHeroCounts().catch((err) => console.error('Unable to update hero counts', err));
+      if (typeof RoundManager !== 'undefined') {
+        RoundManager.whenReady()
+          .then(() => {
+            RoundManager.onRoundChange((round) => {
+              updateHeroCounts(round).catch((err) => console.error('Unable to update hero counts', err));
+            });
+          })
+          .catch((err) => {
+            console.error('Unable to sync counts with round changes', err);
+          });
+      }
+    })
+    .catch((err) => console.error('Unable to initialize translations', err));
+
+  document.addEventListener('i18n:change', () => {
+    updateHeroCounts().catch((err) => console.error('Unable to update hero counts', err));
+  });
 });
 
 async function fetchFallbackRoundContext() {

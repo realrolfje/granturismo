@@ -1,0 +1,645 @@
+{
+  "pageTitles": {
+    "standings": "Gran Turismo 7 | Scoreboard",
+    "upcoming": "Gran Turismo 7 | Upcoming Races",
+    "rules": "Gran Turismo 7 | Scoring Rules",
+    "results": "Gran Turismo 7 | Race Results",
+    "teams": "Gran Turismo 7 | Teams & Drivers",
+    "editor": "Gran Turismo 7 | Race Editor"
+  },
+  "controls": {
+    "roundSelect": "Select a round",
+    "languageSelect": "Select language"
+  },
+  "language": {
+    "en": "English",
+    "nl": "Dutch"
+  },
+  "nav": {
+    "standings": "Standings",
+    "results": "Race Results",
+    "upcoming": "Upcoming Races",
+    "upcomingCount": "Upcoming Races ({count})",
+    "teams": "Teams & Drivers",
+    "rules": "Scoring Rules",
+    "editor": "Race Editor"
+  },
+  "standings": {
+    "heroTitle": "League Scoreboard",
+    "driverLeader": "Driver Leader",
+    "teamLeader": "Team Leader",
+    "driverPoints": "Driver Points",
+    "teamPoints": "Team Points",
+    "position": "P{position}",
+    "notClassified": "NC",
+    "pointsShort": "{points} pts",
+    "noRaces": "No races yet",
+    "noDrivers": "No drivers yet",
+    "leaderStats": "{points} pts \u2022 {wins} wins",
+    "awaitingResults": "Awaiting race results",
+    "wins": {
+      "one": "{count} win",
+      "other": "{count} wins"
+    }
+  },
+  "tables": {
+    "rank": "Rank",
+    "driver": "Driver",
+    "points": "Points",
+    "wins": "Wins",
+    "team": "Team",
+    "race": "Race",
+    "finish": "Finish",
+    "position": "Pos",
+    "car": "Car"
+  },
+  "counts": {
+    "races": {
+      "one": "{count} race",
+      "other": "{count} races"
+    },
+    "drivers": {
+      "one": "{count} driver",
+      "other": "{count} drivers"
+    }
+  },
+  "dates": {
+    "tbc": "Date TBC"
+  },
+  "general": {
+    "tbd": "TBD",
+    "tbc": "TBC"
+  },
+  "tracks": {
+    "tbc": "Track TBC",
+    "custom": "Custom Track"
+  },
+  "upcoming": {
+    "heroTitle": "Upcoming Events",
+    "scheduleTitle": "Upcoming Schedule",
+    "scheduleSubtitle": "Races listed here do not yet have published results. Check back after the event for final standings.",
+    "eventBasics": "Event Basics",
+    "trackDetails": "Track Details",
+    "title": "Title",
+    "date": "Date",
+    "track": "Track",
+    "empty": "All scheduled races already have results. Stay tuned for new events."
+  },
+  "rules": {
+    "heroTitle": "Rules & Scoring",
+    "pointsTitle": "Points Breakdown",
+    "pointsIntro": "Each driver completing a race earns points according to final position as described below.",
+    "projectedGrid": "Projected grid",
+    "positions": {
+      "first": "1st",
+      "second": "2nd",
+      "third": "3rd",
+      "fourth": "4th",
+      "fifth": "5th",
+      "sixth": "6th",
+      "seventh": "7th"
+    },
+    "points": {
+      "p12": "12 pts",
+      "p10": "10 pts",
+      "p8": "8 pts",
+      "p6": "6 pts",
+      "p4": "4 pts",
+      "p2": "2 pts",
+      "p1": "1 pt"
+    },
+    "participationTitle": "Participation bonus",
+    "participationBody": "Any driver finishing outside the top 7 still earns <strong>1 point</strong> for completing the race. DNS/DNF results yield no points.",
+    "dropTitle": "Drop round",
+    "dropBody": "To account for absences, any driver who has started at least two races discards their single lowest-scoring result. If you only have one start it always counts. The dropped race still appears in the standings breakdown with a red strikethrough so everyone can audit totals.",
+    "tieTitle": "Tie-breaking Procedure",
+    "tieIntro": "If two or more drivers tie on points, we apply the following criteria until the tie is broken.",
+    "tieWinsTitle": "Total Wins",
+    "tieWinsBody": "The driver with the greater number of race victories ranks ahead.",
+    "tieBestTitle": "Best Finish",
+    "tieBestBody": "If wins are equal, we compare the single best finishing position across the season (1st beats 2nd, etc.).",
+    "tieFirstTitle": "First to Achieve Best Finish",
+    "tieFirstBody": "If wins and best results still match, the driver who recorded that top finish earlier in the season ranks ahead.",
+    "tieAlphaTitle": "Alphabetical Order",
+    "tieAlphaBody": "When every metric\u2014including timing of the best finish\u2014remains identical, we fall back to the driver name (alphabetical) to keep the table deterministic.",
+    "tieNote": "These rules mirror how the site currently sorts standings, so what you see on the scoreboard always reflects this logic."
+  },
+  "results": {
+    "heroTitle": "Race Results",
+    "raceNumber": "Race {id}"
+  },
+  "teams": {
+    "heroTitle": "Teams & Drivers",
+    "independentDrivers": "Independent Drivers",
+    "drivers": "Drivers",
+    "privateer": "Privateer"
+  },
+  "editor": {
+    "heroTitle": "Race Editor",
+    "title": "Generate race JSON",
+    "subtitle": "Build a race JSON by choosing an official GT7 track, date, and metadata. Paste the output into your active round file (for example <code>data/rounds/round-1/races.json</code>) to add the event to that round. All tracks come from the official GT7 track list. Fields marked * are required.",
+    "eventBasics": "Event Basics",
+    "raceTitle": "Race title *",
+    "raceTitlePlaceholder": "World Series Round",
+    "raceDate": "Date *",
+    "trackFormat": "Track & Format",
+    "track": "Track *",
+    "trackPlaceholder": "Start typing a track name",
+    "variant": "Variant *",
+    "outputTitle": "Race JSON",
+    "outputNote": "Paste the snippet into the active round file (e.g., <code>data/rounds/round-1/races.json</code>) inside the <code>\"races\"</code> array, keeping the JSON valid.",
+    "copy": "Copy",
+    "copied": "JSON copied to clipboard.",
+    "selectTrackFirst": "Select a track first",
+    "showHints": "Show hints for {label}",
+    "copyError": "Unable to copy. Please select and copy manually.",
+    "loadError": "Unable to load track list. Please reload the page."
+  },
+  "theme": {
+    "switchToLight": "Switch to light mode",
+    "switchToDark": "Switch to dark mode"
+  },
+  "points": {
+    "rulesLine": "Points: {breakdown} with minimum {participation} {participationLabel} for every classified finisher.",
+    "point": {
+      "one": "point",
+      "other": "points"
+    },
+    "customSeries": "Custom series"
+  },
+  "raceDetails": {
+    "raceTitle": "Race Title",
+    "raceId": "Race ID",
+    "date": "Date",
+    "eventBasics": "Event Basics",
+    "track": "Track",
+    "layout": "Layout",
+    "trackDetails": "Track Details",
+    "laps": {
+      "one": "{count} lap",
+      "other": "{count} laps"
+    },
+    "lapCountTbc": "Lap count TBC"
+  },
+  "proof": {
+    "title": "Race proof",
+    "screenshot": "{title} proof screenshot",
+    "button": "proof",
+    "view": "View proof for {title}",
+    "close": "Close proof viewer"
+  },
+  "errors": {
+    "roundData": "Unable to load the race data for this round. Please verify the JSON files.",
+    "roundConfig": "Unable to load the round configuration. Please verify the round data.",
+    "schedule": "Unable to load race schedule. Please try again later."
+  },
+  "raceFields": {
+    "groups": {
+      "lobby": "Lobby Setup",
+      "roomSettings": "Room Settings",
+      "trackSettings": "Track Settings",
+      "timeWeatherSettings": "Time/Weather Settings",
+      "raceSettings": "Race Settings",
+      "qualifierSettings": "Qualifier Settings",
+      "regulationSettings": "Regulation Settings",
+      "penaltySettings": "Penalty Settings",
+      "drivingOptions": "Driving Option Limitations",
+      "notes": "Other/Notes"
+    },
+    "fields": {
+      "roomMode": "Room Mode",
+      "roomPrivacy": "Room Privacy",
+      "raceType": "Race Type",
+      "maxParticipants": "Max. Participants",
+      "autoStart": "Auto-Start",
+      "laps": "Race Laps",
+      "timeLimit": "Time Limit (Endurance)",
+      "weatherSegments": "Weather Timeline",
+      "equalConditions": "Equal Conditions Mode",
+      "timeOfDay": "Time of Day",
+      "variableTimeSpeed": "Variable Time Speed Rate",
+      "startType": "Start Type",
+      "gridOrder": "Grid Order",
+      "bopTuning": "BoP/Tuning Prohibited",
+      "tuningOptionsAllowed": "Settings Options",
+      "boost": "Boost",
+      "slipStream": "Slipstream Strength",
+      "visibleDamage": "Visible Damage",
+      "mechanicalDamage": "Mechanical Damage",
+      "tyreWearRate": "Tyre Wear Rate",
+      "fuelConsumptionRate": "Fuel Consumption Rate",
+      "refuellingSpeed": "Refuelling Speed",
+      "initialFuel": "Initial Fuel",
+      "gripReduction": "Grip Reduction Off Track",
+      "raceFinishDelay": "Race Finish Delay",
+      "nitrousMultiplier": "Nitrous/Overtraking Usage Multiplier",
+      "timeLimitQualifier": "Time Limit",
+      "qualifyContinuationTime": "Qualifying Continuation Time",
+      "tyreWearRateQualifier": "Tyre Wear Rate (Qualifier)",
+      "fuelConsumptionRateQualifier": "Fuel Consumption Rate (Qualifier)",
+      "initialFuelQualifier": "Initial Fuel (Qualifier)",
+      "slipStreamQualifier": "Slipstream Strength (Qualifier)",
+      "filteryCategory": "Filter by Category",
+      "ppLimit": "PP Limit",
+      "maxPowerOutput": "Max Power Output",
+      "minimumWeight": "Minimum Weight",
+      "allowedTyres": "Allowed Tyres",
+      "tyreCompounds": "usable Tyre & Types",
+      "requiredTyreCompounds": "Required Tyre Type",
+      "nitrous": "Nitrous",
+      "kartUsage": "Kart Usage",
+      "engineSwap": "Engine Swap",
+      "tuningParts": "Tuning Parts",
+      "yearLowerLimit": "Year (Lower Limit)",
+      "yearUpperLimit": "Year (Upper Limit)",
+      "driveTrain": "Drivetrain",
+      "aspiration": "Aspiration",
+      "shortcutPenalty": "Shortcut Penalty",
+      "wallCollisionPenalty": "Wall Collision Penalty",
+      "correctCourse": "Correct Course After Wall Collision",
+      "carcollisionPenalty": "Car Collision Penalty",
+      "pitlaneCuttingPenalty": "Pit Lane Cutting Penalty",
+      "ghostingDuringRace": "Ghosting During Race",
+      "counterSteeringAssistance": "Counter Steering Assistance",
+      "activeStabilityManagement": "Active Stability Management (ASM)",
+      "drivingLaneAssist": "Driving Lane Assist",
+      "tractionControl": "Traction Control",
+      "abs": "ABS",
+      "autoDrive": "Auto-Drive",
+      "raceNotes": "Special Notes"
+    },
+    "options": {
+      "roomMode": {
+        "free-run": "Free Run",
+        "practice-race": "Practice/Race",
+        "practice-qualifier-race": "Practice/Qualifier/Race",
+        "practice-endurance-race": "Practice/Endurance Race",
+        "practice-qualifier-endurance-race": "Practice/Qualifier/Endurance Race"
+      },
+      "roomPrivacy": {
+        "public": "Public",
+        "friends-only": "Friends Only",
+        "private": "Private"
+      },
+      "raceType": {
+        "race-for-fun": "Race for Fun",
+        "free-run": "Free Run",
+        "drift": "Drift",
+        "race-for-real": "Race for Real"
+      },
+      "timeLimit": {
+        "1-minute": "1 Minute",
+        "2-minutes": "2 Minutes",
+        "3-minutes": "3 Minutes",
+        "5-minutes": "5 Minutes",
+        "10-minutes": "10 Minutes",
+        "15-minutes": "15 Minutes",
+        "20-minutes": "20 Minutes",
+        "25-minutes": "25 Minutes",
+        "30-minutes": "30 Minutes",
+        "40-minutes": "40 Minutes",
+        "50-minutes": "50 Minutes",
+        "60-minutes": "60 Minutes",
+        "90-minutes": "90 Minutes",
+        "2-hours": "2 Hours",
+        "3-hours": "3 Hours",
+        "4-hours": "4 Hours",
+        "5-hours": "5 Hours",
+        "6-hours": "6 Hours",
+        "7-hours": "7 Hours",
+        "8-hours": "8 Hours",
+        "9-hours": "9 Hours",
+        "10-hours": "10 Hours",
+        "11-hours": "11 Hours",
+        "12-hours": "12 Hours",
+        "13-hours": "13 Hours",
+        "14-hours": "14 Hours",
+        "15-hours": "15 Hours",
+        "16-hours": "16 Hours",
+        "17-hours": "17 Hours",
+        "18-hours": "18 Hours",
+        "19-hours": "19 Hours",
+        "20-hours": "20 Hours",
+        "21-hours": "21 Hours",
+        "22-hours": "22 Hours",
+        "23-hours": "23 Hours",
+        "24-hours": "24 Hours"
+      },
+      "weatherSegments": {
+        "s01-dry-cloudless-and-pleasant": "S01 Dry, Cloudless and Pleasant",
+        "s02-dry-and-pleasant-with-a-few-clouds": "S02 Dry and Pleasant with a few Clouds",
+        "s03-dry-cloudy-and-pleasant": "S03 Dry Cloudy and Pleasant",
+        "s04-dry-cloudy-and-sunny": "S04 Dry Cloudy and Sunny",
+        "s05-misty-cloudless-and-sunny": "S05 Misty, Cloudless and Sunny",
+        "s06-humid-cloudless-and-pleasant": "S06 Humid, Cloudless and Pleasant",
+        "s07-humid-and-pleasant-with-a-few-clouds": "S07 Humid and Pleasant with a Few Clouds",
+        "s08-humid-sunny-and-cloudy": "S08 Humid, Sunny and Cloudy",
+        "s09-humid-and-sunny-with-lots-of-clouds": "S09 Humid and Sunny with Lots of Clouds",
+        "s10-misty-and-sunny-with-lots-of-clouds": "S10 Misty and Sunny with Lots of Clouds",
+        "s11-sunny-with-alpine-mist": "S11 Sunny with Alpine Mist",
+        "s12-sunny-with-lots-of-monsoon-clouds": "S12 Sunny with Lots of Monsoon Clouds",
+        "s13-sunny-with-a-few-monsoon-clouds": "S13 Sunny with a Few Monsoon Clouds",
+        "s14-sunny-with-lots-of-monsoon-clouds": "S14 Sunny with Lots of Monsoon Clouds",
+        "s15-hazy-cloudless-and-pleasant": "S15 Hazy, Cloudless and Pleasant",
+        "s16-hazy-and-sunny-with-a-few-clouds": "S16 Hazy and Sunny with a Few Clouds",
+        "s17-hazy-cloudy-and-sunny": "S17 Hazy, Cloudy and Sunny",
+        "s18-hazy-cloudy-and-sunny": "S18 Hazy, Cloudy and Sunny",
+        "c01-cloudy-and-bright": "C01 Cloudy and Bright",
+        "c02-cloudy-and-warm": "C02 Cloudy and Warm",
+        "c03-cloudy-and-dark": "C03 Cloudy and Dark",
+        "c04-cloudy-and-chilly": "C04 Cloudy and Chilly",
+        "c05-cloudy": "C05 Cloudy",
+        "c06-thick-clouds": "C06 Thick Clouds",
+        "r01-light-drizzle": "R01 Light Drizzle",
+        "r02-cloudless-with-warm-rain": "R02 Cloudless with Warm Rain",
+        "r03-light-rain": "R03 Light Rain",
+        "r04-cloudy-with-rain": "R04 Cloudy with Rain",
+        "r05-cloudy-with-rain": "R05 Cloudy with Rain",
+        "r06-thick-cloud-with-rain": "R06 Thick Cloud with Rain",
+        "r07-cloudy-with-torrential-rain": "R07 Cloudy with Torrential Rain",
+        "r08-thick-cloud-with-torrential-rain": "R08 Thick Cloud with Torrential Rain"
+      },
+      "equalConditions": {
+        "off": "Off",
+        "on": "On"
+      },
+      "timeOfDay": {
+        "dawn": "Dawn",
+        "sunrise": "Sunrise",
+        "early-morning": "Early Morning",
+        "late-morning": "Late Morning",
+        "afternoon": "Afternoon",
+        "evening": "Evening",
+        "sunset": "Sunset",
+        "twilight": "Twilight",
+        "night": "Night"
+      },
+      "startType": {
+        "fastest-first": "Fastest First",
+        "slowest-first": "Slowest First"
+      },
+      "gridOrder": {
+        "grid-start": "Grid Start",
+        "grid-start-with-false-start-check": "Grid Start with False Start Check",
+        "rolling-start": "Rolling Start"
+      },
+      "bopTuning": {
+        "off": "Off",
+        "on-equal-weight-and-power": "On (Equal Weight and Power)"
+      },
+      "tuningOptionsAllowed": {
+        "body-height-adjustment": "Body Height Adjustment",
+        "anti-roll-bar": "Anti-Roll Bar",
+        "damping-ratio": "Damping Ratio",
+        "natural-frequency": "Natural Frequency",
+        "negative-camber-angle": "Negative Camber Angle",
+        "toe-angle": "Toe Angle",
+        "differential": "Differential",
+        "torque-vectoring-centre-differential": "Torque-Vectoring Centre Differential",
+        "transmission-no-final-gear": "Transmission (No Final Gear)",
+        "transmission-final-gear": "Transmission (Final Gear)",
+        "downforce": "Downforce",
+        "anti-lag": "Anti-Lag",
+        "brake-balance": "Brake Balance"
+      },
+      "boost": {
+        "strong": "Strong",
+        "weak": "Weak",
+        "off": "Off"
+      },
+      "slipStream": {
+        "strong": "Strong",
+        "weak": "Weak",
+        "real": "Real",
+        "off": "Off"
+      },
+      "visibleDamage": {
+        "on": "On",
+        "off": "Off"
+      },
+      "mechanicalDamage": {
+        "none": "None",
+        "light": "Light",
+        "heavy": "Heavy"
+      },
+      "gripReduction": {
+        "low": "Low",
+        "real": "Real"
+      },
+      "timeLimitQualifier": {
+        "1-minute": "1 Minute",
+        "2-minutes": "2 Minutes",
+        "3-minutes": "3 Minutes",
+        "5-minutes": "5 Minutes",
+        "10-minutes": "10 Minutes",
+        "15-minutes": "15 Minutes",
+        "20-minutes": "20 Minutes",
+        "25-minutes": "25 Minutes",
+        "30-minutes": "30 Minutes",
+        "40-minutes": "40 Minutes",
+        "50-minutes": "50 Minutes",
+        "60-minutes": "60 Minutes",
+        "90-minutes": "90 Minutes",
+        "2-hours": "2 Hours",
+        "3-hours": "3 Hours",
+        "4-hours": "4 Hours",
+        "5-hours": "5 Hours",
+        "6-hours": "6 Hours",
+        "7-hours": "7 Hours",
+        "8-hours": "8 Hours",
+        "9-hours": "9 Hours",
+        "10-hours": "10 Hours",
+        "11-hours": "11 Hours",
+        "12-hours": "12 Hours",
+        "13-hours": "13 Hours",
+        "14-hours": "14 Hours",
+        "15-hours": "15 Hours",
+        "16-hours": "16 Hours",
+        "17-hours": "17 Hours",
+        "18-hours": "18 Hours",
+        "19-hours": "19 Hours",
+        "20-hours": "20 Hours",
+        "21-hours": "21 Hours",
+        "22-hours": "22 Hours",
+        "23-hours": "23 Hours",
+        "24-hours": "24 Hours"
+      },
+      "slipStreamQualifier": {
+        "strong": "Strong",
+        "weak": "Weak",
+        "real": "Real",
+        "off": "Off"
+      },
+      "filteryCategory": {
+        "no-limit": "No Limit",
+        "gr-1": "Gr.1",
+        "gr-2": "Gr.2",
+        "gr-3": "Gr.3",
+        "gr-4": "Gr.4",
+        "gr-b": "Gr.B"
+      },
+      "allowedTyres": {
+        "no-limit": "No Limit",
+        "comfort": "Comfort",
+        "sports": "Sports",
+        "racing": "Racing"
+      },
+      "tyreCompounds": {
+        "hard": "Hard",
+        "medium": "Medium",
+        "soft": "Soft"
+      },
+      "requiredTyreCompounds": {
+        "hard": "Hard",
+        "medium": "Medium",
+        "soft": "Soft"
+      },
+      "nitrous": {
+        "prohibited": "Prohibited",
+        "required": "Required",
+        "unrestricted": "Unrestricted"
+      },
+      "kartUsage": {
+        "on": "On",
+        "off": "Off"
+      },
+      "engineSwap": {
+        "unrestricted": "Unrestricted",
+        "prohibited": "Prohibited"
+      },
+      "tuningParts": {
+        "unrestricted": "Unrestricted",
+        "extreme-and-lower": "Extreme and Lower"
+      },
+      "driveTrain": {
+        "unrestricted": "Unrestricted",
+        "fr": "FR",
+        "ff": "FF",
+        "4wd": "4WD",
+        "mr": "MR",
+        "rr": "RR"
+      },
+      "aspiration": {
+        "unrestricted": "Unrestricted",
+        "na-normal-aspirated": "NA (Normal Aspirated)",
+        "tc-turbocharger": "TC (Turbocharger",
+        "sc-supercharger": "SC (Supercharger)",
+        "tc-sc": "TC + SC",
+        "ev-electric-vehicle": "EV (Electric Vehicle"
+      },
+      "shortcutPenalty": {
+        "off": "Off",
+        "weak": "Weak",
+        "strong": "Strong"
+      },
+      "wallCollisionPenalty": {
+        "off": "Off",
+        "time-penalty-weak": "Time Penalty (Weak)",
+        "time-penalty-strong": "Time Penalty (Strong)"
+      },
+      "correctCourse": {
+        "off": "Off",
+        "on": "On"
+      },
+      "carcollisionPenalty": {
+        "off": "Off",
+        "on": "On"
+      },
+      "pitlaneCuttingPenalty": {
+        "off": "Off",
+        "on": "On"
+      },
+      "ghostingDuringRace": {
+        "off": "Off",
+        "on": "On"
+      },
+      "counterSteeringAssistance": {
+        "no-limit": "No Limit",
+        "prohibited": "Prohibited"
+      },
+      "activeStabilityManagement": {
+        "no-limit": "No Limit",
+        "prohibited": "Prohibited"
+      },
+      "drivingLaneAssist": {
+        "no-limit": "No Limit",
+        "prohibited": "Prohibited"
+      },
+      "tractionControl": {
+        "no-limit": "No Limit",
+        "prohibited": "Prohibited"
+      },
+      "abs": {
+        "no-limit": "No Limit",
+        "prohibited": "Prohibited"
+      },
+      "autoDrive": {
+        "no-limit": "No Limit",
+        "prohibited": "Prohibited"
+      }
+    },
+    "values": {
+      "autoStart": {
+        "0": "Off"
+      },
+      "tyreWearRate": {
+        "0": "Off"
+      },
+      "fuelConsumptionRate": {
+        "0": "Off"
+      },
+      "initialFuel": {
+        "0": "Default"
+      },
+      "nitrousMultiplier": {
+        "1": "Default"
+      },
+      "tyreWearRateQualifier": {
+        "0": "Off",
+        "-1": "Same as During the Race"
+      },
+      "fuelConsumptionRateQualifier": {
+        "0": "Off",
+        "-1": "Same as During the Race"
+      },
+      "initialFuelQualifier": {
+        "0": "Default",
+        "-1": "Same as During the Race"
+      },
+      "ppLimit": {
+        "99": "No Limit",
+        "1001": "No Limit"
+      },
+      "maxPowerOutput": {
+        "97": "No Limit",
+        "1480": "No Limit"
+      },
+      "minimumWeight": {
+        "499": "No Limit",
+        "2001": "No Limit"
+      },
+      "yearLowerLimit": {
+        "1929": "No Limit",
+        "2036": "No Limit"
+      },
+      "yearUpperLimit": {
+        "1929": "No Limit",
+        "2036": "No Limit"
+      }
+    },
+    "descriptions": {
+      "bopTuning": "When ON, cars will have their weight and power adjusted so that performance is relatively equal. When ON, tuning settings can be limited to certain settings, see Settings Options.",
+      "tuningOptionsAllowed": "What settings can be changed on the car when BoP is ON.",
+      "tyreCompounds": "The tyres available during the race. Optional.",
+      "requiredTyreCompounds": "The tyres REQUIRED to be used in the race. Yes all of them."
+    },
+    "actions": {
+      "weatherSegments": {
+        "add": "Add weather segment"
+      }
+    },
+    "placeholders": {
+      "raceNotes": "Night race, heavy damage, BOP off\u2026"
+    }
+  }
+}

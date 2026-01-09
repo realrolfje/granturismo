@@ -42,6 +42,19 @@ function buildDriverTeamMap(teams = []) {
   return driverTeams;
 }
 
+function getI18n() {
+  return window.I18n;
+}
+
+function slugify(value = '') {
+  return value
+    .toString()
+    .trim()
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-+|-+$/g, '');
+}
+
 function pickTextColor(hexColor, { light = '#ffffff', dark = '#0b0d17' } = {}) {
   if (typeof hexColor !== 'string') return dark;
   const hex = hexColor.trim().replace('#', '');
@@ -83,10 +96,16 @@ function closeProofModal() {
   }
 }
 
-function openProofModal(url, title = 'Race proof') {
+function openProofModal(url, title) {
+  const i18n = getI18n();
+  const fallback = 'Race proof';
+  const resolvedTitle = title || (i18n ? i18n.t('proof.title') : fallback);
   if (!proofModal || !proofModalImage) return;
   proofModalImage.src = url;
-  proofModalImage.alt = `${title} proof screenshot`;
+  const screenshotLabel = i18n
+    ? i18n.t('proof.screenshot', { title: resolvedTitle })
+    : `${resolvedTitle} proof screenshot`;
+  proofModalImage.alt = screenshotLabel;
   proofModal.hidden = false;
   document.body.classList.add('proof-modal-open');
   if (proofModalClose) {
@@ -271,6 +290,7 @@ function renderStats({ races, teamsData, raceResults }) {
   const raceCountEl = document.getElementById('race-count');
   const driverCountEl = document.getElementById('driver-count');
   const upcomingLink = document.getElementById('upcoming-pill');
+  const i18n = getI18n();
 
   const uniqueRaceCount = races && races.races ? races.races.length : 0;
   const uniqueDrivers = new Set((teamsData.drivers || []).map((d) => d.id));
@@ -283,17 +303,28 @@ function renderStats({ races, teamsData, raceResults }) {
   });
 
   if (raceCountEl) {
-    raceCountEl.textContent = `${uniqueRaceCount} ${uniqueRaceCount === 1 ? 'race' : 'races'}`;
+    raceCountEl.textContent = i18n
+      ? i18n.tPlural('counts.races', uniqueRaceCount)
+      : `${uniqueRaceCount} ${uniqueRaceCount === 1 ? 'race' : 'races'}`;
   }
   if (driverCountEl) {
-    driverCountEl.textContent = `${uniqueDrivers.size} ${uniqueDrivers.size === 1 ? 'driver' : 'drivers'}`;
+    const count = uniqueDrivers.size;
+    driverCountEl.textContent = i18n
+      ? i18n.tPlural('counts.drivers', count)
+      : `${count} ${count === 1 ? 'driver' : 'drivers'}`;
   }
 
   if (upcomingLink) {
     const completed = new Set((raceResults.results || []).map((race) => race.raceId));
     const raceList = races && races.races ? races.races : [];
     const upcomingCount = raceList.filter((race) => !completed.has(race.id)).length;
-    upcomingLink.textContent = upcomingCount ? `Upcoming Races (${upcomingCount})` : 'Upcoming Races';
+    upcomingLink.textContent = i18n
+      ? upcomingCount
+        ? i18n.t('nav.upcomingCount', { count: upcomingCount })
+        : i18n.t('nav.upcoming')
+      : upcomingCount
+        ? `Upcoming Races (${upcomingCount})`
+        : 'Upcoming Races';
   }
 }
 
@@ -302,6 +333,7 @@ function renderTeams({ teams, drivers }) {
   const template = document.getElementById('team-card-template');
   if (!container || !template) return;
   container.textContent = '';
+  const i18n = getI18n();
 
   const driverMap = mapById(drivers || []);
   const teamEntries = Array.isArray(teams) ? teams : [];
@@ -334,7 +366,7 @@ function renderTeams({ teams, drivers }) {
   if (independents.length) {
     const standalone = template.content.firstElementChild.cloneNode(true);
     const tag = standalone.querySelector('.team-card__tag');
-    tag.textContent = 'Independent Drivers';
+    tag.textContent = i18n ? i18n.t('teams.independentDrivers') : 'Independent Drivers';
     tag.style.background = '#444';
     tag.style.color = '#fff';
     const list = standalone.querySelector('.team-card__drivers');
@@ -347,7 +379,7 @@ function renderTeams({ teams, drivers }) {
   } else if (!teamEntries.length && allDrivers.length) {
     const standalone = template.content.firstElementChild.cloneNode(true);
     const tag = standalone.querySelector('.team-card__tag');
-    tag.textContent = 'Drivers';
+    tag.textContent = i18n ? i18n.t('teams.drivers') : 'Drivers';
     const list = standalone.querySelector('.team-card__drivers');
     allDrivers.forEach((driver) => {
       const li = document.createElement('li');
@@ -366,6 +398,7 @@ function renderStandings({ driverStandings = [], teamStandings = [], drivers = [
   const teamCallout = document.getElementById('team-leader-callout');
   const driverMap = mapById(drivers || []);
   const raceMap = mapById(races && races.races ? races.races : []);
+  const i18n = getI18n();
   driverBody.textContent = '';
   if (teamBody) {
     teamBody.textContent = '';
@@ -397,7 +430,13 @@ function renderStandings({ driverStandings = [], teamStandings = [], drivers = [
     const breakdownRows = (entry.breakdown || []).map((raceEntry) => {
       const raceMeta = raceMap.get(raceEntry.raceId);
       const raceName = raceMeta && raceMeta.title ? raceMeta.title : raceEntry.raceId;
-      const positionText = raceEntry.position ? `P${raceEntry.position}` : 'NC';
+      const positionText = raceEntry.position
+        ? i18n
+          ? i18n.t('standings.position', { position: raceEntry.position })
+          : `P${raceEntry.position}`
+        : i18n
+          ? i18n.t('standings.notClassified')
+          : 'NC';
       const rowClass = raceEntry.isDropped
         ? 'driver-row__details-row driver-row__details-row--dropped'
         : 'driver-row__details-row';
@@ -405,7 +444,7 @@ function renderStandings({ driverStandings = [], teamStandings = [], drivers = [
         <tr class="${rowClass}">
           <td>${raceName}</td>
           <td>${positionText}</td>
-          <td>${raceEntry.points} pts</td>
+          <td>${i18n ? i18n.t('standings.pointsShort', { points: raceEntry.points }) : `${raceEntry.points} pts`}</td>
         </tr>
       `;
     });
@@ -416,13 +455,13 @@ function renderStandings({ driverStandings = [], teamStandings = [], drivers = [
           <table>
             <thead>
               <tr>
-                <th scope="col">Race</th>
-                <th scope="col">Finish</th>
-                <th scope="col">Points</th>
+                <th scope="col">${i18n ? i18n.t('tables.race') : 'Race'}</th>
+                <th scope="col">${i18n ? i18n.t('tables.finish') : 'Finish'}</th>
+                <th scope="col">${i18n ? i18n.t('tables.points') : 'Points'}</th>
               </tr>
             </thead>
             <tbody>
-              ${breakdownRows.join('') || '<tr><td colspan="3">No races yet</td></tr>'}
+              ${breakdownRows.join('') || `<tr><td colspan="3">${i18n ? i18n.t('standings.noRaces') : 'No races yet'}</td></tr>`}
             </tbody>
           </table>
         </div>
@@ -501,8 +540,8 @@ function renderStandings({ driverStandings = [], teamStandings = [], drivers = [
           return `
             <tr>
               <td>${driver && driver.name ? driver.name : driverEntry.driverId}</td>
-              <td>${driverEntry.points} pts</td>
-              <td>${driverEntry.wins} wins</td>
+              <td>${i18n ? i18n.t('standings.pointsShort', { points: driverEntry.points }) : `${driverEntry.points} pts`}</td>
+              <td>${i18n ? i18n.tPlural('standings.wins', driverEntry.wins) : `${driverEntry.wins} wins`}</td>
             </tr>
           `;
         });
@@ -513,13 +552,13 @@ function renderStandings({ driverStandings = [], teamStandings = [], drivers = [
             <table>
               <thead>
                 <tr>
-                  <th scope="col">Driver</th>
-                  <th scope="col">Points</th>
-                  <th scope="col">Wins</th>
+                  <th scope="col">${i18n ? i18n.t('tables.driver') : 'Driver'}</th>
+                  <th scope="col">${i18n ? i18n.t('tables.points') : 'Points'}</th>
+                  <th scope="col">${i18n ? i18n.t('tables.wins') : 'Wins'}</th>
                 </tr>
               </thead>
               <tbody>
-                ${driverRows.join('') || '<tr><td colspan="3">No drivers yet</td></tr>'}
+                ${driverRows.join('') || `<tr><td colspan="3">${i18n ? i18n.t('standings.noDrivers') : 'No drivers yet'}</td></tr>`}
               </tbody>
             </table>
           </div>
@@ -561,20 +600,24 @@ function renderStandings({ driverStandings = [], teamStandings = [], drivers = [
     if (driverLeader) {
       const leaderDriver = driverMap.get(driverLeader.driverId);
       driverLeaderName.textContent = leaderDriver && leaderDriver.name ? leaderDriver.name : driverLeader.driverId;
-      driverLeaderPoints.textContent = `${driverLeader.points} pts • ${driverLeader.wins} wins`;
+      driverLeaderPoints.textContent = i18n
+        ? i18n.t('standings.leaderStats', { points: driverLeader.points, wins: driverLeader.wins })
+        : `${driverLeader.points} pts • ${driverLeader.wins} wins`;
     } else {
-      driverLeaderName.textContent = 'TBD';
-      driverLeaderPoints.textContent = 'Awaiting race results';
+      driverLeaderName.textContent = i18n ? i18n.t('general.tbd') : 'TBD';
+      driverLeaderPoints.textContent = i18n ? i18n.t('standings.awaitingResults') : 'Awaiting race results';
     }
   }
 
   if (teamLeaderName && teamLeaderPoints) {
     if (hasTeamStandings && teamLeader) {
       teamLeaderName.textContent = teamLeader.name;
-      teamLeaderPoints.textContent = `${teamLeader.points} pts • ${teamLeader.wins} wins`;
+      teamLeaderPoints.textContent = i18n
+        ? i18n.t('standings.leaderStats', { points: teamLeader.points, wins: teamLeader.wins })
+        : `${teamLeader.points} pts • ${teamLeader.wins} wins`;
     } else if (hasTeamStandings) {
-      teamLeaderName.textContent = 'TBD';
-      teamLeaderPoints.textContent = 'Awaiting race results';
+      teamLeaderName.textContent = i18n ? i18n.t('general.tbd') : 'TBD';
+      teamLeaderPoints.textContent = i18n ? i18n.t('standings.awaitingResults') : 'Awaiting race results';
     } else {
       teamLeaderName.textContent = '';
       teamLeaderPoints.textContent = '';
@@ -586,14 +629,23 @@ function renderPointsRule(pointsRules = {}) {
   const textEl = document.getElementById('points-rule-text');
   if (!textEl) return;
   const pointsList = pointsRules.pointsPerPosition || [];
-  const breakdown = pointsList.length ? pointsList.join(' - ') : 'Custom series';
+  const i18n = getI18n();
+  const breakdown = pointsList.length ? pointsList.join(' - ') : (i18n ? i18n.t('points.customSeries') : 'Custom series');
   const participation = pointsRules.participationPoints ?? 0;
-  textEl.textContent = `Points: ${breakdown} with minimum ${participation} point${
-    participation === 1 ? '' : 's'
-  } for every classified finisher.`;
+  textEl.textContent = i18n
+    ? i18n.t('points.rulesLine', {
+      breakdown,
+      participation,
+      participationLabel: i18n.tPlural('points.point', participation)
+    })
+    : `Points: ${breakdown} with minimum ${participation} point${
+      participation === 1 ? '' : 's'
+    } for every classified finisher.`;
 }
 
 function formatDate(dateStr) {
+  const i18n = getI18n();
+  if (i18n) return i18n.formatDate(dateStr);
   if (!dateStr) return 'Date TBC';
   const date = new Date(dateStr);
   if (Number.isNaN(date.getTime())) return dateStr;
@@ -602,8 +654,25 @@ function formatDate(dateStr) {
 
 function getFieldValueLabel(field = {}, value) {
   const labels = field.valueLabels;
-  if (!labels || value === undefined || value === null) return undefined;
+  const labelKeys = field.valueLabelKeys;
+  if (value === undefined || value === null) return undefined;
   if (Array.isArray(value)) return undefined;
+  const i18n = getI18n();
+  if (i18n && field.id) {
+    const rawKey = `raceFields.values.${field.id}.${value}`;
+    if (i18n.get(rawKey)) {
+      return i18n.t(rawKey);
+    }
+    const slugKey = `raceFields.values.${field.id}.${slugify(value)}`;
+    if (i18n.get(slugKey)) {
+      return i18n.t(slugKey);
+    }
+    const optionKey = `raceFields.options.${field.id}.${slugify(value)}`;
+    if (i18n.get(optionKey)) {
+      return i18n.t(optionKey);
+    }
+  }
+  if (!labels) return undefined;
   const keys = [];
   const asString = String(value);
   keys.push(asString);
@@ -619,6 +688,10 @@ function getFieldValueLabel(field = {}, value) {
     if (seen.has(key)) continue;
     seen.add(key);
     if (Object.prototype.hasOwnProperty.call(labels, key)) {
+      const labelKey = labelKeys && Object.prototype.hasOwnProperty.call(labelKeys, key) ? labelKeys[key] : null;
+      if (labelKey && getI18n()) {
+        return getI18n().t(labelKey);
+      }
       return labels[key];
     }
   }
@@ -647,29 +720,43 @@ function formatFieldValueFromDefinition(field = {}, value) {
   return value;
 }
 
+function getFieldLabel(field = {}) {
+  const i18n = getI18n();
+  const key = field.labelKey || (field.id ? `raceFields.fields.${field.id}` : null);
+  if (i18n && key && i18n.get(key)) return i18n.t(key);
+  return field.displayLabel || field.label;
+}
+
+function getGroupLabel(group = {}) {
+  const i18n = getI18n();
+  const key = group.labelKey || (group.id ? `raceFields.groups.${group.id}` : null);
+  if (i18n && key && i18n.get(key)) return i18n.t(key);
+  return group.label;
+}
+
 function buildRaceDetailGroups(meta = {}, raceId, fieldGroups = [], definitionMap = new Map()) {
   const groups = [];
   const eventRows = [];
   if (meta.title) {
-    eventRows.push({ label: 'Race Title', value: meta.title });
+    eventRows.push({ label: getI18n() ? getI18n().t('raceDetails.raceTitle') : 'Race Title', value: meta.title });
   }
   if (raceId) {
-    eventRows.push({ label: 'Race ID', value: raceId });
+    eventRows.push({ label: getI18n() ? getI18n().t('raceDetails.raceId') : 'Race ID', value: raceId });
   }
-  eventRows.push({ label: 'Date', value: formatDate(meta.date) });
+  eventRows.push({ label: getI18n() ? getI18n().t('raceDetails.date') : 'Date', value: formatDate(meta.date) });
   if (eventRows.length) {
-    groups.push({ label: 'Event Basics', rows: eventRows });
+    groups.push({ label: getI18n() ? getI18n().t('raceDetails.eventBasics') : 'Event Basics', rows: eventRows });
   }
 
   const trackRows = [];
   if (meta.track) {
-    trackRows.push({ label: 'Track', value: meta.track });
+    trackRows.push({ label: getI18n() ? getI18n().t('raceDetails.track') : 'Track', value: meta.track });
   }
   if (meta.variant) {
-    trackRows.push({ label: 'Layout', value: meta.variant });
+    trackRows.push({ label: getI18n() ? getI18n().t('raceDetails.layout') : 'Layout', value: meta.variant });
   }
   if (trackRows.length) {
-    groups.push({ label: 'Track Details', rows: trackRows });
+    groups.push({ label: getI18n() ? getI18n().t('raceDetails.trackDetails') : 'Track Details', rows: trackRows });
   }
 
   fieldGroups.forEach((group) => {
@@ -679,12 +766,12 @@ function buildRaceDetailGroups(meta = {}, raceId, fieldGroups = [], definitionMa
       const formatted = formatFieldValueFromDefinition(definition, meta[field.id]);
       if (formatted === undefined) return;
       rows.push({
-        label: definition.displayLabel || definition.label,
+        label: getFieldLabel(definition),
         value: formatted
       });
     });
     if (rows.length) {
-      groups.push({ label: group.label, rows });
+      groups.push({ label: getGroupLabel(group), rows });
     }
   });
 
@@ -720,6 +807,7 @@ function renderRaces({ racesMeta, raceResults, drivers, teams }) {
   const template = document.getElementById('race-card-template');
   if (!container || !template) return;
   container.textContent = '';
+  const i18n = getI18n();
 
   const raceMap = mapById(racesMeta.races || []);
   const driverMap = mapById(drivers || []);
@@ -731,9 +819,10 @@ function renderRaces({ racesMeta, raceResults, drivers, teams }) {
   (raceResults.results || []).forEach((race) => {
     const meta = raceMap.get(race.raceId) || {};
     const instance = template.content.firstElementChild.cloneNode(true);
-    const trackLabel = meta.variant ? `${meta.track} • ${meta.variant}` : meta.track || 'Custom Track';
+    const customTrackLabel = i18n ? i18n.t('tracks.custom') : 'Custom Track';
+    const trackLabel = meta.variant ? `${meta.track} • ${meta.variant}` : meta.track || customTrackLabel;
     instance.querySelector('.eyebrow').textContent = trackLabel;
-    const raceTitle = meta.title || `Race ${race.raceId}`;
+    const raceTitle = meta.title || (i18n ? i18n.t('results.raceNumber', { id: race.raceId }) : `Race ${race.raceId}`);
     const titleButton = instance.querySelector('.race-card__title-btn');
     if (titleButton) {
       titleButton.textContent = raceTitle;
@@ -744,7 +833,14 @@ function renderRaces({ racesMeta, raceResults, drivers, teams }) {
         fallbackTitle.textContent = raceTitle;
       }
     }
-    instance.querySelector('.race-card__meta').textContent = `${formatDate(meta.date)} • ${meta.laps ? `${meta.laps} laps` : 'Lap count TBC'}`;
+    const lapLabel = meta.laps
+      ? i18n
+        ? i18n.tPlural('raceDetails.laps', meta.laps)
+        : `${meta.laps} laps`
+      : i18n
+        ? i18n.t('raceDetails.lapCountTbc')
+        : 'Lap count TBC';
+    instance.querySelector('.race-card__meta').textContent = `${formatDate(meta.date)} • ${lapLabel}`;
     const details = instance.querySelector('.race-card__details');
     const detailGroups = buildRaceDetailGroups(meta, race.raceId, fieldGroups, definitionMap);
     if (details && detailGroups.length) {
@@ -771,10 +867,14 @@ function renderRaces({ racesMeta, raceResults, drivers, teams }) {
     const proofButton = instance.querySelector('.race-card__proof-btn');
     if (proofButton) {
       proofButton.hidden = false;
+      proofButton.textContent = i18n ? i18n.t('proof.button') : 'proof';
       proofButton.disabled = !proofUrl;
       proofButton.classList.toggle('race-card__proof-btn--disabled', !proofUrl);
       if (proofUrl) {
-        proofButton.setAttribute('aria-label', `View proof for ${raceTitle}`);
+        proofButton.setAttribute(
+          'aria-label',
+          i18n ? i18n.t('proof.view', { title: raceTitle }) : `View proof for ${raceTitle}`
+        );
         proofButton.removeAttribute('aria-disabled');
         proofButton.addEventListener('click', () => openProofModal(proofUrl, raceTitle));
       } else {
@@ -804,13 +904,21 @@ function renderRaces({ racesMeta, raceResults, drivers, teams }) {
           ${
             team
               ? `<span class="badge" style="background:${badgeColor};color:${badgeTextColor}">${team.name}</span>`
-              : '<span class="badge" style="background:#ffd166;color:#0b0d17">Privateer</span>'
+              : `<span class="badge" style="background:#ffd166;color:#0b0d17">${i18n ? i18n.t('teams.privateer') : 'Privateer'}</span>`
           }
         </td>
       `;
 
       tbody.appendChild(tr);
     });
+
+    const headers = instance.querySelectorAll('thead th');
+    if (headers.length >= 4) {
+      headers[0].textContent = i18n ? i18n.t('tables.position') : 'Pos';
+      headers[1].textContent = i18n ? i18n.t('tables.driver') : 'Driver';
+      headers[2].textContent = i18n ? i18n.t('tables.car') : 'Car';
+      headers[3].textContent = i18n ? i18n.t('tables.team') : 'Team';
+    }
 
     container.appendChild(instance);
   });
@@ -856,17 +964,30 @@ function showError(message) {
 
 async function init() {
   try {
+    const i18n = getI18n();
     await RoundManager.whenReady();
     RoundManager.onRoundChange((round) => {
       renderRound(round).catch((err) => {
         console.error(err);
-        showError('Unable to load the race data for this round. Please verify the JSON files.');
+        const fallback = 'Unable to load the race data for this round. Please verify the JSON files.';
+        showError(i18n ? i18n.t('errors.roundData') : fallback);
       });
     });
   } catch (err) {
     console.error(err);
-    showError('Unable to load the round configuration. Please verify the round data.');
+    const fallback = 'Unable to load the round configuration. Please verify the round data.';
+    showError(getI18n() ? getI18n().t('errors.roundConfig') : fallback);
   }
 }
 
-document.addEventListener('DOMContentLoaded', init);
+document.addEventListener('DOMContentLoaded', () => {
+  const i18n = getI18n();
+  const ready = i18n ? i18n.whenReady() : Promise.resolve();
+  ready.then(init).catch((err) => console.error('Unable to initialize translations', err));
+  document.addEventListener('i18n:change', () => {
+    const round = typeof RoundManager !== 'undefined' ? RoundManager.getCurrentRound() : null;
+    if (round) {
+      renderRound(round).catch((err) => console.error(err));
+    }
+  });
+});

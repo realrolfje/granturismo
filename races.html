@@ -4,9 +4,10 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta http-equiv="cache-control" content="max-age=60" />
-    <title>Gran Turismo 7 | Upcoming Races</title>
+    <title data-i18n="pageTitles.upcoming">Gran Turismo 7 | Upcoming Races</title>
     <link rel="icon" type="image/x-icon" href="favicon.ico">
     <link rel="stylesheet" href="styles.css" />
+    <script src="i18n.js" defer></script>
     <script src="theme.js" defer></script>
     <script src="rounds.js" defer></script>
     <script src="counts.js" defer></script>
@@ -17,7 +18,10 @@
     <header class="hero" id="top">
       <div class="hero__top-actions">
         <div class="hero__round-selector">
-          <select id="round-select" aria-label="Select a round"></select>
+          <select id="round-select" aria-label="Select a round" data-i18n-attr="aria-label" data-i18n-attr-key="controls.roundSelect"></select>
+        </div>
+        <div class="hero__language-selector">
+          <select id="language-select" aria-label="Select language" data-i18n-attr="aria-label" data-i18n-attr-key="controls.languageSelect"></select>
         </div>
         <button id="theme-toggle" class="theme-toggle" type="button" aria-pressed="false">
           <span class="theme-toggle__icon" aria-hidden="true">☀️</span>
@@ -25,14 +29,14 @@
       </div>
       <div class="hero__content">
         <p class="eyebrow">Gran Turismo 7</p>
-        <h1>Upcoming Events</h1>
+        <h1 data-i18n="upcoming.heroTitle">Upcoming Events</h1>
         <div class="hero__nav" role="navigation">
-          <a class="pill-link" href="index.html">Standings</a>
-          <a class="pill-link" href="results.html">Race Results</a>
-          <a id="upcoming-pill" class="pill-link pill-link--active" href="races.html">Upcoming Races</a>
-          <a class="pill-link" href="teams.html">Teams &amp; Drivers</a>
-          <a class="pill-link" href="rules.html">Scoring Rules</a>
-          <a class="pill-link" href="editor.html">Race Editor</a>
+          <a class="pill-link" href="index.html" data-i18n="nav.standings">Standings</a>
+          <a class="pill-link" href="results.html" data-i18n="nav.results">Race Results</a>
+          <a id="upcoming-pill" class="pill-link pill-link--active" href="races.html" data-i18n="nav.upcoming">Upcoming Races</a>
+          <a class="pill-link" href="teams.html" data-i18n="nav.teams">Teams &amp; Drivers</a>
+          <a class="pill-link" href="rules.html" data-i18n="nav.rules">Scoring Rules</a>
+          <a class="pill-link" href="editor.html" data-i18n="nav.editor">Race Editor</a>
         </div>
       </div>
     </header>
@@ -40,8 +44,8 @@
     <main>
       <section class="panel panel--rules" aria-labelledby="upcoming-heading">
         <div class="panel__header">
-          <h2 id="upcoming-heading">Upcoming Schedule</h2>
-          <p>Races listed here do not yet have published results. Check back after the event for final standings.</p>
+          <h2 id="upcoming-heading" data-i18n="upcoming.scheduleTitle">Upcoming Schedule</h2>
+          <p data-i18n="upcoming.scheduleSubtitle">Races listed here do not yet have published results. Check back after the event for final standings.</p>
         </div>
         <div id="upcoming-container" class="upcoming-grid"></div>
       </section>

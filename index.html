@@ -4,9 +4,10 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta http-equiv="cache-control" content="max-age=60" />
-    <title>Gran Turismo 7 | Scoreboard</title>
+    <title data-i18n="pageTitles.standings">Gran Turismo 7 | Scoreboard</title>
     <link rel="icon" type="image/x-icon" href="favicon.ico">
     <link rel="stylesheet" href="styles.css" />
+    <script src="i18n.js" defer></script>
     <script src="theme.js" defer></script>
     <script src="rounds.js" defer></script>
     <script src="main.js" defer></script>
@@ -15,7 +16,10 @@
     <header class="hero" id="top">
       <div class="hero__top-actions">
         <div class="hero__round-selector">
-          <select id="round-select" aria-label="Select a round"></select>
+          <select id="round-select" aria-label="Select a round" data-i18n-attr="aria-label" data-i18n-attr-key="controls.roundSelect"></select>
+        </div>
+        <div class="hero__language-selector">
+          <select id="language-select" aria-label="Select language" data-i18n-attr="aria-label" data-i18n-attr-key="controls.languageSelect"></select>
         </div>
         <button id="theme-toggle" class="theme-toggle" type="button" aria-pressed="false">
           <span class="theme-toggle__icon" aria-hidden="true">☀️</span>
@@ -23,14 +27,14 @@
       </div>
       <div class="hero__content">
         <p class="eyebrow">Gran Turismo 7</p>
-        <h1>League Scoreboard</h1>
+        <h1 data-i18n="standings.heroTitle">League Scoreboard</h1>
         <div class="hero__nav" role="navigation">
-          <a class="pill-link pill-link--active" href="index.html">Standings</a>
-          <a class="pill-link" href="results.html">Race Results</a>
-          <a id="upcoming-pill" class="pill-link" href="races.html">Upcoming Races</a>
-          <a class="pill-link" href="teams.html">Teams &amp; Drivers</a>
-          <a class="pill-link" href="rules.html">Scoring Rules</a>
-          <a class="pill-link" href="editor.html">Race Editor</a>
+          <a class="pill-link pill-link--active" href="index.html" data-i18n="nav.standings">Standings</a>
+          <a class="pill-link" href="results.html" data-i18n="nav.results">Race Results</a>
+          <a id="upcoming-pill" class="pill-link" href="races.html" data-i18n="nav.upcoming">Upcoming Races</a>
+          <a class="pill-link" href="teams.html" data-i18n="nav.teams">Teams &amp; Drivers</a>
+          <a class="pill-link" href="rules.html" data-i18n="nav.rules">Scoring Rules</a>
+          <a class="pill-link" href="editor.html" data-i18n="nav.editor">Race Editor</a>
         </div>
       </div>
     </header>
@@ -39,12 +43,12 @@
       <section id="standings-section" class="panel panel--standings" aria-labelledby="standings-heading">
         <div class="callouts">
           <article class="callout" id="driver-leader-callout">
-            <p class="eyebrow">Driver Leader</p>
+            <p class="eyebrow" data-i18n="standings.driverLeader">Driver Leader</p>
             <h3 id="driver-leader-name">TBD</h3>
             <p class="muted" id="driver-leader-points"></p>
           </article>
           <article class="callout" id="team-leader-callout">
-            <p class="eyebrow">Team Leader</p>
+            <p class="eyebrow" data-i18n="standings.teamLeader">Team Leader</p>
             <h3 id="team-leader-name">TBD</h3>
             <p class="muted" id="team-leader-points"></p>
           </article>
@@ -52,16 +56,16 @@
         <div class="standings-grid">
           <article id="driver-standings-card">
             <header class="standings__header">
-              <h3>Driver Points</h3>
+              <h3 data-i18n="standings.driverPoints">Driver Points</h3>
             </header>
             <div class="table-wrapper">
               <table class="standings-table">
                 <thead>
                   <tr>
-                    <th scope="col">Rank</th>
-                    <th scope="col">Driver</th>
-                    <th scope="col">Points</th>
-                    <th scope="col">Wins</th>
+                    <th scope="col" data-i18n="tables.rank">Rank</th>
+                    <th scope="col" data-i18n="tables.driver">Driver</th>
+                    <th scope="col" data-i18n="tables.points">Points</th>
+                    <th scope="col" data-i18n="tables.wins">Wins</th>
                   </tr>
                 </thead>
                 <tbody id="driver-standings-body"></tbody>
@@ -71,16 +75,16 @@
 
           <article id="team-standings-card">
             <header class="standings__header">
-              <h3>Team Points</h3>
+              <h3 data-i18n="standings.teamPoints">Team Points</h3>
             </header>
             <div class="table-wrapper">
               <table class="standings-table">
                 <thead>
                   <tr>
-                    <th scope="col">Rank</th>
-                    <th scope="col">Team</th>
-                    <th scope="col">Points</th>
-                    <th scope="col">Wins</th>
+                    <th scope="col" data-i18n="tables.rank">Rank</th>
+                    <th scope="col" data-i18n="tables.team">Team</th>
+                    <th scope="col" data-i18n="tables.points">Points</th>
+                    <th scope="col" data-i18n="tables.wins">Wins</th>
                   </tr>
                 </thead>
                 <tbody id="team-standings-body"></tbody>

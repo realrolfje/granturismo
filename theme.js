@@ -4,6 +4,14 @@ const themes = {
   DARK: 'dark'
 };
 
+function getThemeLabel(theme) {
+  const i18n = window.I18n;
+  if (!i18n) {
+    return theme === themes.DARK ? 'Switch to light mode' : 'Switch to dark mode';
+  }
+  return theme === themes.DARK ? i18n.t('theme.switchToLight') : i18n.t('theme.switchToDark');
+}
+
 function applyTheme(theme) {
   const body = document.body;
   if (!body) return;
@@ -13,7 +21,7 @@ function applyTheme(theme) {
 
   const button = document.getElementById('theme-toggle');
   const icon = button ? button.querySelector('.theme-toggle__icon') : null;
-  const actionLabel = theme === themes.DARK ? 'Switch to light mode' : 'Switch to dark mode';
+  const actionLabel = getThemeLabel(theme);
   if (button) {
     button.setAttribute('aria-label', actionLabel);
     button.setAttribute('aria-pressed', theme === themes.LIGHT ? 'true' : 'false');
@@ -45,6 +53,10 @@ function initThemeToggle() {
     } catch {
       /* ignore storage errors */
     }
+  });
+
+  document.addEventListener('i18n:change', () => {
+    applyTheme(currentTheme);
   });
 }
 

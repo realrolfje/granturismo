@@ -1,0 +1,645 @@
+{
+  "pageTitles": {
+    "standings": "Gran Turismo 7 | Scoreboard",
+    "upcoming": "Gran Turismo 7 | Komende races",
+    "rules": "Gran Turismo 7 | Puntentelling",
+    "results": "Gran Turismo 7 | Race-uitslagen",
+    "teams": "Gran Turismo 7 | Teams en rijders",
+    "editor": "Gran Turismo 7 | Race-editor"
+  },
+  "controls": {
+    "roundSelect": "Selecteer een ronde",
+    "languageSelect": "Selecteer taal"
+  },
+  "language": {
+    "en": "Engels",
+    "nl": "Nederlands"
+  },
+  "nav": {
+    "standings": "Standen",
+    "results": "Race-uitslagen",
+    "upcoming": "Komende races",
+    "upcomingCount": "Komende races ({count})",
+    "teams": "Teams en rijders",
+    "rules": "Puntentelling",
+    "editor": "Race-editor"
+  },
+  "standings": {
+    "heroTitle": "Competitieklassement",
+    "driverLeader": "Leider bij coureurs",
+    "teamLeader": "Leider bij teams",
+    "driverPoints": "Coureurspunten",
+    "teamPoints": "Teampunten",
+    "position": "P{position}",
+    "notClassified": "NC",
+    "pointsShort": "{points} pt",
+    "noRaces": "Nog geen races",
+    "noDrivers": "Nog geen rijders",
+    "leaderStats": "{points} pt \u2022 {wins} overwinningen",
+    "awaitingResults": "Wachten op race-uitslagen",
+    "wins": {
+      "one": "{count} overwinning",
+      "other": "{count} overwinningen"
+    }
+  },
+  "tables": {
+    "rank": "Rang",
+    "driver": "Coureur",
+    "points": "Punten",
+    "wins": "Overwinningen",
+    "team": "Team",
+    "race": "Race",
+    "finish": "Finish",
+    "position": "Pos",
+    "car": "Auto"
+  },
+  "counts": {
+    "races": {
+      "one": "{count} race",
+      "other": "{count} races"
+    },
+    "drivers": {
+      "one": "{count} coureur",
+      "other": "{count} coureurs"
+    }
+  },
+  "dates": {
+    "tbc": "Datum n.t.b."
+  },
+  "general": {
+    "tbd": "N.t.b.",
+    "tbc": "N.t.b."
+  },
+  "tracks": {
+    "tbc": "Circuit n.t.b.",
+    "custom": "Aangepast circuit"
+  },
+  "upcoming": {
+    "heroTitle": "Komende evenementen",
+    "scheduleTitle": "Komende planning",
+    "scheduleSubtitle": "Races die hier staan hebben nog geen uitslag. Kom terug na het event voor de eindstand.",
+    "eventBasics": "Evenement basis",
+    "trackDetails": "Circuitdetails",
+    "title": "Titel",
+    "date": "Datum",
+    "track": "Circuit",
+    "empty": "Alle geplande races hebben al uitslagen. Houd het in de gaten voor nieuwe events."
+  },
+  "rules": {
+    "heroTitle": "Regels en puntentelling",
+    "pointsTitle": "Puntenoverzicht",
+    "pointsIntro": "Elke coureur die een race uitrijdt krijgt punten volgens de eindpositie zoals hieronder beschreven.",
+    "projectedGrid": "Verwachte grid",
+    "positions": {
+      "first": "1e",
+      "second": "2e",
+      "third": "3e",
+      "fourth": "4e",
+      "fifth": "5e",
+      "sixth": "6e",
+      "seventh": "7e"
+    },
+    "points": {
+      "p12": "12 pt",
+      "p10": "10 pt",
+      "p8": "8 pt",
+      "p6": "6 pt",
+      "p4": "4 pt",
+      "p2": "2 pt",
+      "p1": "1 pt"
+    },
+    "participationTitle": "Deelnamebonus",
+    "participationBody": "Elke coureur die buiten de top 7 finisht krijgt nog steeds <strong>1 punt</strong> voor het uitrijden. DNS/DNF levert geen punten op.",
+    "dropTitle": "Schrapronde",
+    "dropBody": "Om afwezigheid op te vangen, laat elke coureur met minimaal twee starts het laagste resultaat vallen. Met slechts een start telt die altijd. De weggelaten race blijft zichtbaar in de uitsplitsing met een rode streep zodat iedereen de totalen kan controleren.",
+    "tieTitle": "Procedure bij gelijke stand",
+    "tieIntro": "Als twee of meer coureurs gelijk staan op punten, gelden de volgende criteria totdat de stand is bepaald.",
+    "tieWinsTitle": "Totaal overwinningen",
+    "tieWinsBody": "De coureur met meer overwinningen staat hoger.",
+    "tieBestTitle": "Beste klassering",
+    "tieBestBody": "Als overwinningen gelijk zijn, vergelijken we de beste finishpositie (1e boven 2e, enz.).",
+    "tieFirstTitle": "Eerst behaalde beste klassering",
+    "tieFirstBody": "Als overwinningen en beste resultaat gelijk blijven, staat de coureur die die topfinish eerder behaalde hoger.",
+    "tieAlphaTitle": "Alfabetische volgorde",
+    "tieAlphaBody": "Als alle metriek gelijk blijft, gebruiken we de coureursnaam (alfabetisch) om de tabel deterministisch te houden.",
+    "tieNote": "Deze regels komen overeen met de sortering op de site, zodat het klassement dit altijd volgt."
+  },
+  "results": {
+    "heroTitle": "Race-uitslagen",
+    "raceNumber": "Race {id}"
+  },
+  "teams": {
+    "heroTitle": "Teams en rijders",
+    "independentDrivers": "Onafhankelijke coureurs",
+    "drivers": "Coureurs",
+    "privateer": "Privatier"
+  },
+  "editor": {
+    "heroTitle": "Race-editor",
+    "title": "Race JSON genereren",
+    "subtitle": "Maak een race-JSON door een officieel GT7-circuit, datum en metadata te kiezen. Plak de uitvoer in je actieve rondebestand (bijvoorbeeld <code>data/rounds/round-1/races.json</code>) om het event toe te voegen. Alle circuits komen uit de officiele GT7-circuitlijst. Velden met * zijn verplicht.",
+    "eventBasics": "Evenement basis",
+    "raceTitle": "Racetitel *",
+    "raceTitlePlaceholder": "Wereldserie ronde",
+    "raceDate": "Datum *",
+    "trackFormat": "Circuit en format",
+    "track": "Circuit *",
+    "trackPlaceholder": "Begin met het typen van een circuitnaam",
+    "variant": "Variant *",
+    "outputTitle": "Race JSON",
+    "outputNote": "Plak het fragment in het actieve rondebestand (bijv. <code>data/rounds/round-1/races.json</code>) in de <code>\"races\"</code>-array en houd de JSON geldig.",
+    "copy": "Kopieren",
+    "copied": "JSON gekopieerd naar klembord.",
+    "selectTrackFirst": "Kies eerst een circuit",
+    "showHints": "Toon hints voor {label}",
+    "copyError": "Kopieren mislukt. Selecteer en kopieer handmatig.",
+    "loadError": "Kan de circuitlijst niet laden. Herlaad de pagina."
+  },
+  "theme": {
+    "switchToLight": "Schakel naar lichte modus",
+    "switchToDark": "Schakel naar donkere modus"
+  },
+  "points": {
+    "rulesLine": "Punten: {breakdown} met minimaal {participation} {participationLabel} voor elke geklasseerde finish.",
+    "point": {
+      "one": "punt",
+      "other": "punten"
+    },
+    "customSeries": "Aangepaste serie"
+  },
+  "raceDetails": {
+    "raceTitle": "Racetitel",
+    "raceId": "Race-ID",
+    "date": "Datum",
+    "eventBasics": "Evenement basis",
+    "track": "Circuit",
+    "layout": "Layout",
+    "trackDetails": "Circuitdetails",
+    "laps": {
+      "one": "{count} ronde",
+      "other": "{count} rondes"
+    },
+    "lapCountTbc": "Rondentelling n.t.b."
+  },
+  "proof": {
+    "title": "Racebewijs",
+    "screenshot": "{title} bewijsscreenshot",
+    "button": "bewijs",
+    "view": "Bekijk bewijs voor {title}",
+    "close": "Sluit bewijsweergave"
+  },
+  "errors": {
+    "roundData": "Kan de racedata voor deze ronde niet laden. Controleer de JSON-bestanden.",
+    "roundConfig": "Kan de rondeconfiguratie niet laden. Controleer de rondegegevens.",
+    "schedule": "Kan het raceschema niet laden. Probeer het later opnieuw."
+  },
+  "raceFields": {
+    "groups": {
+      "lobby": "Lobby-instellingen",
+      "roomSettings": "Room-instellingen",
+      "trackSettings": "Circuitinstellingen",
+      "timeWeatherSettings": "Tijd/Weer-instellingen",
+      "raceSettings": "Race-instellingen",
+      "qualifierSettings": "Kwalificatie-instellingen",
+      "regulationSettings": "Reglement-instellingen",
+      "penaltySettings": "Strafinstellingen",
+      "drivingOptions": "Rijhulplimieten",
+      "notes": "Overig/Notities"
+    },
+    "fields": {
+      "roomMode": "Room-modus",
+      "roomPrivacy": "Room-privacy",
+      "raceType": "Racetype",
+      "maxParticipants": "Max. deelnemers",
+      "autoStart": "Auto-start",
+      "laps": "Ronden",
+      "timeLimit": "Tijdslimiet (Endurance)",
+      "weatherSegments": "Weer-tijdlijn",
+      "equalConditions": "Gelijke omstandigheden-modus",
+      "timeOfDay": "Tijd van de dag",
+      "variableTimeSpeed": "Variabele tijdsnelheid",
+      "startType": "Starttype",
+      "gridOrder": "Startopstelling",
+      "bopTuning": "BoP/Tuning verboden",
+      "tuningOptionsAllowed": "Instellingsopties",
+      "boost": "Boost",
+      "slipStream": "Slipstreamsterkte",
+      "visibleDamage": "Zichtbare schade",
+      "mechanicalDamage": "Mechanische schade",
+      "tyreWearRate": "Bandenslijtage",
+      "fuelConsumptionRate": "Brandstofverbruik",
+      "refuellingSpeed": "Bijtanksnelheid",
+      "initialFuel": "Startbrandstof",
+      "gripReduction": "Gripvermindering buiten de baan",
+      "raceFinishDelay": "Race-einde vertraging",
+      "nitrousMultiplier": "Nitro/Overtake-gebruiksmultiplier",
+      "timeLimitQualifier": "Tijdslimiet",
+      "qualifyContinuationTime": "Kwalificatie-uitlooptijd",
+      "tyreWearRateQualifier": "Bandenslijtage (kwalificatie)",
+      "fuelConsumptionRateQualifier": "Brandstofverbruik (kwalificatie)",
+      "initialFuelQualifier": "Startbrandstof (kwalificatie)",
+      "slipStreamQualifier": "Slipstreamsterkte (kwalificatie)",
+      "filteryCategory": "Filter op categorie",
+      "ppLimit": "PP-limiet",
+      "maxPowerOutput": "Max. vermogen",
+      "minimumWeight": "Minimumgewicht",
+      "allowedTyres": "Toegestane banden",
+      "tyreCompounds": "Beschikbare bandentypes",
+      "requiredTyreCompounds": "Verplichte bandentypes",
+      "nitrous": "Nitro",
+      "kartUsage": "Kartgebruik",
+      "engineSwap": "Motorwissel",
+      "tuningParts": "Tuningonderdelen",
+      "yearLowerLimit": "Bouwjaar (ondergrens)",
+      "yearUpperLimit": "Bouwjaar (bovengrens)",
+      "driveTrain": "Aandrijving",
+      "aspiration": "Aspiratie",
+      "shortcutPenalty": "Straf voor afsnijden",
+      "wallCollisionPenalty": "Straf voor muurcontact",
+      "correctCourse": "Corrigeer baan na muurcontact",
+      "carcollisionPenalty": "Straf voor botsing",
+      "pitlaneCuttingPenalty": "Straf voor pitstraat afsnijden",
+      "ghostingDuringRace": "Ghosting tijdens race",
+      "counterSteeringAssistance": "Tegenstuurhulp",
+      "activeStabilityManagement": "Active Stability Management (ASM)",
+      "drivingLaneAssist": "Rijstrook-assistent",
+      "tractionControl": "Tractiecontrole",
+      "abs": "ABS",
+      "autoDrive": "Auto-rijden",
+      "raceNotes": "Speciale notities"
+    },
+    "options": {
+      "roomMode": {
+        "free-run": "Vrij rijden",
+        "practice-race": "Training/Race",
+        "practice-qualifier-race": "Training/Kwalificatie/Race",
+        "practice-endurance-race": "Training/Endurance race",
+        "practice-qualifier-endurance-race": "Training/Kwalificatie/Endurance race"
+      },
+      "roomPrivacy": {
+        "public": "Openbaar",
+        "friends-only": "Alleen vrienden",
+        "private": "Prive"
+      },
+      "raceType": {
+        "race-for-fun": "Race voor de lol",
+        "free-run": "Vrij rijden",
+        "drift": "Drift",
+        "race-for-real": "Serieuze race"
+      },
+      "timeLimit": {
+        "1-minute": "1 minuut",
+        "2-minutes": "2 minuten",
+        "3-minutes": "3 minuten",
+        "5-minutes": "5 minuten",
+        "10-minutes": "10 minuten",
+        "15-minutes": "15 minuten",
+        "20-minutes": "20 minuten",
+        "25-minutes": "25 minuten",
+        "30-minutes": "30 minuten",
+        "40-minutes": "40 minuten",
+        "50-minutes": "50 minuten",
+        "60-minutes": "60 minuten",
+        "90-minutes": "90 minuten",
+        "2-hours": "2 uur",
+        "3-hours": "3 uur",
+        "4-hours": "4 uur",
+        "5-hours": "5 uur",
+        "6-hours": "6 uur",
+        "7-hours": "7 uur",
+        "8-hours": "8 uur",
+        "9-hours": "9 uur",
+        "10-hours": "10 uur",
+        "11-hours": "11 uur",
+        "12-hours": "12 uur",
+        "13-hours": "13 uur",
+        "14-hours": "14 uur",
+        "15-hours": "15 uur",
+        "16-hours": "16 uur",
+        "17-hours": "17 uur",
+        "18-hours": "18 uur",
+        "19-hours": "19 uur",
+        "20-hours": "20 uur",
+        "21-hours": "21 uur",
+        "22-hours": "22 uur",
+        "23-hours": "23 uur",
+        "24-hours": "24 uur"
+      },
+      "weatherSegments": {
+        "s01-dry-cloudless-and-pleasant": "S01 Dry, Cloudless and Pleasant",
+        "s02-dry-and-pleasant-with-a-few-clouds": "S02 Dry and Pleasant with a few Clouds",
+        "s03-dry-cloudy-and-pleasant": "S03 Dry Cloudy and Pleasant",
+        "s04-dry-cloudy-and-sunny": "S04 Dry Cloudy and Sunny",
+        "s05-misty-cloudless-and-sunny": "S05 Misty, Cloudless and Sunny",
+        "s06-humid-cloudless-and-pleasant": "S06 Humid, Cloudless and Pleasant",
+        "s07-humid-and-pleasant-with-a-few-clouds": "S07 Humid and Pleasant with a Few Clouds",
+        "s08-humid-sunny-and-cloudy": "S08 Humid, Sunny and Cloudy",
+        "s09-humid-and-sunny-with-lots-of-clouds": "S09 Humid and Sunny with Lots of Clouds",
+        "s10-misty-and-sunny-with-lots-of-clouds": "S10 Misty and Sunny with Lots of Clouds",
+        "s11-sunny-with-alpine-mist": "S11 Sunny with Alpine Mist",
+        "s12-sunny-with-lots-of-monsoon-clouds": "S12 Sunny with Lots of Monsoon Clouds",
+        "s13-sunny-with-a-few-monsoon-clouds": "S13 Sunny with a Few Monsoon Clouds",
+        "s14-sunny-with-lots-of-monsoon-clouds": "S14 Sunny with Lots of Monsoon Clouds",
+        "s15-hazy-cloudless-and-pleasant": "S15 Hazy, Cloudless and Pleasant",
+        "s16-hazy-and-sunny-with-a-few-clouds": "S16 Hazy and Sunny with a Few Clouds",
+        "s17-hazy-cloudy-and-sunny": "S17 Hazy, Cloudy and Sunny",
+        "s18-hazy-cloudy-and-sunny": "S18 Hazy, Cloudy and Sunny",
+        "c01-cloudy-and-bright": "C01 Cloudy and Bright",
+        "c02-cloudy-and-warm": "C02 Cloudy and Warm",
+        "c03-cloudy-and-dark": "C03 Cloudy and Dark",
+        "c04-cloudy-and-chilly": "C04 Cloudy and Chilly",
+        "c05-cloudy": "C05 Cloudy",
+        "c06-thick-clouds": "C06 Thick Clouds",
+        "r01-light-drizzle": "R01 Light Drizzle",
+        "r02-cloudless-with-warm-rain": "R02 Cloudless with Warm Rain",
+        "r03-light-rain": "R03 Light Rain",
+        "r04-cloudy-with-rain": "R04 Cloudy with Rain",
+        "r05-cloudy-with-rain": "R05 Cloudy with Rain",
+        "r06-thick-cloud-with-rain": "R06 Thick Cloud with Rain",
+        "r07-cloudy-with-torrential-rain": "R07 Cloudy with Torrential Rain",
+        "r08-thick-cloud-with-torrential-rain": "R08 Thick Cloud with Torrential Rain"
+      },
+      "equalConditions": {
+        "off": "Uit",
+        "on": "Aan"
+      },
+      "timeOfDay": {
+        "dawn": "Dageraad",
+        "sunrise": "Zonsopgang",
+        "early-morning": "Vroege ochtend",
+        "late-morning": "Late ochtend",
+        "afternoon": "Middag",
+        "evening": "Avond",
+        "sunset": "Zonsondergang",
+        "twilight": "Schemering",
+        "night": "Nacht"
+      },
+      "startType": {
+        "fastest-first": "Snelste eerst",
+        "slowest-first": "Langzaamste eerst"
+      },
+      "gridOrder": {
+        "grid-start": "Gridstart",
+        "grid-start-with-false-start-check": "Gridstart met valse-startcontrole",
+        "rolling-start": "Rollende start"
+      },
+      "bopTuning": {
+        "off": "Uit",
+        "on-equal-weight-and-power": "Aan (gelijk gewicht en vermogen)"
+      },
+      "tuningOptionsAllowed": {
+        "body-height-adjustment": "Carrosseriehoogte",
+        "anti-roll-bar": "Stabilisatorstang",
+        "damping-ratio": "Dempingsverhouding",
+        "natural-frequency": "Natuurlijke frequentie",
+        "negative-camber-angle": "Negatieve camberhoek",
+        "toe-angle": "Toe-hoek",
+        "differential": "Differentieel",
+        "torque-vectoring-centre-differential": "Torque-vectoring middendifferentieel",
+        "transmission-no-final-gear": "Transmissie (zonder eindreductie)",
+        "transmission-final-gear": "Transmissie (eindreductie)",
+        "downforce": "Downforce",
+        "anti-lag": "Anti-lag",
+        "brake-balance": "Rembalans"
+      },
+      "boost": {
+        "strong": "Sterk",
+        "weak": "Zwak",
+        "off": "Uit"
+      },
+      "slipStream": {
+        "strong": "Sterk",
+        "weak": "Zwak",
+        "real": "Realistisch",
+        "off": "Uit"
+      },
+      "visibleDamage": {
+        "on": "Aan",
+        "off": "Uit"
+      },
+      "mechanicalDamage": {
+        "none": "Geen",
+        "light": "Licht",
+        "heavy": "Zwaar"
+      },
+      "gripReduction": {
+        "low": "Laag",
+        "real": "Realistisch"
+      },
+      "timeLimitQualifier": {
+        "1-minute": "1 minuut",
+        "2-minutes": "2 minuten",
+        "3-minutes": "3 minuten",
+        "5-minutes": "5 minuten",
+        "10-minutes": "10 minuten",
+        "15-minutes": "15 minuten",
+        "20-minutes": "20 minuten",
+        "25-minutes": "25 minuten",
+        "30-minutes": "30 minuten",
+        "40-minutes": "40 minuten",
+        "50-minutes": "50 minuten",
+        "60-minutes": "60 minuten",
+        "90-minutes": "90 minuten",
+        "2-hours": "2 uur",
+        "3-hours": "3 uur",
+        "4-hours": "4 uur",
+        "5-hours": "5 uur",
+        "6-hours": "6 uur",
+        "7-hours": "7 uur",
+        "8-hours": "8 uur",
+        "9-hours": "9 uur",
+        "10-hours": "10 uur",
+        "11-hours": "11 uur",
+        "12-hours": "12 uur",
+        "13-hours": "13 uur",
+        "14-hours": "14 uur",
+        "15-hours": "15 uur",
+        "16-hours": "16 uur",
+        "17-hours": "17 uur",
+        "18-hours": "18 uur",
+        "19-hours": "19 uur",
+        "20-hours": "20 uur",
+        "21-hours": "21 uur",
+        "22-hours": "22 uur",
+        "23-hours": "23 uur",
+        "24-hours": "24 uur"
+      },
+      "slipStreamQualifier": {
+        "strong": "Sterk",
+        "weak": "Zwak",
+        "real": "Realistisch",
+        "off": "Uit"
+      },
+      "filteryCategory": {
+        "no-limit": "Geen limiet",
+        "gr-1": "Gr.1",
+        "gr-2": "Gr.2",
+        "gr-3": "Gr.3",
+        "gr-4": "Gr.4",
+        "gr-b": "Gr.B"
+      },
+      "allowedTyres": {
+        "no-limit": "Geen limiet",
+        "comfort": "Comfort",
+        "sports": "Sport",
+        "racing": "Racing"
+      },
+      "tyreCompounds": {
+        "hard": "Hard",
+        "medium": "Medium",
+        "soft": "Soft"
+      },
+      "requiredTyreCompounds": {
+        "hard": "Hard",
+        "medium": "Medium",
+        "soft": "Soft"
+      },
+      "nitrous": {
+        "prohibited": "Verboden",
+        "required": "Verplicht",
+        "unrestricted": "Onbeperkt"
+      },
+      "kartUsage": {
+        "on": "Aan",
+        "off": "Uit"
+      },
+      "engineSwap": {
+        "unrestricted": "Onbeperkt",
+        "prohibited": "Verboden"
+      },
+      "tuningParts": {
+        "unrestricted": "Onbeperkt",
+        "extreme-and-lower": "Extreem en lager"
+      },
+      "driveTrain": {
+        "unrestricted": "Onbeperkt",
+        "fr": "FR",
+        "ff": "FF",
+        "4wd": "4WD",
+        "mr": "MR",
+        "rr": "RR"
+      },
+      "aspiration": {
+        "unrestricted": "Onbeperkt",
+        "na-normal-aspirated": "NA (natuurlijk aangezogen)",
+        "tc-turbocharger": "TC (Turbocharger)",
+        "sc-supercharger": "SC (Supercharger)",
+        "tc-sc": "TC + SC",
+        "ev-electric-vehicle": "EV (elektrisch voertuig)"
+      },
+      "shortcutPenalty": {
+        "off": "Uit",
+        "weak": "Zwak",
+        "strong": "Sterk"
+      },
+      "wallCollisionPenalty": {
+        "off": "Uit",
+        "time-penalty-weak": "Tijdstraf (zwak)",
+        "time-penalty-strong": "Tijdstraf (sterk)"
+      },
+      "correctCourse": {
+        "off": "Uit",
+        "on": "Aan"
+      },
+      "carcollisionPenalty": {
+        "off": "Uit",
+        "on": "Aan"
+      },
+      "pitlaneCuttingPenalty": {
+        "off": "Uit",
+        "on": "Aan"
+      },
+      "ghostingDuringRace": {
+        "off": "Uit",
+        "on": "Aan"
+      },
+      "counterSteeringAssistance": {
+        "no-limit": "Geen limiet",
+        "prohibited": "Verboden"
+      },
+      "activeStabilityManagement": {
+        "no-limit": "Geen limiet",
+        "prohibited": "Verboden"
+      },
+      "drivingLaneAssist": {
+        "no-limit": "Geen limiet",
+        "prohibited": "Verboden"
+      },
+      "tractionControl": {
+        "no-limit": "Geen limiet",
+        "prohibited": "Verboden"
+      },
+      "abs": {
+        "no-limit": "Geen limiet",
+        "prohibited": "Verboden"
+      },
+      "autoDrive": {
+        "no-limit": "Geen limiet",
+        "prohibited": "Verboden"
+      }
+    },
+    "values": {
+      "autoStart": {
+        "0": "Uit"
+      },
+      "tyreWearRate": {
+        "0": "Uit"
+      },
+      "fuelConsumptionRate": {
+        "0": "Uit"
+      },
+      "initialFuel": {
+        "0": "Standaard"
+      },
+      "nitrousMultiplier": {
+        "1": "Standaard"
+      },
+      "tyreWearRateQualifier": {
+        "0": "Uit",
+        "-1": "Hetzelfde als tijdens de race"
+      },
+      "fuelConsumptionRateQualifier": {
+        "0": "Uit",
+        "-1": "Hetzelfde als tijdens de race"
+      },
+      "initialFuelQualifier": {
+        "0": "Standaard",
+        "-1": "Hetzelfde als tijdens de race"
+      },
+      "ppLimit": {
+        "99": "Geen limiet",
+        "1001": "Geen limiet"
+      },
+      "maxPowerOutput": {
+        "97": "Geen limiet",
+        "1480": "Geen limiet"
+      },
+      "minimumWeight": {
+        "499": "Geen limiet",
+        "2001": "Geen limiet"
+      },
+      "yearLowerLimit": {
+        "1929": "Geen limiet",
+        "2036": "Geen limiet"
+      },
+      "yearUpperLimit": {
+        "1929": "Geen limiet",
+        "2036": "Geen limiet"
+      }
+    },
+    "descriptions": {
+      "bopTuning": "Wanneer AAN, wordt gewicht en vermogen aangepast zodat prestaties gelijker zijn. Wanneer AAN, kunnen tuninginstellingen beperkt zijn; zie Instellingsopties.",
+      "tuningOptionsAllowed": "Welke instellingen gewijzigd mogen worden wanneer BoP AAN staat.",
+      "tyreCompounds": "De banden die tijdens de race beschikbaar zijn. Optioneel.",
+      "requiredTyreCompounds": "De banden die VERPLICHT gebruikt moeten worden in de race. Ja, allemaal."
+    },
+    "actions": {
+      "weatherSegments": {
+        "add": "Weersegment toevoegen"
+      }
+    },
+    "placeholders": {
+      "raceNotes": "Nachtrace, zware schade, BoP uit..."
+    }
+  }
+}
