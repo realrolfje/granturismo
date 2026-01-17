@@ -233,6 +233,8 @@
       "initialFuel": "Initial Fuel",
       "gripReduction": "Grip Reduction Off Track",
       "raceFinishDelay": "Race Finish Delay",
+      "minimumPitStops": "Minimum No. of Pit Stops",
+      "requiredTyreTypeChange": "Required Tyre Type Change",
       "nitrousMultiplier": "Nitrous/Overtraking Usage Multiplier",
       "timeLimitQualifier": "Time Limit",
       "qualifyContinuationTime": "Qualifying Continuation Time",
@@ -577,6 +579,10 @@
       "autoDrive": {
         "no-limit": "No Limit",
         "prohibited": "Prohibited"
+      },
+      "requiredTyreTypeChange": {
+        "off": "Off",
+        "on": "On"
       }
     },
     "values": {
@@ -594,6 +600,9 @@
       },
       "nitrousMultiplier": {
         "1": "Default"
+      },
+      "minimumPitStops": {
+        "0": "Default"
       },
       "tyreWearRateQualifier": {
         "0": "Off",

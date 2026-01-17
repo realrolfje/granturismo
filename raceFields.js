@@ -358,6 +358,29 @@
           }
         },
         {
+          id: 'minimumPitStops',
+          label: 'Minimum No. of Pit Stops',
+          type: 'number',
+          min: 0,
+          max: 100,
+          defaultValue: 0,
+          valueLabels: {
+            0: 'Default'
+          },
+          parse: (value) => {
+            const parsed = Number.parseInt(value, 10);
+            if (!Number.isFinite(parsed)) return 0;
+            return Math.min(100, Math.max(0, parsed));
+          }
+        },
+        {
+          id: 'requiredTyreTypeChange',
+          label: 'Required Tyre Type Change',
+          type: 'select',
+          options: [option('On'), option('Off')],
+          defaultValue: 'Off'
+        },
+        {
           id: 'nitrousMultiplier',
           label: 'Nitrous/Overtraking Usage Multiplier',
           type: 'decimal',

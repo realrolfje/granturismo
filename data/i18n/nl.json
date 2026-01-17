@@ -233,6 +233,8 @@
       "initialFuel": "Startbrandstof",
       "gripReduction": "Gripvermindering buiten de baan",
       "raceFinishDelay": "Race-einde vertraging",
+      "minimumPitStops": "Minimaal aantal pitstops",
+      "requiredTyreTypeChange": "Vereiste bandensoortwissel",
       "nitrousMultiplier": "Nitro/Overtake-gebruiksmultiplier",
       "timeLimitQualifier": "Tijdslimiet",
       "qualifyContinuationTime": "Kwalificatie-uitlooptijd",
@@ -577,6 +579,10 @@
       "autoDrive": {
         "no-limit": "Geen limiet",
         "prohibited": "Verboden"
+      },
+      "requiredTyreTypeChange": {
+        "off": "Uit",
+        "on": "Aan"
       }
     },
     "values": {
@@ -594,6 +600,9 @@
       },
       "nitrousMultiplier": {
         "1": "Standaard"
+      },
+      "minimumPitStops": {
+        "0": "Standaard"
       },
       "tyreWearRateQualifier": {
         "0": "Uit",
