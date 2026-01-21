@@ -1,3 +1,35 @@
 {
-  "results": []
+  "results": [
+    {
+      "raceId": "2026-01-21-supra-cup-race-1",
+      "proof": "data/rounds/round-1/proofs/race 1 results.JPG",
+      "finishers": [
+        {
+          "driverId": "rolf",
+          "car": "Toyota GR Supra Race Car '19",
+          "position": 1
+        },
+        {
+          "driverId": "lex",
+          "car": "Toyota GR Supra Race Car '19",
+          "position": 2
+        },
+        {
+          "driverId": "riccardo",
+          "car": "Toyota GR Supra Race Car '19",
+          "position": 3
+        },
+        {
+          "driverId": "leroy",
+          "car": "Toyota GR Supra Race Car '19",
+          "position": 4
+        },
+        {
+          "driverId": "michel",
+          "car": "Toyota GR Supra Race Car '19",
+          "position": 5
+        }
+      ]
+    }
+  ]
 }
