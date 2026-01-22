@@ -21,7 +21,12 @@ def clean_image(path: Path, max_width: int, max_height: int, quality: int) -> No
 
     with Image.open(path) as image:
         image = ImageOps.exif_transpose(image)
-        image.thumbnail((max_width, max_height), Image.LANCZOS)
+        resampling_base = getattr(Image, "Resampling", None)
+        if resampling_base is not None:
+            resampling_filter = resampling_base.LANCZOS
+        else:
+            resampling_filter = Image.LANCZOS
+        image.thumbnail((max_width, max_height), resampling_filter)
         image = image.convert("RGB")
         image.save(path, format="JPEG", quality=quality, optimize=True)
         print(f"cleaned: {path} ({image.width}x{image.height})")
