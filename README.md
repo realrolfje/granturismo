@@ -67,6 +67,7 @@ But now also at https://static.rolfje.com/granturismo
   "finishers": []
 }
 ```
+- To avoid leaking EXIF (especially location data) and to keep screenshots lightweight, run `python3 scripts/proof-cleanup.py data/rounds/<round-id>/proofs/*.jpg` before committing; install Pillow via `pip install Pillow` if it’s not already available.
 - `data/teams.json` contains two sections:
   - `teams`: team metadata and the driver IDs on that roster.
   - `drivers`: driver profiles (id + display name). Drivers not assigned to a team remain visible as “Independent Drivers”.
