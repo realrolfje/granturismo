@@ -30,6 +30,32 @@
           "position": 5
         }
       ]
+    },
+    {
+      "raceId": "2026-01-28-supra-cup-race-2",
+      "proof": "data/rounds/round-1/proofs/race 2 results.JPG",
+      "finishers": [
+        {
+          "driverId": "rolf",
+          "car": "Toyota GR Supra Race Car '19",
+          "position": 1
+        },
+        {
+          "driverId": "leroy",
+          "car": "Toyota GR Supra Race Car '19",
+          "position": 4
+        },
+        {
+          "driverId": "riccardo",
+          "car": "Toyota GR Supra Race Car '19",
+          "position": 3
+        },
+        {
+          "driverId": "michel",
+          "car": "Toyota GR Supra Race Car '19",
+          "position": 5
+        }
+      ]
     }
   ]
 }
