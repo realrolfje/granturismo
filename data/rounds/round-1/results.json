@@ -43,7 +43,7 @@
         {
           "driverId": "leroy",
           "car": "Toyota GR Supra Race Car '19",
-          "position": 4
+          "position": 2
         },
         {
           "driverId": "riccardo",
@@ -53,7 +53,7 @@
         {
           "driverId": "michel",
           "car": "Toyota GR Supra Race Car '19",
-          "position": 5
+          "position": 4
         }
       ]
     }
