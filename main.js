@@ -146,8 +146,9 @@ function getPointsForPosition(position, pointsRules = {}) {
   return participationPoints;
 }
 
-function computeDriverStandings({ raceResults = {}, pointsRules = {}, drivers = [] }) {
+function computeDriverStandings({ raceResults = {}, pointsRules = {}, drivers = [], races = {} }) {
   const statsMap = new Map();
+  const scheduledRaces = Array.isArray(races.races) ? races.races : [];
 
   (raceResults.results || []).forEach((race, raceIndex) => {
     (race.finishers || []).forEach((finisher, index) => {
@@ -208,25 +209,51 @@ function computeDriverStandings({ raceResults = {}, pointsRules = {}, drivers = 
   });
 
   statsMap.forEach((entry) => {
+    const actualBreakdown = entry.breakdown || [];
+    const breakdownByRace = new Map(actualBreakdown.map((raceEntry) => [raceEntry.raceId, raceEntry]));
+    const aligned = [];
+    scheduledRaces.forEach((race) => {
+      const raceId = race && race.id;
+      if (!raceId) return;
+      if (breakdownByRace.has(raceId)) {
+        aligned.push(breakdownByRace.get(raceId));
+        breakdownByRace.delete(raceId);
+      } else {
+        aligned.push({
+          raceId,
+          position: undefined,
+          points: 0
+        });
+      }
+    });
+    breakdownByRace.forEach((extraEntry) => {
+      aligned.push(extraEntry);
+    });
+    entry.breakdown = aligned;
+  });
+
+  statsMap.forEach((entry) => {
     const breakdown = entry.breakdown || [];
-    if (breakdown.length < 2) return;
-    let dropIndex = 0;
-    const firstEntry = breakdown[0];
-    let minPoints =
-      firstEntry && Number.isFinite(firstEntry.points)
-        ? firstEntry.points
-        : 0;
+    if (entry.races < 2 || breakdown.length === 0) {
+      breakdown.forEach((raceEntry) => {
+        raceEntry.isDropped = false;
+      });
+      return;
+    }
+    let dropIndex = -1;
+    let minPoints = Infinity;
     breakdown.forEach((raceEntry, idx) => {
+      raceEntry.isDropped = false;
       const pts = Number.isFinite(raceEntry.points) ? raceEntry.points : 0;
       if (pts < minPoints) {
         minPoints = pts;
         dropIndex = idx;
       }
     });
-    breakdown.forEach((raceEntry, idx) => {
-      raceEntry.isDropped = idx === dropIndex;
-    });
-    entry.points -= minPoints;
+    if (dropIndex >= 0) {
+      breakdown[dropIndex].isDropped = true;
+      entry.points -= minPoints;
+    }
   });
 
   const standings = Array.from(statsMap.values());
@@ -933,7 +960,8 @@ async function renderRound(round) {
   const driverStandings = computeDriverStandings({
     raceResults,
     pointsRules: sharedData.points,
-    drivers: teamsData.drivers
+    drivers: teamsData.drivers,
+    races: round.racesData
   });
   const teamStandings = computeTeamStandings({
     driverStandings,
