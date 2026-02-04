@@ -112,7 +112,7 @@
     "participationTitle": "Participation bonus",
     "participationBody": "Any driver finishing outside the top 7 still earns <strong>1 point</strong> for completing the race. DNS/DNF results yield no points.",
     "dropTitle": "Drop round",
-    "dropBody": "To account for absences, any driver who has started at least two races discards their single lowest-scoring result. If you only have one start it always counts. The dropped race still appears in the standings breakdown with a red strikethrough so everyone can audit totals.",
+    "dropBody": "To account for absences, any driver who has started at least two races discards their single lowest-scoring result. If you only have one start it always counts. When a driver skips a scheduled race (for example, in a three-race round where they only started two events), that non-raced round is what gets dropped so the finishes they do have are preserved. The dropped race still appears in the standings breakdown with a red strikethrough so everyone can audit totals.",
     "tieTitle": "Tie-breaking Procedure",
     "tieIntro": "If two or more drivers tie on points, we apply the following criteria until the tie is broken.",
     "tieWinsTitle": "Total Wins",

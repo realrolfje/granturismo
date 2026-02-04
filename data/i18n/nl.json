@@ -112,7 +112,7 @@
     "participationTitle": "Deelnamebonus",
     "participationBody": "Elke coureur die buiten de top 7 finisht krijgt nog steeds <strong>1 punt</strong> voor het uitrijden. DNS/DNF levert geen punten op.",
     "dropTitle": "Schrapronde",
-    "dropBody": "Om afwezigheid op te vangen, laat elke coureur met minimaal twee starts het laagste resultaat vallen. Met slechts een start telt die altijd. De weggelaten race blijft zichtbaar in de uitsplitsing met een rode streep zodat iedereen de totalen kan controleren.",
+    "dropBody": "Om afwezigheid op te vangen, laat elke coureur met minimaal twee starts het laagste resultaat vallen. Met slechts een start telt die altijd. Wanneer een coureur een geplande race mist (bijvoorbeeld bij een ronde met drie races, maar slechts twee deelname), wordt juist die niet-gereden race weggestreept zodat de behaalde finishes behouden blijven. De weggelaten race blijft zichtbaar in de uitsplitsing met een rode streep zodat iedereen de totalen kan controleren.",
     "tieTitle": "Procedure bij gelijke stand",
     "tieIntro": "Als twee of meer coureurs gelijk staan op punten, gelden de volgende criteria totdat de stand is bepaald.",
     "tieWinsTitle": "Totaal overwinningen",
