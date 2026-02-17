@@ -1,8 +1,14 @@
 [
   {
+    "id": "round-2",
+    "directory": "round-2",
+    "active": true,
+    "heroImage": "quentin-martinez-5bL-TPC-bXI-unsplash.jpg"
+  },
+  {
     "id": "round-1",
     "directory": "round-1",
-    "active": true,
+    "active": false,
     "heroImage": "supra-gt500.JPG"
   },
   {
