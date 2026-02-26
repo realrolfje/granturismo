@@ -655,6 +655,7 @@ function buildRaceObject(form) {
 function updatePreview(form, existingIds) {
   const preview = document.getElementById('race-json-preview');
   const copyButton = document.getElementById('copy-json');
+  const downloadButton = document.getElementById('download-json');
   if (!preview) return;
 
   const race = buildRaceObject(form);
@@ -664,7 +665,7 @@ function updatePreview(form, existingIds) {
     hasError = true;
   }
 
-  if (copyButton) {
+  if (copyButton || downloadButton) {
     const invalidInputs = form.querySelectorAll('input:invalid, select:invalid, textarea:invalid');
     const allFields = form.querySelectorAll('.form-field');
     allFields.forEach((field) => field.classList.remove('form-field--invalid'));
@@ -677,11 +678,26 @@ function updatePreview(form, existingIds) {
     const repeatableInvalids = form.querySelectorAll('.form-field[data-repeatable-invalid="true"]');
     repeatableInvalids.forEach((wrapper) => wrapper.classList.add('form-field--invalid'));
     const hasInvalid = form.querySelector('.form-field--invalid');
-    copyButton.disabled = hasError || hasInvalid || !form.checkValidity();
+    const disableActions = hasError || hasInvalid || !form.checkValidity();
+    if (copyButton) {
+      copyButton.disabled = disableActions;
+    }
+    if (downloadButton) {
+      downloadButton.disabled = disableActions;
+    }
   }
 
   const formatted = JSON.stringify(race, null, 2);
   preview.textContent = formatted;
+}
+
+function showEditorFeedback(feedback, message) {
+  if (!feedback) return;
+  feedback.hidden = false;
+  feedback.textContent = message;
+  setTimeout(() => {
+    feedback.hidden = true;
+  }, 2000);
 }
 
 function setupCopyButton() {
@@ -694,13 +710,7 @@ function setupCopyButton() {
   button.addEventListener('click', async () => {
     try {
       await navigator.clipboard.writeText(preview.textContent);
-      if (feedback) {
-        feedback.hidden = false;
-        feedback.textContent = i18n ? i18n.t('editor.copied') : 'JSON copied to clipboard.';
-        setTimeout(() => {
-          feedback.hidden = true;
-        }, 2000);
-      }
+      showEditorFeedback(feedback, i18n ? i18n.t('editor.copied') : 'JSON copied to clipboard.');
     } catch (err) {
       console.error('Clipboard copy failed', err);
       if (feedback) {
@@ -709,6 +719,35 @@ function setupCopyButton() {
           ? i18n.t('editor.copyError')
           : 'Unable to copy. Please select and copy manually.';
       }
+    }
+  });
+}
+
+function setupDownloadButton() {
+  const button = document.getElementById('download-json');
+  const preview = document.getElementById('race-json-preview');
+  const feedback = document.getElementById('copy-feedback');
+  if (!button || !preview) return;
+  const i18n = getI18n();
+
+  button.addEventListener('click', () => {
+    try {
+      const blob = new Blob([preview.textContent], { type: 'application/json;charset=utf-8' });
+      const objectUrl = URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = objectUrl;
+      link.download = 'race.json';
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+      URL.revokeObjectURL(objectUrl);
+      showEditorFeedback(feedback, i18n ? i18n.t('editor.downloaded') : 'race.json downloaded.');
+    } catch (err) {
+      console.error('JSON download failed', err);
+      showEditorFeedback(
+        feedback,
+        i18n ? i18n.t('editor.downloadError') : 'Unable to download JSON. Please copy manually.'
+      );
     }
   });
 }
@@ -728,6 +767,7 @@ async function initEditor() {
     form.addEventListener('change', update);
     update();
     setupCopyButton();
+    setupDownloadButton();
   } catch (err) {
     console.error(err);
     const preview = document.getElementById('race-json-preview');
