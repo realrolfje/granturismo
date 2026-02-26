@@ -23,20 +23,23 @@ But now also at https://static.rolfje.com/granturismo
 ├── editor.js         # Handles the race editor form + JSON preview
 └── data/
     ├── points.json   # Points awarded per finishing position
-    ├── teams.json    # Team line-ups plus driver info
     ├── tracks.json   # Canonical GT7 track names used by the editor
     ├── rounds.json   # List of round directories and the active round
     └── rounds/
         └── round-1/
-            ├── races.json   # Metadata for the round + `races` array
-            ├── results.json # Finish order for that round
-            └── proofs/      # Screenshots referenced by entries in `results.json`
+            ├── round.json   # Round metadata + ordered race directory list
+            ├── races/
+            │   └── 2026-01-21-supra-cup-race-1/
+            │       ├── race.json    # Race settings/metadata
+            │       ├── results.json # Finishers in finishing order
+            │       └── proof.jpg    # Optional proof screenshot
+            └── teams.json   # Teams + drivers for this round
 ```
 
 ## Editing the data
 
 - `data/rounds.json` lists the round directories (id + directory name) and the currently active round (use the `active` flag or let the UI default to the round with the next upcoming event).
-- Each directory under `data/rounds/` (e.g., `data/rounds/round-1`) keeps the round data: a `races.json` file with a top-level `round` object and the `"races"` array, plus a `results.json` file and a `proofs/` subfolder for screenshots.
+- Each directory under `data/rounds/` (e.g., `data/rounds/round-1`) keeps a `round.json` manifest plus a `races/<race-id>/` folder per race.
 
 ```json
 {
@@ -46,29 +49,31 @@ But now also at https://static.rolfje.com/granturismo
     "description": "Warm-up round containing two test races.",
     "startDate": "2025-12-04"
   },
-  "races": [
-    {
-      "id": "race-1",
-      "title": "Manufacturers Cup Round 1",
-      "track": "Circuit de Spa-Francorchamps",
-      "variant": "Full Course",
-      "date": "2024-04-05",
-      "laps": 12
-    }
-  ]
+  "races": ["2025-12-04-test-race"]
 }
 ```
 
-- Each round's `results.json` follows the same format as before, but the optional `proof` paths now point at `data/rounds/<round-id>/proofs/<filename>.png`.
+- Each race folder contains a `race.json` with the metadata/settings for that race.
 ```json
 {
-  "raceId": "2025-12-04-test-race",
-  "proof": "data/rounds/round-1/proofs/2025-12-04-test-race.png",
-  "finishers": []
+  "id": "2025-12-04-test-race",
+  "title": "Manufacturers Cup Round 1",
+  "track": "Circuit de Spa-Francorchamps",
+  "variant": "Full Course",
+  "date": "2024-04-05",
+  "laps": 12
 }
 ```
-- To avoid leaking EXIF (especially location data) and to keep screenshots lightweight, run `python3 scripts/proof-cleanup.py data/rounds/<round-id>/proofs/*.jpg` before committing; install Pillow via `pip install Pillow` if it’s not already available.
-- `data/teams.json` contains two sections:
+- Each race folder also contains a `results.json` array in finishing order (no `raceId` or `position` fields needed).
+```json
+[
+  { "driverId": "lex", "car": "GR Supra Racing Concept '18" },
+  { "driverId": "rolf", "car": "GR Supra Racing Concept '18" }
+]
+```
+- If a proof screenshot exists, store it as `proof.jpg` in the same race folder. The site auto-detects this file; you do not need to reference it in JSON.
+- To avoid leaking EXIF (especially location data) and to keep screenshots lightweight, run `python3 scripts/proof-cleanup.py data/rounds/<round-id>/races/*/proof.jpg` before committing; install Pillow via `pip install Pillow` if it’s not already available.
+- `data/rounds/<round-id>/teams.json` contains two sections:
   - `teams`: team metadata and the driver IDs on that roster.
   - `drivers`: driver profiles (id + display name). Drivers not assigned to a team remain visible as “Independent Drivers”.
 - `data/points.json` defines how many points each position receives plus the guaranteed points for classified finishers:
@@ -93,7 +98,7 @@ Use `editor.html` when adding a new race:
 
 1. Choose an official track (sourced from `data/tracks.json`) plus the usual metadata.
 2. Copy the generated JSON snippet.
-3. Paste it into the active round file (for example `data/rounds/round-1/races.json`) inside the `\"races\"` array so the new race belongs to that round.
+3. Add a new race folder under `data/rounds/<round-id>/races/<race-id>/`, save the snippet as `race.json`, and append the race directory name to the active round's `data/rounds/<round-id>/round.json` `\"races\"` array.
 
 The editor warns you if the race ID already exists in the JSON, helping prevent duplicates.
 
@@ -105,7 +110,7 @@ The `Scoring Rules` page summarizes the point structure (12-10-8-6-4-2-1 plus a 
 2. Best finishing position across the season
 3. Alphabetical order of the driver name (to keep standings deterministic)
 
-This mirrors the logic baked into `main.js`, so whatever you read on that page matches the live data. The `Upcoming Races` page lists any events present in the active round’s `races.json` without a corresponding record in the same round’s `results.json`, sorted by date so teams know what’s next.
+This mirrors the logic baked into `main.js`, so whatever you read on that page matches the live data. The `Upcoming Races` page lists any events present in the active round manifest without a corresponding race result entry, sorted by date so teams know what’s next.
 
 ## Running the site locally
 
@@ -120,5 +125,5 @@ Then browse to [http://localhost:4173](http://localhost:4173) and you’ll see t
 
 ## Next steps
 
-- Extend a round's `data/rounds/<round-id>/results.json` with more races or add fields (e.g., fastest lap, penalty notes).
+- Add more per-race fields (e.g., fastest lap, penalty notes) to `data/rounds/<round-id>/races/<race-id>/results.json` or `race.json`.
 - Add client-side filters (by team, driver, or race) or charts for season standings if needed.

@@ -138,7 +138,7 @@
   "editor": {
     "heroTitle": "Race Editor",
     "title": "Generate race JSON",
-    "subtitle": "Build a race JSON by choosing an official GT7 track, date, and metadata. Paste the output into your active round file (for example <code>data/rounds/round-1/races.json</code>) to add the event to that round. All tracks come from the official GT7 track list. Fields marked * are required.",
+    "subtitle": "Build a race JSON by choosing an official GT7 track, date, and metadata. Save the output as <code>race.json</code> in a new race folder (for example <code>data/rounds/round-1/races/2026-03-04-example-race/race.json</code>) and add that folder name to your round's <code>round.json</code>. All tracks come from the official GT7 track list. Fields marked * are required.",
     "eventBasics": "Event Basics",
     "raceTitle": "Race title *",
     "raceTitlePlaceholder": "World Series Round",
@@ -148,7 +148,7 @@
     "trackPlaceholder": "Start typing a track name",
     "variant": "Variant *",
     "outputTitle": "Race JSON",
-    "outputNote": "Paste the snippet into the active round file (e.g., <code>data/rounds/round-1/races.json</code>) inside the <code>\"races\"</code> array, keeping the JSON valid.",
+    "outputNote": "Save the snippet as <code>race.json</code> in <code>data/rounds/&lt;round-id&gt;/races/&lt;race-id&gt;/</code>, then append the race directory name to the <code>\"races\"</code> array in <code>data/rounds/&lt;round-id&gt;/round.json</code>.",
     "copy": "Copy",
     "copied": "JSON copied to clipboard.",
     "selectTrackFirst": "Select a track first",

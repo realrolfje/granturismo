@@ -138,7 +138,7 @@
   "editor": {
     "heroTitle": "Race-editor",
     "title": "Race JSON genereren",
-    "subtitle": "Maak een race-JSON door een officieel GT7-circuit, datum en metadata te kiezen. Plak de uitvoer in je actieve rondebestand (bijvoorbeeld <code>data/rounds/round-1/races.json</code>) om het event toe te voegen. Alle circuits komen uit de officiele GT7-circuitlijst. Velden met * zijn verplicht.",
+    "subtitle": "Maak een race-JSON door een officieel GT7-circuit, datum en metadata te kiezen. Sla de uitvoer op als <code>race.json</code> in een nieuwe race-map (bijvoorbeeld <code>data/rounds/round-1/races/2026-03-04-voorbeeld-race/race.json</code>) en voeg die mapnaam toe aan de <code>round.json</code> van de ronde. Alle circuits komen uit de officiele GT7-circuitlijst. Velden met * zijn verplicht.",
     "eventBasics": "Evenement basis",
     "raceTitle": "Racetitel *",
     "raceTitlePlaceholder": "Wereldserie ronde",
@@ -148,7 +148,7 @@
     "trackPlaceholder": "Begin met het typen van een circuitnaam",
     "variant": "Variant *",
     "outputTitle": "Race JSON",
-    "outputNote": "Plak het fragment in het actieve rondebestand (bijv. <code>data/rounds/round-1/races.json</code>) in de <code>\"races\"</code>-array en houd de JSON geldig.",
+    "outputNote": "Sla het fragment op als <code>race.json</code> in <code>data/rounds/&lt;round-id&gt;/races/&lt;race-id&gt;/</code> en voeg daarna de racemapnaam toe aan de <code>\"races\"</code>-array in <code>data/rounds/&lt;round-id&gt;/round.json</code>.",
     "copy": "Kopieren",
     "copied": "JSON gekopieerd naar klembord.",
     "selectTrackFirst": "Kies eerst een circuit",
