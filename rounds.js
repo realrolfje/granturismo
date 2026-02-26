@@ -89,6 +89,150 @@ async function loadRoundTeams(directory) {
   return response.json();
 }
 
+async function fetchJsonOrNull(url) {
+  const response = await cacheBustedFetch(url);
+  if (response.ok) {
+    return response.json();
+  }
+  if (response.status === 404) {
+    return null;
+  }
+  throw new Error(`Failed to load ${url}`);
+}
+
+async function resourceExists(url) {
+  const response = await cacheBustedFetch(url, { method: 'HEAD' });
+  if (response.ok) return true;
+  if (response.status === 404) return false;
+  if (response.status === 405) {
+    const getResponse = await cacheBustedFetch(url);
+    if (getResponse.ok) return true;
+    if (getResponse.status === 404) return false;
+  }
+  return false;
+}
+
+async function findRaceProofUrl(roundDirectory, raceDirectory) {
+  const candidate = `data/rounds/${roundDirectory}/races/${raceDirectory}/proof.jpg`;
+  // Probe a single conventional file name so proof paths don't need to be stored in JSON.
+  return (await resourceExists(candidate)) ? candidate : '';
+}
+
+function normalizeFinishersArray(finishers) {
+  if (!Array.isArray(finishers)) return [];
+  return finishers.map((finisher, index) => {
+    if (!finisher || typeof finisher !== 'object') {
+      return { position: index + 1 };
+    }
+    const entry = { ...finisher };
+    if (!Number.isFinite(entry.position)) {
+      entry.position = index + 1;
+    }
+    return entry;
+  });
+}
+
+function normalizeRaceResultEntry({ raceId, proofUrl = '', rawResults }) {
+  if (!Array.isArray(rawResults)) {
+    throw new Error(`Invalid results format for ${raceId}; expected an array`);
+  }
+  return {
+    raceId,
+    proof: proofUrl,
+    finishers: normalizeFinishersArray(rawResults)
+  };
+}
+
+function buildRoundFromPerRaceManifest({
+  config = {},
+  manifest = {},
+  raceEntries = []
+}) {
+  const manifestRound = manifest && manifest.round ? manifest.round : {};
+  const manifestRaces = Array.isArray(manifest.races) ? manifest.races : [];
+  const raceRecords = raceEntries
+    .map((entry, index) => {
+      const manifestRace = manifestRaces[index] || {};
+      const raceMeta = entry && entry.raceMeta && typeof entry.raceMeta === 'object' ? entry.raceMeta : {};
+      const id = raceMeta.id || manifestRace.id || manifestRace.directory;
+      if (!id) return null;
+      return { ...raceMeta, id };
+    })
+    .filter(Boolean);
+
+  return {
+    round: {
+      id: manifestRound.id || config.id,
+      title: manifestRound.title || config.label || config.id,
+      description: manifestRound.description || '',
+      startDate: manifestRound.startDate || ''
+    },
+    races: raceRecords
+  };
+}
+
+async function loadRoundBundle(directory, config = {}) {
+  const roundManifestUrl = `data/rounds/${directory}/round.json`;
+  const manifest = await fetchJsonOrNull(roundManifestUrl);
+  if (!manifest) {
+    throw new Error(`Missing round manifest: ${roundManifestUrl}`);
+  }
+
+  const manifestRaces = Array.isArray(manifest.races) ? manifest.races : [];
+  const raceEntries = await Promise.all(
+    manifestRaces.map(async (raceEntry, index) => {
+      const raceDirectory =
+        (raceEntry && (raceEntry.directory || raceEntry.id)) ||
+        (typeof raceEntry === 'string' ? raceEntry : null);
+      if (!raceDirectory) {
+        throw new Error(`Invalid race entry at index ${index} in data/rounds/${directory}/round.json`);
+      }
+      const raceUrl = `data/rounds/${directory}/races/${raceDirectory}/race.json`;
+      const resultsUrl = `data/rounds/${directory}/races/${raceDirectory}/results.json`;
+      const [raceMeta, rawResults, proofUrl] = await Promise.all([
+        fetchJsonOrNull(raceUrl),
+        fetchJsonOrNull(resultsUrl),
+        findRaceProofUrl(directory, raceDirectory)
+      ]);
+      if (!raceMeta) {
+        throw new Error(`Missing race metadata: ${raceUrl}`);
+      }
+      return {
+        raceDirectory,
+        raceMeta,
+        rawResults,
+        proofUrl
+      };
+    })
+  );
+
+  const racesData = buildRoundFromPerRaceManifest({
+    config,
+    manifest,
+    raceEntries
+  });
+
+  const resultsData = {
+    results: raceEntries
+      .map((entry, index) => {
+        const manifestRace = manifestRaces[index] || {};
+        const raceId = entry.raceMeta.id || manifestRace.id || entry.raceDirectory;
+        if (!entry.rawResults) return null;
+        return normalizeRaceResultEntry({
+          raceId,
+          proofUrl: entry.proofUrl,
+          rawResults: entry.rawResults
+        });
+      })
+      .filter(Boolean)
+  };
+
+  return {
+    racesData,
+    resultsData
+  };
+}
+
 const RoundManager = (() => {
   const rounds = [];
   const listeners = [];
@@ -106,13 +250,9 @@ const RoundManager = (() => {
     }
     const enriched = await Promise.all(
       configs.map(async (config) => {
-        const racesUrl = `data/rounds/${config.directory}/races.json`;
-        const racesResponse = await cacheBustedFetch(racesUrl);
-        if (!racesResponse.ok) {
-          throw new Error(`Failed to load ${racesUrl}`);
-        }
         const teamsData = await loadRoundTeams(config.directory);
-        const racesData = await racesResponse.json();
+        const roundBundle = await loadRoundBundle(config.directory, config);
+        const racesData = roundBundle.racesData;
         const roundTitle =
           racesData && racesData.round && racesData.round.title;
         const label = roundTitle || config.label || config.id;
@@ -183,14 +323,9 @@ const RoundManager = (() => {
     if (!round) {
       throw new Error(`Round not found: ${id}`);
     }
-    const url = `data/rounds/${round.directory}/results.json`;
-    const response = await cacheBustedFetch(url);
-    if (!response.ok) {
-      throw new Error(`Failed to load ${url}`);
-    }
-    const data = await response.json();
-    resultsCache.set(id, data);
-    return data;
+    const roundBundle = await loadRoundBundle(round.directory, round);
+    resultsCache.set(id, roundBundle.resultsData);
+    return roundBundle.resultsData;
   }
 
   function getRounds() {
@@ -228,6 +363,9 @@ const RoundManager = (() => {
 })();
 
 window.RoundManager = RoundManager;
+window.RoundDataLoader = {
+  loadRoundBundle
+};
 
 function initRoundSelector() {
   const select = document.getElementById('round-select');

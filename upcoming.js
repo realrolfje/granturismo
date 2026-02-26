@@ -8,7 +8,7 @@ function cacheBustedFetch(url, options) {
   return fetch(cacheBustedUrl(url), options);
 }
 
-async function loadLegacyUpcomingData() {
+async function loadUpcomingRoundData() {
   return fetchDefaultRoundFiles();
 }
 
@@ -22,17 +22,11 @@ async function fetchDefaultRoundFiles() {
   if (!active.directory) {
     throw new Error('No round configuration found');
   }
-  const [racesRes, resultsRes] = await Promise.all([
-    cacheBustedFetch(`data/rounds/${active.directory}/races.json`),
-    cacheBustedFetch(`data/rounds/${active.directory}/results.json`)
-  ]);
-  [racesRes, resultsRes].forEach((res) => {
-    if (!res.ok) {
-      throw new Error(`Failed to load ${res.url}`);
-    }
-  });
-  const [racesData, resultsData] = await Promise.all([racesRes.json(), resultsRes.json()]);
-  return { racesData, resultsData };
+  if (!window.RoundDataLoader || typeof window.RoundDataLoader.loadRoundBundle !== 'function') {
+    throw new Error('RoundDataLoader is not available');
+  }
+  const bundle = await window.RoundDataLoader.loadRoundBundle(active.directory, active);
+  return { racesData: bundle.racesData, resultsData: bundle.resultsData };
 }
 
 function formatDate(dateStr) {
@@ -328,10 +322,10 @@ async function initUpcomingPage() {
       return;
     }
 
-    const { racesData, resultsData } = await loadLegacyUpcomingData();
+    const { racesData, resultsData } = await loadUpcomingRoundData();
     const completed = new Set((resultsData.results || []).map((race) => race.raceId));
-    const legacyRaces = racesData && Array.isArray(racesData.races) ? racesData.races : [];
-    renderUpcoming(legacyRaces, completed);
+    const roundRaces = racesData && Array.isArray(racesData.races) ? racesData.races : [];
+    renderUpcoming(roundRaces, completed);
   } catch (err) {
     console.error(err);
     const container = document.getElementById('upcoming-container');
@@ -355,11 +349,11 @@ document.addEventListener('DOMContentLoaded', () => {
       renderUpcomingForRound(round);
       return;
     }
-    loadLegacyUpcomingData()
+    loadUpcomingRoundData()
       .then(({ racesData, resultsData }) => {
         const completed = new Set((resultsData.results || []).map((race) => race.raceId));
-        const legacyRaces = racesData && Array.isArray(racesData.races) ? racesData.races : [];
-        renderUpcoming(legacyRaces, completed);
+        const roundRaces = racesData && Array.isArray(racesData.races) ? racesData.races : [];
+        renderUpcoming(roundRaces, completed);
       })
       .catch((err) => console.error(err));
   });

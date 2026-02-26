@@ -125,21 +125,19 @@ async function fetchFallbackRoundContext() {
   if (!activeConfig.directory) {
     throw new Error('No round configuration found');
   }
-  const [racesRes, resultsRes, teamsRes] = await Promise.all([
-    cacheBustedFetch(`data/rounds/${activeConfig.directory}/races.json`),
-    cacheBustedFetch(`data/rounds/${activeConfig.directory}/results.json`),
+  if (!window.RoundDataLoader || typeof window.RoundDataLoader.loadRoundBundle !== 'function') {
+    throw new Error('RoundDataLoader is not available');
+  }
+  const [bundle, teamsRes] = await Promise.all([
+    window.RoundDataLoader.loadRoundBundle(activeConfig.directory, activeConfig),
     cacheBustedFetch(`data/rounds/${activeConfig.directory}/teams.json`)
   ]);
-  [racesRes, resultsRes, teamsRes].forEach((res) => {
-    if (!res.ok) {
-      throw new Error(`Failed to load ${res.url}`);
-    }
-  });
-  const [racesData, resultsData, teamsData] = await Promise.all([
-    racesRes.json(),
-    resultsRes.json(),
-    teamsRes.json()
-  ]);
+  if (!teamsRes.ok) {
+    throw new Error(`Failed to load ${teamsRes.url}`);
+  }
+  const teamsData = await teamsRes.json();
+  const racesData = bundle.racesData;
+  const resultsData = bundle.resultsData;
   const round = {
     id: (racesData && racesData.round && racesData.round.id) || activeConfig.id,
     label: (racesData && racesData.round && racesData.round.title) || activeConfig.label || activeConfig.id,

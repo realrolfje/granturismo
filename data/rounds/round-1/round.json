@@ -1,0 +1,13 @@
+{
+  "round": {
+    "id": "round-1",
+    "title": "Toyota Supra Cup",
+    "description": "Who will be the master of the Supra?",
+    "startDate": "2025-12-04"
+  },
+  "races": [
+    "2026-01-21-supra-cup-race-1",
+    "2026-01-28-supra-cup-race-2",
+    "2026-02-04-supra-cup-race-3"
+  ]
+}

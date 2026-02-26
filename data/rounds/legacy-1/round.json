@@ -1,0 +1,14 @@
+{
+  "round": {
+    "id": "legacy-1",
+    "title": "Legacy Round 1",
+    "description": "Historical round imported from the previous format.",
+    "startDate": "2024-11-06"
+  },
+  "races": [
+    "2024-11-06-race-1",
+    "2024-11-13-race-2",
+    "2024-11-20-race-3",
+    "2024-11-27-race-4"
+  ]
+}

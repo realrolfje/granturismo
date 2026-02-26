@@ -1,0 +1,26 @@
+[
+  {
+    "driverId": "leroy",
+    "car": "Volkswagen Beetle Gr.3"
+  },
+  {
+    "driverId": "rolf",
+    "car": "Lamborghini Huracán GT3 '15"
+  },
+  {
+    "driverId": "riccardo",
+    "car": "McLaren 650S GT3 '15"
+  },
+  {
+    "driverId": "lex",
+    "car": "Lamborghini Huracán GT3 '15"
+  },
+  {
+    "driverId": "michel",
+    "car": "McLaren 650S GT3 '15"
+  },
+  {
+    "driverId": "luuk",
+    "car": "Volkswagen Beetle Gr.3"
+  }
+]

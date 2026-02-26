@@ -38,12 +38,11 @@ async function fetchDefaultRoundRaces() {
   if (!active.directory) {
     throw new Error('No round configuration found');
   }
-  const racesRes = await cacheBustedFetch(`data/rounds/${active.directory}/races.json`);
-  if (!racesRes.ok) {
-    throw new Error(`Failed to load ${racesRes.url}`);
+  if (!window.RoundDataLoader || typeof window.RoundDataLoader.loadRoundBundle !== 'function') {
+    throw new Error('RoundDataLoader is not available');
   }
-  const racesData = await racesRes.json();
-  return racesData.races || [];
+  const bundle = await window.RoundDataLoader.loadRoundBundle(active.directory, active);
+  return (bundle.racesData && bundle.racesData.races) || [];
 }
 
 function populateTrackSelect(tracks) {
