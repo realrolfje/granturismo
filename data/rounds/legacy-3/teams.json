@@ -25,8 +25,8 @@
       "name": "Mike"
     },
     {
-      "id": "riccardo",
-      "name": "Riccardo"
+      "id": "ricardo",
+      "name": "Ricardo"
     },
     {
       "id": "rolf",
@@ -66,7 +66,7 @@
       "name": "Team Tikkie",
       "color": "#00b4d8",
       "drivers": [
-        "riccardo",
+        "ricardo",
         "rolf"
       ]
     }

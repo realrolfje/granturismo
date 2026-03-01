@@ -1,8 +1,8 @@
 {
   "drivers": [
     {
-      "id": "riccardo",
-      "name": "Riccardo"
+      "id": "ricardo",
+      "name": "Ricardo"
     },
     {
       "id": "martin",
@@ -39,7 +39,7 @@
       "name": "Team Blauw",
       "color": "#1c4cff",
       "drivers": [
-        "riccardo",
+        "ricardo",
         "michel"
       ]
     },
