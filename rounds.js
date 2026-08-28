@@ -41,34 +41,59 @@ function readStoredRoundId() {
     if (typeof window === 'undefined' || typeof window.localStorage === 'undefined') {
       return null;
     }
-    return window.localStorage.getItem(SELECTED_ROUND_STORAGE_KEY);
+    const storedValue = window.localStorage.getItem(SELECTED_ROUND_STORAGE_KEY);
+    if (!storedValue) return null;
+    try {
+      const parsed = JSON.parse(storedValue);
+      if (parsed && typeof parsed === 'object' && parsed.roundId) {
+        return parsed;
+      }
+    } catch (err) {
+      return { roundId: storedValue, activeRoundId: null };
+    }
+    return { roundId: storedValue, activeRoundId: null };
   } catch (err) {
     console.warn('Unable to read stored round', err);
     return null;
   }
 }
 
-function persistSelectedRoundId(roundId) {
+function persistSelectedRoundId(roundId, activeRoundId) {
   if (!roundId) return;
   try {
     if (typeof window === 'undefined' || typeof window.localStorage === 'undefined') {
       return;
     }
-    window.localStorage.setItem(SELECTED_ROUND_STORAGE_KEY, roundId);
+    window.localStorage.setItem(
+      SELECTED_ROUND_STORAGE_KEY,
+      JSON.stringify({ roundId, activeRoundId: activeRoundId || null })
+    );
   } catch (err) {
     console.warn('Unable to persist selected round', err);
   }
 }
 
-function pickDefaultRound(rounds = [], preferredId) {
+function pickDefaultRound(rounds = [], storedSelection) {
   if (!rounds.length) return null;
-  if (preferredId) {
+  const activeRound = rounds.find((round) => round.active);
+  const activeRoundId = activeRound ? activeRound.id : null;
+  const preferredId =
+    typeof storedSelection === 'string'
+      ? storedSelection
+      : storedSelection && storedSelection.roundId;
+  const storedActiveRoundId =
+    storedSelection && typeof storedSelection === 'object'
+      ? storedSelection.activeRoundId
+      : null;
+  const storedSelectionMatchesActiveRound =
+    !activeRoundId || storedActiveRoundId === activeRoundId;
+
+  if (preferredId && storedSelectionMatchesActiveRound) {
     const preferred = rounds.find((round) => round.id === preferredId);
     if (preferred) {
       return preferred;
     }
   }
-  const activeRound = rounds.find((round) => round.active);
   if (activeRound) return activeRound;
   return rounds.reduce((current, next) => {
     const currentScore = Number.isFinite(current.earliestUpcoming) ? current.earliestUpcoming : Infinity;
@@ -305,7 +330,8 @@ const RoundManager = (() => {
       return round;
     }
     selectedRound = round;
-    persistSelectedRoundId(round.id);
+    const activeRound = rounds.find((entry) => entry.active);
+    persistSelectedRoundId(round.id, activeRound ? activeRound.id : null);
     notifyListeners();
     return round;
   }

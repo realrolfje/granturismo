@@ -1,8 +1,14 @@
 [
   {
+    "id": "round-3",
+    "directory": "round-3",
+    "active": true,
+    "heroImage": "caterham-seven-carandclassic.jpg"
+  },
+  {
     "id": "round-2",
     "directory": "round-2",
-    "active": true,
+    "active": false,
     "heroImage": "quentin-martinez-5bL-TPC-bXI-unsplash.jpg"
   },
   {

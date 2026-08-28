@@ -513,7 +513,6 @@
             99: 'No Limit',
             1001: 'No Limit'
           },
-          unit: 'Litres',
           parse: (value) => {
             const parsed = Number.parseInt(value, 10);
             if (!Number.isFinite(parsed)) return 0;
@@ -531,7 +530,7 @@
             97: 'No Limit',
             1480: 'No Limit'
           },
-          unit: 'Litres',
+          unit: 'HP',
           parse: (value) => {
             const parsed = Number.parseInt(value, 10);
             if (!Number.isFinite(parsed)) return 0;
@@ -549,7 +548,7 @@
             499: 'No Limit',
             2001: 'No Limit'
           },
-          unit: 'Litres',
+          unit: 'lbs.',
           parse: (value) => {
             const parsed = Number.parseInt(value, 10);
             if (!Number.isFinite(parsed)) return 0;
