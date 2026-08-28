@@ -48,6 +48,34 @@ function validateFieldDefinitions(fields) {
     }
   });
 
+  fields.forEach((field) => {
+    if (field.type !== 'number') return;
+    const hasMin = typeof field.min === 'number';
+    const hasMax = typeof field.max === 'number';
+    if (field.min !== undefined && !hasMin) errors.push(`raceFields.js: ${field.id} min is not numeric`);
+    if (field.max !== undefined && !hasMax) errors.push(`raceFields.js: ${field.id} max is not numeric`);
+    if (hasMin && field.min > field.max) {
+      errors.push(`raceFields.js: ${field.id} min ${field.min} is greater than max ${field.max}`);
+    }
+    if (hasMin && hasMax && typeof field.defaultValue === 'number') {
+      if (field.defaultValue < field.min || field.defaultValue > field.max) {
+        errors.push(
+          `raceFields.js: ${field.id} default ${field.defaultValue} is outside ${field.min}-${field.max}`
+        );
+      }
+    }
+    Object.keys(field.valueLabels || {}).forEach((rawValue) => {
+      const value = Number(rawValue);
+      if (!Number.isFinite(value)) {
+        errors.push(`raceFields.js: ${field.id} value label "${rawValue}" is not numeric`);
+        return;
+      }
+      if (hasMin && hasMax && (value < field.min || value > field.max)) {
+        errors.push(`raceFields.js: ${field.id} value label ${value} is outside ${field.min}-${field.max}`);
+      }
+    });
+  });
+
   return byId;
 }
 

@@ -524,7 +524,7 @@
           label: 'Max Power Output',
           type: 'number',
           min: 97,
-          max: 1479,
+          max: 1480,
           defaultValue: 97,
           valueLabels: {
             97: 'No Limit',
