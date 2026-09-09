@@ -463,7 +463,7 @@ function renderStandings({ driverStandings = [], teamStandings = [], drivers = [
           : `P${raceEntry.position}`
         : i18n
           ? i18n.t('standings.notClassified')
-          : 'NC';
+          : 'DNS';
       const rowClass = raceEntry.isDropped
         ? 'driver-row__details-row driver-row__details-row--dropped'
         : 'driver-row__details-row';

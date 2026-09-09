@@ -32,7 +32,7 @@
     "driverPoints": "Coureurspunten",
     "teamPoints": "Teampunten",
     "position": "P{position}",
-    "notClassified": "NC",
+    "notClassified": "DNS",
     "pointsShort": "{points} pt",
     "noRaces": "Nog geen races",
     "noDrivers": "Nog geen rijders",

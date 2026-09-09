@@ -32,7 +32,7 @@
     "driverPoints": "Driver Points",
     "teamPoints": "Team Points",
     "position": "P{position}",
-    "notClassified": "NC",
+    "notClassified": "DNS",
     "pointsShort": "{points} pts",
     "noRaces": "No races yet",
     "noDrivers": "No drivers yet",
