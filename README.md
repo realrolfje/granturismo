@@ -142,16 +142,18 @@ Typical `results.json`:
 
 Finish order matters: first array item is first place, second is second place, and so on. `position` is optional; if omitted, the site derives it from the array index. Driver IDs must exist in that round's `teams.json`.
 
-Proof screenshots are auto-detected only when named `proof.jpg` and stored next to the race files. Before committing screenshots, clean them:
+Proof screenshots are auto-detected only when named `proof.jpg` and stored next to the race files. The cleanup script needs Pillow. Install it in a local virtual environment:
+
+```bash
+python3 -m venv .venv
+source .venv/bin/activate
+python3 -m pip install -r scripts/requirements.txt
+```
+
+Then clean screenshots before committing them:
 
 ```bash
 python3 scripts/proof-cleanup.py data/rounds/<round-id>/races/*/proof.jpg
-```
-
-Install Pillow first if needed:
-
-```bash
-pip install Pillow
 ```
 
 ## Teams And Drivers
